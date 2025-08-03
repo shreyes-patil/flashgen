@@ -8,9 +8,22 @@
 import SwiftUI
 
 struct HomeView: View {
+    
+    @StateObject private var viewModel = HomeViewModel()
+    private let columns = [GridItem(.flexible()), GridItem(.flexible())]
+    
     var body: some View {
-        Text("HomeView with flashcard sets or flashcard set folders")
-            .navigationTitle("Saved Flashcards")
+        NavigationStack{
+            ScrollView{
+                LazyVGrid(columns: columns, spacing: 20){
+                    ForEach(viewModel.flashcardSets) { set in
+                        FlashacardSetTileView(set: set)
+                    }
+                }
+                .padding()
+            }
+            .navigationTitle("Saved Flashcard Sets")
+        }
     }
 }
 
