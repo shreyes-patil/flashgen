@@ -17,13 +17,17 @@ struct HomeView: View {
             ScrollView{
                 LazyVGrid(columns: columns, spacing: 20){
                     ForEach(viewModel.flashcardSets) { set in
-                        FlashacardSetTileView(set: set)
+                        NavigationLink(destination:
+                                        FlashcardSetView(flashcardSetTitle: set.title, flashcards: set.flashcards, lastReviewed: set.lastReviewed.relativeFormattedString(), numberOfCards: set.numberofCards)
+                        ){
+                            FlashacardSetTileView(set: set)
+                        }
+                        .buttonStyle(PlainButtonStyle())
                     }
+                    .padding()
                 }
-                .padding()
-            }
-            .navigationTitle("Saved Flashcard Sets")
-        }
+                .navigationTitle("Saved Flashcard Sets")
+            }}
     }
 }
 

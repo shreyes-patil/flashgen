@@ -14,7 +14,7 @@ struct FlashacardSetTileView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12){
-            Text(set.name)
+            Text(set.title)
                 .font(.title3)
                 .fontWeight(.bold)
                 .foregroundStyle(.white)
