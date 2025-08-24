@@ -1,0 +1,33 @@
+//
+//  Localizable.strings
+//  FlashGen
+//
+//  Created by Shreyas Patil on 8/7/25.
+//
+
+
+// Mark: MainTab
+"tab_home" = "Home";
+"tab_generate" = "Generate";
+"tab_settings" = "Settings";
+
+// Mark: Home
+//FlashcardSetTileView
+"Last reviewed %@" = "Last reviewed %@";
+"%d flashcards" = "%d flashcards";
+
+//HomeView
+"saved_flashcard_sets_title" = "Saved Flashcard Sets";
+
+
+// Mark: Flashcards
+//FlashcardListView
+"question_label" = "Question";
+
+//FlashcardSetHeaderView
+"%d flashcards" = "%d flashcards";
+"Last reviewed %@" = "Last reviewed %@";
+
+//FlashcardSetView
+"start_practicing" = "Start Practicing";
+"flashcard_set_title" = "%@ Flashcards";

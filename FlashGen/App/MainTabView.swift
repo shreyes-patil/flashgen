@@ -14,21 +14,21 @@ struct MainTabView: View {
                 HomeView()
             }
             .tabItem {
-                Label("Home", systemImage: "house")
+                Label(LocalizedStringKey("tab_home"), systemImage: "house")
             }
             
             NavigationStack{
                 GenerateView()
             }
             .tabItem{
-                Label("Generate", systemImage: "plus.square.on.square")
+                Label(LocalizedStringKey("tab_generate"), systemImage: "plus.square.on.square")
             }
             
             NavigationStack{
                 SettingsView()
             }
             .tabItem {
-                Label("Settings", systemImage: "gearshape")
+                Label(LocalizedStringKey("tab_settings"), systemImage: "gearshape")
             }
         }
     }

@@ -25,7 +25,7 @@ struct FlashcardListView: View {
                             .padding(8)
                             .background(Color.yellow)
                             .clipShape(Circle())
-                        
+                            .accessibilityHidden(true)
                         Text(card.question)
                             .font(.body)
                             .foregroundStyle(.primary)
@@ -35,6 +35,10 @@ struct FlashcardListView: View {
                     .padding()
                     .contentShape(Rectangle())
                 }
+                .accessibilityLabel(
+                    Text("\(NSLocalizedString ("quetion_label", comment:"Question label")): \(card.question)")
+                )
+                .accessibilityAddTraits(.isButton)
                 .buttonStyle(PlainButtonStyle())
                 .background(
                     RoundedCornerShape(radius: 16, corners: [.topLeft, .bottomRight])

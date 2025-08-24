@@ -35,7 +35,7 @@ struct FlashcardSetView: View {
                     //flashcardview
                     {
                     }
-                    Text("Start Practicing")
+                    Text(LocalizedStringKey("start_practicing"))
                         .font(.headline)
                         .foregroundColor(.yellow)
                         .frame(maxWidth : .infinity)
@@ -49,8 +49,10 @@ struct FlashcardSetView: View {
                     
                     
                 }
+                .accessibilityLabel(Text("Start practicing"))
+                .accessibilityHint(Text("Begin going through the flashcards in this set"))
             }
-            .navigationBarTitle("\(flashcardSetTitle)")
+            .navigationBarTitle(Text(String.localizedStringWithFormat(NSLocalizedString("flashcard_set_title", comment: "Flashcard Set Screen Title"), flashcardSetTitle)))
             .navigationBarBackButtonHidden(true)
         }
     }

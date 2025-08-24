@@ -21,12 +21,14 @@ struct HomeView: View {
                                         FlashcardSetView(flashcardSetTitle: set.title, flashcards: set.flashcards, lastReviewed: set.lastReviewed.relativeFormattedString(), numberOfCards: set.numberofCards)
                         ){
                             FlashacardSetTileView(set: set)
+                                .accessibilityLabel("\(set.title), \(set.numberofCards) cards, last reviewed: \(set.lastReviewed.relativeFormattedString())")
+                                .accessibilityAddTraits(.isButton)
                         }
                         .buttonStyle(PlainButtonStyle())
                     }
                     .padding()
                 }
-                .navigationTitle("Saved Flashcard Sets")
+                .navigationTitle(LocalizedStringKey("saved_flashcard_sets_title"))
             }}
     }
 }
