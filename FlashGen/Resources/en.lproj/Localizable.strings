@@ -31,3 +31,13 @@
 //FlashcardSetView
 "start_practicing" = "Start Practicing";
 "flashcard_set_title" = "%@ Flashcards";
+
+// Mark: Generate
+//GenerateView
+"generate.title" = "Generate";
+"generate.topic.placeholder" = "Enter a topic";
+"generate.topic.label" = "Topic";
+"generate.difficulty.label" = "Difficulty";
+"generate.count.label" = "Number of Flashcards";
+"generate.count.value" = "%d Flashcards";
+"generate.button" = "Generate Flashcards";
