@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct Flashcard: Identifiable {
-    let id : UUID
-    let question : String
-    let answer : String
+struct Flashcard: Identifiable, Codable {
+    let id : UUID 
+    let question : String?
+    let answer : String?
 }
