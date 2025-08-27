@@ -77,7 +77,7 @@ struct GenerateView: View {
                     Button(action: {
                         Task { await viewModel.generate() }
                     }) {
-                        Text("generate.button")
+                        Text(LocalizedStringKey("generate.button"))
                             .font(.headline)
                             .foregroundColor(.yellow)
                             .frame(maxWidth: .infinity)
@@ -96,7 +96,7 @@ struct GenerateView: View {
                 }
                 
             }
-            .navigationTitle(Text("generate.title"))
+        .navigationTitle(Text("generate.title"))
         }
         
         

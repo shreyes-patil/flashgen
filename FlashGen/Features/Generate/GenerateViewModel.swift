@@ -37,7 +37,7 @@ final class GenerateViewModel: ObservableObject {
         }catch let error as GenerateFlashcardsError{
             self.errorMessage = error.localizedDescription
         } catch {
-            self.errorMessage = GenerateFlashcardsError.unkonwn.localizedDescription
+            self.errorMessage = GenerateFlashcardsError.unknown.localizedDescription
         }
         isLoading = false
     }

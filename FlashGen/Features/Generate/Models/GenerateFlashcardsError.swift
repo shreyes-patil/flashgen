@@ -12,7 +12,7 @@ enum GenerateFlashcardsError: LocalizedError {
     case invalidInput(String)
     case networkError
     case decodingError
-    case unkonwn
+    case unknown
     
     var errorDescription: String? {
         switch self {
@@ -21,10 +21,10 @@ enum GenerateFlashcardsError: LocalizedError {
         case .invalidInput(let reason):
             return reason
         case .networkError:
-            return NSLocalizedString("error.Network", comment: "")
+            return NSLocalizedString("error.network", comment: "")
         case .decodingError:
             return "Error decoding JSON"
-        case .unkonwn:
+        case .unknown:
             return NSLocalizedString("error.unknown" , comment: "")
         }
     }
