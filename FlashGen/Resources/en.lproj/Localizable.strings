@@ -41,3 +41,12 @@
 "generate.count.label" = "Number of Flashcards";
 "generate.count.value" = "%d Flashcards";
 "generate.button" = "Generate Flashcards";
+
+"difficulty_easy" = "Easy";
+"difficulty_medium" = "Medium";
+"difficulty_hard" = "Hard";
+
+"error.empty_topic" = "Please enter a topic.";
+"error.network" = "Network error occurred. Try again.";
+"error.decoding" = "Failed to decode flashcards.";
+"error.unknown" = "An unknown error occurred.";

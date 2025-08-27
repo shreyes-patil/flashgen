@@ -24,7 +24,7 @@ final class GenerateViewModel: ObservableObject {
     
     func generate() async{
         guard !topic.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-            errorMessage = "Please enter a topic"
+            errorMessage = GenerateFlashcardsError.emptyTopic.localizedDescription
             return
         }
         
@@ -34,8 +34,10 @@ final class GenerateViewModel: ObservableObject {
         do{
             let flashcards = try await service.generateFlashcards(topic: topic, difficulty: difficulty, count: numberOfCards)
             self.flashcards = flashcards
-        }catch{
-            self.errorMessage = "Failed to generate flashcards. Please try again later."
+        }catch let error as GenerateFlashcardsError{
+            self.errorMessage = error.localizedDescription
+        } catch {
+            self.errorMessage = GenerateFlashcardsError.unkonwn.localizedDescription
         }
         isLoading = false
     }

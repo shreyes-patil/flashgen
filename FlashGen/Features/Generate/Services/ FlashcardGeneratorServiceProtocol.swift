@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import SwiftUI
 
 protocol FlashcardGeneratorServiceProtocol {
     func generateFlashcards(topic: String,
@@ -14,8 +14,18 @@ protocol FlashcardGeneratorServiceProtocol {
                             count: Int) async throws -> [Flashcard]
 }
 
-enum FlashcardDifficulty: String, CaseIterable, Codable {
-    case easy = "Easy"
-    case medium = "Medium"
-    case hard = "Hard"
+
+extension FlashcardDifficulty {
+    var displayName : LocalizedStringKey{
+        switch self {
+        case .easy :
+            return "difficulty_easy"
+        case .medium :
+            return "difficulty_medium"
+        case .hard :
+            return "difficulty_hard"
+        }
+        
+    }
+    
 }
