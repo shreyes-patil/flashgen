@@ -15,17 +15,3 @@ protocol FlashcardGeneratorServiceProtocol {
 }
 
 
-extension FlashcardDifficulty {
-    var displayName : LocalizedStringKey{
-        switch self {
-        case .easy :
-            return "difficulty_easy"
-        case .medium :
-            return "difficulty_medium"
-        case .hard :
-            return "difficulty_hard"
-        }
-        
-    }
-    
-}
