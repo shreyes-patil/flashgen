@@ -39,6 +39,7 @@ final class GenerateViewModel: ObservableObject {
         } catch {
             self.errorMessage = GenerateFlashcardsError.unknown.localizedDescription
         }
+      
         isLoading = false
     }
     
