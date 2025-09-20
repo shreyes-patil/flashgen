@@ -10,22 +10,22 @@ import SwiftUI
 struct FlipCardView: View {
     let question: String
     let answer: String
-    let isReavealed: Bool
+    let isRevealed: Bool
     
     
     var body: some View {
         ZStack{
                         face(question)
-                .opacity(isReavealed ? 0 : 1)
-                .rotation3DEffect(.degrees(isReavealed ? 180 : 0), axis: (0,1,0))
+                .opacity(isRevealed ? 0 : 1)
+                .rotation3DEffect(.degrees(isRevealed ? 180 : 0), axis: (0,1,0))
                         face(answer)
-                .opacity(isReavealed ? 1:0)
-                .rotation3DEffect(.degrees(isReavealed ? 0 : -180), axis: (0,1,0))
+                .opacity(isRevealed ? 1:0)
+                .rotation3DEffect(.degrees(isRevealed ? 0 : -180), axis: (0,1,0))
         }
         
-        .animation(.spring(response: 0.35, dampingFraction: 0.9), value: isReavealed)
+        .animation(.spring(response: 0.35, dampingFraction: 0.9), value: isRevealed)
         .accessibilityElement(children: .combine)
-        .accessibilityLabel(isReavealed ? "Answer .\(answer)": "Question .\(question) Double tap to reveal")
+        .accessibilityLabel(isRevealed ? "Answer .\(answer)": "Question .\(question) Double tap to reveal")
     }
         @ViewBuilder
     private func face(_ text: String) -> some View {
