@@ -30,27 +30,25 @@ struct FlashcardSetView: View {
                         .padding(.bottom, 100)
                 }
                 
-                .safeAreaInset(edge: .bottom){
-                    Button(action: { })
-                    //flashcardview
-                    {
+                .safeAreaInset(edge: .bottom) {
+                    NavigationLink {
+                        FlashcardDeckView(vm: .init(cards: flashcards))   // push the deck
+                    } label: {
+                        Text(LocalizedStringKey("start_practicing"))
+                            .font(.headline)
+                            .foregroundColor(.yellow)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.blue)
+                            .clipShape(RoundedCornerShape(radius: 18, corners: [.topLeft, .bottomRight]))
+                            .shadow(radius: 4)
+                            .padding(.horizontal, 2)
                     }
-                    Text(LocalizedStringKey("start_practicing"))
-                        .font(.headline)
-                        .foregroundColor(.yellow)
-                        .frame(maxWidth : .infinity)
-                        .padding()
-                        .background(Color.blue)
-                        .clipShape(
-                            RoundedCornerShape(radius: 18, corners: [.topLeft, .bottomRight])
-                        )
-                        .shadow(radius: 4)
-                        .padding(.horizontal, 2)
-                    
-                    
+                    .buttonStyle(.plain) // preserves your custom background
+                    .accessibilityLabel(Text("Start practicing"))
+                    .accessibilityHint(Text("Begin going through the flashcards in this set"))
                 }
-                .accessibilityLabel(Text("Start practicing"))
-                .accessibilityHint(Text("Begin going through the flashcards in this set"))
+                
             }
             .navigationBarTitle(Text(String.localizedStringWithFormat(NSLocalizedString("flashcard_set_title", comment: "Flashcard Set Screen Title"), flashcardSetTitle)))
             .navigationBarBackButtonHidden(true)
