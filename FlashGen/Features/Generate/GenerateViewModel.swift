@@ -34,6 +34,7 @@ final class GenerateViewModel: ObservableObject {
         do{
             let flashcards = try await service.generateFlashcards(topic: topic, difficulty: difficulty, count: numberOfCards)
             self.flashcards = flashcards
+            print("Generated \(flashcards.count) flashcards")
         }catch let error as GenerateFlashcardsError{
             self.errorMessage = error.localizedDescription
         } catch {

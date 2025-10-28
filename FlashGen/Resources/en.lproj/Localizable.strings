@@ -50,3 +50,4 @@
 "error.network" = "Network error occurred. Try again.";
 "error.decoding" = "Failed to decode flashcards.";
 "error.unknown" = "An unknown error occurred.";
+

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct FlashacardSetTileView: View {
+struct FlashcardSetTileView: View {
     
     let set: FlashcardSet
     
@@ -43,21 +43,21 @@ struct FlashacardSetTileView: View {
                     .frame(width: 56, height: 56)
                     .accessibilityHidden(true)
                 
-                Image(systemName: set.icon)
+                Image(systemName: "book.fill")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 24, height: 24)
                     .foregroundStyle(.white)
             }
             
-            Text(String.localizedStringWithFormat(NSLocalizedString("%d flashcards", comment: "Number of flashcards"),set.numberofCards))
+            Text(String.localizedStringWithFormat(NSLocalizedString("%d flashcards", comment: "Number of flashcards"),set.cards.count))
                 .font(.footnote)
                 .padding(.horizontal, 12)
                 .padding(.vertical, 6)
                 .background(Color.yellow)
                 .foregroundStyle(.blue)
                 .cornerRadius(12)
-                .accessibilityLabel(Text("\(set.numberofCards) flashcards availaible"))
+                .accessibilityLabel(Text("\(set.cards.count) flashcards availaible"))
         }
         .padding()
         .frame(maxWidth: .infinity, minHeight:160)
