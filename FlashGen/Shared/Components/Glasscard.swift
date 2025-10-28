@@ -12,7 +12,7 @@ struct GlassCard<Content:View>: View {
     let corners : UIRectCorner
     @ViewBuilder var content: Content
     
-    init(radius: CGFloat = 16, corners: UIRectCorner = [.topLeft, .topRight], @ViewBuilder content: () -> Content) {
+    init(radius: CGFloat = 16, corners: UIRectCorner = [.topLeft, .bottomRight], @ViewBuilder content: () -> Content) {
         self.radius = radius
         self.corners = corners
         self.content = content()

@@ -8,7 +8,19 @@
 import Foundation
 
 struct Flashcard: Identifiable, Codable {
-    let id : UUID 
-    let question : String?
-    let answer : String?
+    let id: UUID
+    var question: String
+    var answer: String
+
+    var imageURL: URL?
+    var sourceCitation: String?
+    var hint: String?
+    var tags: [String]?
+}
+
+extension Flashcard: Equatable {
+    static func == (lhs: Flashcard, rhs: Flashcard) -> Bool { lhs.id == rhs.id }
+}
+extension Flashcard: Hashable {
+    func hash(into hasher: inout Hasher) { hasher.combine(id) }
 }

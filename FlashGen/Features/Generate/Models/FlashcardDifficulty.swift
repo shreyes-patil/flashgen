@@ -11,3 +11,4 @@ import Foundation
 enum FlashcardDifficulty: String, CaseIterable, Codable {
     case easy, medium, hard
 }
+

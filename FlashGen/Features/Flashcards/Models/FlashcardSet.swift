@@ -8,11 +8,24 @@
 import Foundation
 
 
-struct FlashcardSet: Identifiable {
-    let id =  UUID()
-    let title: String
-    let numberofCards: Int
-    let lastReviewed: Date
-    let icon: String
-    let flashcards : [Flashcard]
+struct FlashcardSet: Identifiable, Codable {
+    let id: String
+    var title: String
+    var difficulty: FlashcardDifficulty
+    var cards: [Flashcard]
+    var createdAt: Date
+    var updatedAt: Date
+    var lastReviewed : Date
+    enum SourceType: String, Codable, Hashable { case text, image, pdf, url }
+    var sourceType: SourceType
+    var sourceURL: URL?
+    var pdfPageRange: String?
+    var notes: String?
+}
+
+extension FlashcardSet: Equatable {
+    static func == (lhs: FlashcardSet, rhs: FlashcardSet) -> Bool { lhs.id == rhs.id }
+}
+extension FlashcardSet: Hashable {
+    func hash(into hasher: inout Hasher) { hasher.combine(id) }
 }

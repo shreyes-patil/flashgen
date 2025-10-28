@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct GenerateView: View {
-    @StateObject private var viewModel = GenerateViewModel(service: MockFlashcardGenerationService())
+    @StateObject private var viewModel = GenerateViewModel(service: FlashcardGeneratorService())
+    @State private var showFlashcardSet = false
     @Environment(\.colorScheme) var colorScheme
     
    
@@ -242,7 +243,12 @@ struct GenerateView: View {
                             .background(Color.gray.opacity(0.3))
                         
                         Button(action: {
-                            Task { await viewModel.generate() }
+                            Task {
+                                await viewModel.generate()
+                                if !viewModel.flashcards.isEmpty {
+                                    showFlashcardSet = true
+                                }
+                            }
                         }) {
                             HStack {
                                 if viewModel.isLoading {
@@ -277,6 +283,14 @@ struct GenerateView: View {
             }
             .navigationTitle(Text("generate.title"))
             .navigationBarTitleDisplayMode(.large)
+            .navigationDestination(isPresented: $showFlashcardSet) {
+                FlashcardSetView(
+                    flashcardSetTitle: viewModel.topic,
+                    flashcards: viewModel.flashcards,
+                    lastReviewed: "Just now",
+                    numberOfCards: viewModel.flashcards.count
+                )
+            }
         }
     }
 }

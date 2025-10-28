@@ -12,8 +12,55 @@ struct FlashcardSetView: View {
     let flashcards : [Flashcard]
     let lastReviewed: String
     let numberOfCards: Int
+    let isSavedInitial: Bool
     
+    @State private var isSaving = false
+    @State private var saveSuccess = false
+    @State private var isSaved: Bool = false
     
+    private let repository: FlashcardRepository = SupabaseFlashcardRepository()
+    
+    init(
+        flashcardSetTitle: String,
+        flashcards: [Flashcard],
+        lastReviewed: String,
+        numberOfCards: Int,
+        isSavedInitial: Bool = false
+    ) {
+        self.flashcardSetTitle = flashcardSetTitle
+        self.flashcards = flashcards
+        self.lastReviewed = lastReviewed
+        self.numberOfCards = numberOfCards
+        self.isSavedInitial = isSavedInitial
+    }
+    
+    private func saveSet() async {
+        isSaving = true
+        
+        let newSet = FlashcardSet(
+            id: UUID().uuidString,
+            title: flashcardSetTitle,
+            difficulty: .easy,
+            cards: flashcards,
+            createdAt: Date(),
+            updatedAt: Date(),
+            lastReviewed: Date(),
+            sourceType: .text,
+            sourceURL: nil,
+            pdfPageRange: nil,
+            notes: nil
+        )
+        
+        do {
+            try await repository.upsertSet(newSet)
+            saveSuccess = true
+            isSaved = true
+        } catch {
+            print("Save error: \(error)")
+        }
+        
+        isSaving = false
+    }
     var body: some View {
         ZStack(alignment: .bottom){
             
@@ -50,36 +97,34 @@ struct FlashcardSetView: View {
                 }
                 
             }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    if !isSaved {
+                        Button(action: {
+                            Task { await saveSet() }
+                        }) {
+                            if isSaving {
+                                ProgressView()
+                            } else if saveSuccess {
+                                Image(systemName: "checkmark.circle.fill")
+                                    .foregroundColor(.green)
+                            } else {
+                                Text("Save")
+                            }
+                        }
+                        .disabled(isSaving || saveSuccess)
+                    }
+                }
+            }
+            .onAppear {
+                self.isSaved = isSavedInitial
+                if isSavedInitial {
+                    self.saveSuccess = true
+                }
+            }
             .navigationBarTitle(Text(String.localizedStringWithFormat(NSLocalizedString("flashcard_set_title", comment: "Flashcard Set Screen Title"), flashcardSetTitle)))
             .navigationBarBackButtonHidden(true)
         }
     }
 }
 
-#Preview {
-    FlashcardSetView(
-            flashcardSetTitle: "Calculus Formulas",
-            flashcards: [
-                Flashcard(id: UUID(), question: "What is derivative of x²?", answer: "2x"),
-                Flashcard(id: UUID(), question: "What is ∫1/x dx?", answer: "ln|x| + C"),
-                Flashcard(id: UUID(), question: "What is limit of sin(x)/x?", answer: "1"),
-                Flashcard(id: UUID(), question: "What is d/dx of e^x?", answer: "e^x"),
-                Flashcard(id: UUID(), question: "What is the derivative of ln(x)?", answer: "1/x"),
-                Flashcard(id: UUID(), question: "What is the derivative of sin(x)?", answer: "cos(x)"),
-                Flashcard(id: UUID(), question: "What is the derivative of cos(x)?", answer: "-sin(x)"),
-                Flashcard(id: UUID(), question: "What is the integral of cos(x)?", answer: "sin(x) + C"),
-                Flashcard(id: UUID(), question: "What is the integral of sin(x)?", answer: "-cos(x) + C"),
-                Flashcard(id: UUID(), question: "What is the second derivative of x³?", answer: "6x"),
-                Flashcard(id: UUID(), question: "What is the derivative of tan(x)?", answer: "sec²(x)"),
-                Flashcard(id: UUID(), question: "What is the integral of sec²(x)?", answer: "tan(x) + C"),
-                Flashcard(id: UUID(), question: "What is d/dx of ln|x|?", answer: "1/x"),
-                Flashcard(id: UUID(), question: "What is the limit of (1 + 1/n)^n as n → ∞?", answer: "e"),
-                Flashcard(id: UUID(), question: "What is d/dx of a^x (a > 0)?", answer: "a^x * ln(a)"),
-                Flashcard(id: UUID(), question: "What is the limit of (e^x - 1)/x as x → 0?", answer: "1")
-
-            ],
-            lastReviewed: "2 days ago",
-          
-            numberOfCards: 20
-        )
-}
