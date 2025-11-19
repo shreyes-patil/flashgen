@@ -45,8 +45,10 @@ struct HomeView: View {
                         }
                     } else {
                         LazyVGrid(columns: columns, spacing: 20) {
-                            ForEach(viewModel.flashcardSets) { set in
-                                FlashcardSetGridItem(set: set)
+                            ForEach(Array(viewModel.flashcardSets.indices), id: \.self) { index in
+                                let set = viewModel.flashcardSets[index]
+                                FlashcardSetGridItem(set: set, backgroundColor : Color.cardPalette[index % Color.cardPalette.count])
+                                    .environmentObject(viewModel)
                             }
                         }
                         .padding()
@@ -105,11 +107,16 @@ struct HomeView: View {
 
 private struct FlashcardSetGridItem: View {
     let set: FlashcardSet
+    let backgroundColor : Color
+    @EnvironmentObject private var viewModel: HomeViewModel
+    @State private var showDeleteAlert = false
 
+    
+    
     private var lastReviewedText: String {
         self.set.lastReviewed.relativeFormattedString(style: .short)
             ?? NSLocalizedString("Never", comment: "")
-        }
+    }
 
     private var accessibilitySummary: String {
         "\(set.title), \(set.cards.count) cards, last reviewed: \(lastReviewedText)"
@@ -122,14 +129,34 @@ private struct FlashcardSetGridItem: View {
                 flashcards: set.cards,
                 lastReviewed: lastReviewedText,
                 numberOfCards: set.cards.count,
-                isSavedInitial: true
+                isSavedInitial: true,
+                setId: set.id  
             )
         } label: {
-            FlashcardSetTileView(set: set)
+            FlashcardSetTileView(set: set, backgroundColor : backgroundColor)
                 .accessibilityLabel(accessibilitySummary)
                 .accessibilityAddTraits(.isButton)
         }
         .buttonStyle(PlainButtonStyle())
+        .contextMenu {
+            Button(role: .destructive) {
+                showDeleteAlert = true
+            } label: {
+                Label(LocalizedStringKey("delete_set_button"), systemImage: "trash")
+            }
+            .accessibilityLabel(Text(LocalizedStringKey("delete_set_accessibility_label")))
+            .accessibilityHint(Text(LocalizedStringKey("delete_set_accessibility_hint")))
+        }
+        .alert(LocalizedStringKey("delete_set_alert_title"), isPresented: $showDeleteAlert) {
+            Button(LocalizedStringKey("cancel"), role: .cancel) { }
+            Button(LocalizedStringKey("delete"), role: .destructive) {
+                Task {
+                    await viewModel.deleteSet(set)
+                }
+            }
+        } message: {
+            Text(LocalizedStringKey("delete_set_alert_message"))
+        }
     }
 }
 
