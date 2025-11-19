@@ -13,4 +13,5 @@ protocol FlashcardRepository {
     func fetchSets() async throws -> [FlashcardSet]
     func fetchSet(by id : String) async throws -> FlashcardSet?
     func deleteSet(id : String) async throws
+    func updateLastReviewed(setId: String) async throws
 }

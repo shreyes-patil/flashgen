@@ -18,7 +18,14 @@
 
 //HomeView
 "saved_flashcard_sets_title" = "Saved Flashcard Sets";
-
+/* Delete flashcard set */
+"delete_set_button" = "Delete";
+"delete_set_accessibility_label" = "Delete flashcard set";
+"delete_set_accessibility_hint" = "Permanently removes this flashcard set";
+"delete_set_alert_title" = "Delete Set?";
+"delete_set_alert_message" = "This will permanently delete this flashcard set and all its cards. This action cannot be undone.";
+"delete" = "Delete";
+"cancel" = "Cancel";
 
 // Mark: Flashcards
 //FlashcardListView

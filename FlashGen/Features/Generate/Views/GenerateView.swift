@@ -257,13 +257,13 @@ struct GenerateView: View {
                                         .scaleEffect(0.8)
                                 } else {
                                     Image(systemName: "sparkles")
-                                        .foregroundColor(.yellow)
+                                        .foregroundColor(.white)
                                 }
                                 
                                 Text(LocalizedStringKey("generate.button"))
                                     .font(.headline)
                                     .fontWeight(.semibold)
-                                    .foregroundColor(.yellow)
+                                    .foregroundColor(.white)
                             }
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 16)

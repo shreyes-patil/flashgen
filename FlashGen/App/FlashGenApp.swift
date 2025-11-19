@@ -36,7 +36,6 @@ struct FlashGenApp: App {
                 GIDSignIn.sharedInstance.handle(url)
             }
             .task {
-                // Listen for auth state changes
                 for await state in await SupabaseManager.shared.client.auth.authStateChanges {
                     await MainActor.run {
                         isAuthenticated = state.session != nil
@@ -44,6 +43,7 @@ struct FlashGenApp: App {
                     }
                 }
             }
+           
         }
     }
 }

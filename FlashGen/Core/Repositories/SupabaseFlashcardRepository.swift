@@ -133,6 +133,16 @@ final class SupabaseFlashcardRepository: FlashcardRepository {
         return sets
     }
     
+    func updateLastReviewed(setId: String) async throws {
+        let dateFormatter = ISO8601DateFormatter()
+        let now = dateFormatter.string(from: Date())
+        
+        try await client.from("flashcard_sets")
+            .update(["last_reviewed": now])
+            .eq("id", value: setId)
+            .execute()
+    }
+    
     func fetchSet(by id: String) async throws -> FlashcardSet? {
         return nil
     }

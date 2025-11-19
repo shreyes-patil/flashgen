@@ -13,7 +13,8 @@ struct FlashcardSetView: View {
     let lastReviewed: String
     let numberOfCards: Int
     let isSavedInitial: Bool
-    
+    @State private var hasUpdatedReviewTime = false
+    let setId: String
     @State private var isSaving = false
     @State private var saveSuccess = false
     @State private var isSaved: Bool = false
@@ -25,13 +26,15 @@ struct FlashcardSetView: View {
         flashcards: [Flashcard],
         lastReviewed: String,
         numberOfCards: Int,
-        isSavedInitial: Bool = false
+        isSavedInitial: Bool = false,
+        setId: String = ""
     ) {
         self.flashcardSetTitle = flashcardSetTitle
         self.flashcards = flashcards
         self.lastReviewed = lastReviewed
         self.numberOfCards = numberOfCards
         self.isSavedInitial = isSavedInitial
+        self.setId = setId
     }
     
     private func saveSet() async {
@@ -120,6 +123,17 @@ struct FlashcardSetView: View {
                 self.isSaved = isSavedInitial
                 if isSavedInitial {
                     self.saveSuccess = true
+                }
+            }
+            .task {
+                guard !hasUpdatedReviewTime else { return }
+                hasUpdatedReviewTime = true
+                
+                do {
+                    try await repository.updateLastReviewed(setId: setId)
+                    print("Updated last reviewed time")
+                } catch {
+                    print("Failed to update last reviewed: \(error)")
                 }
             }
             .navigationBarTitle(Text(String.localizedStringWithFormat(NSLocalizedString("flashcard_set_title", comment: "Flashcard Set Screen Title"), flashcardSetTitle)))

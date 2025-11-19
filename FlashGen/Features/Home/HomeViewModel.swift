@@ -28,7 +28,7 @@ class HomeViewModel: ObservableObject {
         do {
             let allSets = try await repository.fetchSets()
                     
-                    flashcardSets = allSets.filter { $0.cards.count > 0 }
+            flashcardSets = allSets.filter { $0.cards.count > 0 }
             print("Fetched \(flashcardSets.count) sets from Supabase")
         } catch {
             errorMessage = "Failed to load flashcard sets"
@@ -36,5 +36,19 @@ class HomeViewModel: ObservableObject {
         }
         
         isLoading = false
+    }
+    
+    func deleteSet(_ set: FlashcardSet) async {
+        do {
+            try await repository.deleteSet(id: set.id)
+            
+            await MainActor.run {
+                flashcardSets.removeAll { $0.id == set.id }
+            }
+            
+            print("Deleted set: \(set.title)")
+        } catch {
+            print("Delete error: \(error)")
+        }
     }
 }

@@ -29,4 +29,15 @@ final class InMemoryFlashcardRepository: FlashcardRepository {
         lock.lock(); defer { lock.unlock() }
         storage.removeValue(forKey: id)
     }
+    
+    func updateLastReviewed(setId: String) async throws {
+        lock.lock(); defer { lock.unlock() }
+        
+        guard var set = storage[setId] else { return }
+        
+        var updatedSet = set
+        updatedSet.lastReviewed = Date()
+        
+        storage[setId] = updatedSet
+    }
 }
