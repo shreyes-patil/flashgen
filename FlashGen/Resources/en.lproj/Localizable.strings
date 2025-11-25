@@ -17,7 +17,8 @@
 "%d flashcards" = "%d flashcards";
 
 //HomeView
-"saved_flashcard_sets_title" = "Saved Flashcard Sets";
+"saved_flashcard_sets_title" = "My Sets";
+"loading_sets_progress_title" = "Loading Flashcard Sets";
 /* Delete flashcard set */
 "delete_set_button" = "Delete";
 "delete_set_accessibility_label" = "Delete flashcard set";
@@ -58,3 +59,15 @@
 "error.decoding" = "Failed to decode flashcards.";
 "error.unknown" = "An unknown error occurred.";
 
+// Mark: Flashcard Practice
+// FlashcardDeckView
+"flashcards.title" = "Flashcards";
+"flashcards.empty" = "No flashcards available";
+"flashcards.prev" = "Previous";
+"flashcards.next" = "Next";
+"flashcards.reveal" = "Reveal";
+"flashcards.hide" = "Hide";
+
+// FlipCardView
+"flashcard.question" = "Question";
+"flashcard.answer" = "Answer";

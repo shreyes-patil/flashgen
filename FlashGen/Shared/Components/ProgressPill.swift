@@ -13,9 +13,6 @@ struct ProgressPill: View {
     var body: some View {
         Text(text).font(.caption).bold()
             .padding(.horizontal, 10).padding(.vertical, 6)
-            .background(.thinMaterial)
-            .cornerMask(12, [.topLeft, .topRight])
-            .cornerStroke(12, [.topLeft, .topRight], color: .primary.opacity(0.08))
     }
 }
 

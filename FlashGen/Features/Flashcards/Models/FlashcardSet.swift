@@ -23,9 +23,7 @@ struct FlashcardSet: Identifiable, Codable {
     var notes: String?
 }
 
-extension FlashcardSet: Equatable {
-    static func == (lhs: FlashcardSet, rhs: FlashcardSet) -> Bool { lhs.id == rhs.id }
-}
+
 extension FlashcardSet: Hashable {
     func hash(into hasher: inout Hasher) { hasher.combine(id) }
 }
