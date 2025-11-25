@@ -11,9 +11,8 @@ import UIKit
 
 final class FlashcardsViewModel: ObservableObject {
     @Published private(set) var cards : [Flashcard] = []
-    @Published private(set) var currentIndex : Int = 0
+    @Published var currentIndex : Int = 0
     @Published var isRevealed : Bool = false
-    @Published var isPaging : Bool = false
     
     init (cards : [Flashcard]) {
         self.cards = cards
@@ -27,26 +26,25 @@ final class FlashcardsViewModel: ObservableObject {
     }
     
     func flip(){
-        guard !isPaging else { return }
         isRevealed.toggle()
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
     }
     
     func next(){
-        guard !cards.isEmpty, !isPaging else { return }
-        isPaging = true
-        defer {isPaging = false}
+        guard !cards.isEmpty else { return }
         currentIndex = min(currentIndex + 1, cards.count - 1)
         isRevealed = false
     }
     
     func previous(){
-        guard !cards.isEmpty, !isPaging else { return }
-        isPaging = true
-        defer {isPaging = false}
+        guard !cards.isEmpty else { return }
         currentIndex = max(currentIndex - 1, 0)
         isRevealed = false
     }
     
+    func peekNext() -> Flashcard? {
+        guard currentIndex < cards.count - 1 else { return nil }
+        return cards[currentIndex + 1]
+    }
     
 }

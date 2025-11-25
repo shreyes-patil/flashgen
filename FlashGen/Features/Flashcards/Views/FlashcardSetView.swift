@@ -10,11 +10,12 @@ import SwiftUI
 struct FlashcardSetView: View {
     let flashcardSetTitle : String
     let flashcards : [Flashcard]
-    let lastReviewed: String
+    @State private var lastReviewed: String
     let numberOfCards: Int
     let isSavedInitial: Bool
     @State private var hasUpdatedReviewTime = false
     let setId: String
+    let color: Color
     @State private var isSaving = false
     @State private var saveSuccess = false
     @State private var isSaved: Bool = false
@@ -27,14 +28,16 @@ struct FlashcardSetView: View {
         lastReviewed: String,
         numberOfCards: Int,
         isSavedInitial: Bool = false,
-        setId: String = ""
+        setId: String = "",
+        color: Color = .yellow
     ) {
         self.flashcardSetTitle = flashcardSetTitle
         self.flashcards = flashcards
-        self.lastReviewed = lastReviewed
+        self._lastReviewed = State(initialValue: lastReviewed)
         self.numberOfCards = numberOfCards
         self.isSavedInitial = isSavedInitial
         self.setId = setId
+        self.color = color
     }
     
     private func saveSet() async {
@@ -68,25 +71,24 @@ struct FlashcardSetView: View {
         ZStack(alignment: .bottom){
             
             VStack{
-                FlashcardSetHeaderView(title: flashcardSetTitle, numberOfCards: numberOfCards, lastReviewed: lastReviewed)
+                FlashcardSetHeaderView(title: flashcardSetTitle, numberOfCards: numberOfCards, lastReviewed: lastReviewed, color: color)
                     .shadow(color: .black.opacity(0.05), radius: 4, y: 2)
-                    .padding(.top, 8)
-                    .padding()
-                    .padding(.bottom, 50)
+                    .padding(.horizontal)
+                    .padding(.bottom, 10)
                 
                 ScrollView{
-                    FlashcardListView(flashcards: flashcards)
+                    FlashcardListView(flashcards: flashcards, color: color)
                         .padding()
                         .padding(.bottom, 100)
                 }
                 
                 .safeAreaInset(edge: .bottom) {
                     NavigationLink {
-                        FlashcardDeckView(vm: .init(cards: flashcards))   // push the deck
+                        FlashcardDeckView(vm: .init(cards: flashcards), color: color)   // push the deck
                     } label: {
                         Text(LocalizedStringKey("start_practicing"))
                             .font(.headline)
-                            .foregroundColor(.yellow)
+                            .foregroundColor(.white)
                             .frame(maxWidth: .infinity)
                             .padding()
                             .background(Color.blue)
@@ -132,13 +134,18 @@ struct FlashcardSetView: View {
                 do {
                     try await repository.updateLastReviewed(setId: setId)
                     print("Updated last reviewed time")
+                    // Update local state to reflect change immediately
+                    self.lastReviewed = NSLocalizedString("Just now", comment: "Relative time for just now")
                 } catch {
                     print("Failed to update last reviewed: \(error)")
                 }
             }
-            .navigationBarTitle(Text(String.localizedStringWithFormat(NSLocalizedString("flashcard_set_title", comment: "Flashcard Set Screen Title"), flashcardSetTitle)))
-            .navigationBarBackButtonHidden(true)
+                }
+            }
+            // Title removed to allow custom header to take precedence
+//            .navigationBarBackButtonHidden(true)
         }
-    }
-}
+    
+
+
 

@@ -27,24 +27,24 @@ struct FlashcardSetTileView: View {
                 .font(.subheadline)
                 .foregroundStyle(.black.opacity(0.6))
             
-            ZStack{
-                Circle()
-                    .strokeBorder(lineWidth: 6)
-                    .foregroundColor(.black.opacity(0.1))
-                    .overlay(
-                        Circle()
-                            .trim(from: 0.75, to: 1)
-                            .stroke(Color.yellow, lineWidth: 6)
-                            .rotationEffect(.degrees(-90))
-                    )
-                    .frame(width: 56, height: 56)
-                
-                Image(systemName: "book.fill")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 24, height: 24)
-                    .foregroundStyle(.black.opacity(0.7))
-            }
+//            ZStack{
+//                Circle()
+//                    .strokeBorder(lineWidth: 6)
+//                    .foregroundColor(.black.opacity(0.1))
+//                    .overlay(
+//                        Circle()
+//                            .trim(from: 0.75, to: 1)
+//                            .stroke(Color.yellow, lineWidth: 6)
+//                            .rotationEffect(.degrees(-90))
+//                    )
+//                    .frame(width: 56, height: 56)
+//                
+//                Image(systemName: "book.fill")
+//                    .resizable()
+//                    .scaledToFit()
+//                    .frame(width: 24, height: 24)
+//                    .foregroundStyle(.black.opacity(0.7))
+//            }
             
             Text(String.localizedStringWithFormat(NSLocalizedString("%d flashcards", comment: "Number of flashcards"),set.cards.count))
                 .font(.footnote)
@@ -55,7 +55,8 @@ struct FlashcardSetTileView: View {
                 .cornerRadius(12)
         }
         .padding()
-        .frame(maxWidth: .infinity, minHeight:160)
+        .frame(height: 180) 
+                .frame(maxWidth: .infinity)
         .background(backgroundColor)
         .clipShape(RoundedCornerShape(radius: 34, corners: [.topLeft, .bottomRight]))
         .shadow(color: .black.opacity(0.1),radius: 4, x: 0, y: 2)

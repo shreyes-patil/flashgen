@@ -13,15 +13,33 @@ class HomeViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var errorMessage: String?
     
-    private let repository: FlashcardRepository = SupabaseFlashcardRepository()
+    enum SortOption {
+        case createdNewest
+        case lastReviewed
+        case alphabetical
+    }
     
-    init() {
-        Task {
-            await fetchSets()
+    @Published var sortOption: SortOption = .createdNewest
+    
+    var sortedSets: [FlashcardSet] {
+        switch sortOption {
+        case .createdNewest:
+            return flashcardSets.sorted { $0.createdAt > $1.createdAt }
+        case .lastReviewed:
+            return flashcardSets.sorted { $0.lastReviewed > $1.lastReviewed }
+        case .alphabetical:
+            return flashcardSets.sorted { $0.title.localizedCaseInsensitiveCompare($1.title) == .orderedAscending }
         }
     }
     
+    private let repository: FlashcardRepository = SupabaseFlashcardRepository()
+    
+    init() {
+        // fetchSets will be called by the view
+    }
+    
     func fetchSets() async {
+        guard !isLoading else { return }
         isLoading = true
         errorMessage = nil
         

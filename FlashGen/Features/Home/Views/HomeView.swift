@@ -14,7 +14,32 @@ struct HomeView: View {
     private let columns = [GridItem(.flexible()), GridItem(.flexible())]
 
     var body: some View {
-        NavigationStack {
+        VStack(spacing: 0) {
+            // Custom Header
+            HStack {
+                Text(LocalizedStringKey("saved_flashcard_sets_title"))
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                
+                Spacer()
+                
+                Menu {
+                    Picker("Sort By", selection: $viewModel.sortOption) {
+                        Label("Date Created", systemImage: "calendar").tag(HomeViewModel.SortOption.createdNewest)
+                        Label("Last Reviewed", systemImage: "clock").tag(HomeViewModel.SortOption.lastReviewed)
+                        Label("Alphabetical", systemImage: "textformat").tag(HomeViewModel.SortOption.alphabetical)
+                    }
+                } label: {
+                    Image(systemName: "line.3.horizontal.decrease.circle")
+                        .imageScale(.large)
+                        .font(.title2)
+                        .foregroundStyle(.primary)
+                }
+            }
+            .padding(.horizontal)
+            .padding(.top, 20)
+            .padding(.bottom, 10)
+            
             ZStack {
                 ScrollView {
                     if viewModel.flashcardSets.isEmpty {
@@ -45,9 +70,12 @@ struct HomeView: View {
                         }
                     } else {
                         LazyVGrid(columns: columns, spacing: 20) {
-                            ForEach(Array(viewModel.flashcardSets.indices), id: \.self) { index in
-                                let set = viewModel.flashcardSets[index]
-                                FlashcardSetGridItem(set: set, backgroundColor : Color.cardPalette[index % Color.cardPalette.count])
+                            ForEach(viewModel.sortedSets) { set in
+                                // Deterministic color based on ID hash
+                                let colorIndex = abs(set.id.stableHash) % Color.cardPalette.count
+                                let backgroundColor = Color.cardPalette[colorIndex]
+                                
+                                FlashcardSetGridItem(set: set, backgroundColor: backgroundColor)
                                     .environmentObject(viewModel)
                             }
                         }
@@ -56,9 +84,7 @@ struct HomeView: View {
                 }
                 .accessibilityLabel(Text(LocalizedStringKey("saved_flashcard_sets_list_accessibility_label")))
                 .refreshable {
-                    isLoading = true
                     await viewModel.fetchSets()
-                    isLoading = false
                 }
 
                 if isLoading && viewModel.flashcardSets.isEmpty {
@@ -73,38 +99,22 @@ struct HomeView: View {
                     .accessibilityLabel(Text(LocalizedStringKey("loading_sets_accessibility_label")))
                 }
             }
-            .navigationTitle(LocalizedStringKey("saved_flashcard_sets_title"))
-            .onAppear {
+        }
+        .navigationBarHidden(true)
+        .task {
+            isLoading = true
+            await viewModel.fetchSets()
+            isLoading = false
+        }
+        .onChange(of: scenePhase) { _, newPhase in
+            if newPhase == .active {
                 Task {
-                    isLoading = true
                     await viewModel.fetchSets()
-                    isLoading = false
-                }
-            }
-            .onChange(of: scenePhase) { phase in
-                if phase == .active {
-                    Task {
-                        isLoading = true
-                        await viewModel.fetchSets()
-                        isLoading = false
-                    }
-                }
-            }
-            .onReceive(NotificationCenter.default.publisher(for: .flashcardSetsDidChange)) { _ in
-                Task {
-                    isLoading = true
-                    await viewModel.fetchSets()
-                    isLoading = false
                 }
             }
         }
-        
-        
     }
-    
 }
-
-
 private struct FlashcardSetGridItem: View {
     let set: FlashcardSet
     let backgroundColor : Color
@@ -130,7 +140,8 @@ private struct FlashcardSetGridItem: View {
                 lastReviewed: lastReviewedText,
                 numberOfCards: set.cards.count,
                 isSavedInitial: true,
-                setId: set.id  
+                setId: set.id,
+                color: backgroundColor
             )
         } label: {
             FlashcardSetTileView(set: set, backgroundColor : backgroundColor)

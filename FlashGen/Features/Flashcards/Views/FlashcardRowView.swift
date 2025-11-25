@@ -9,6 +9,7 @@ import SwiftUI
 
 struct FlashcardRowView: View {
     let card: Flashcard
+    var color: Color = .yellow
     let onTap: ((Flashcard) -> Void)?
 
     var body: some View {
@@ -20,7 +21,7 @@ struct FlashcardRowView: View {
                     .font(.headline)
                     .foregroundStyle(.primary)
                     .padding(8)
-                    .background(Color.yellow)
+                    .background(color)
                     .clipShape(Circle())
                     .accessibilityHidden(true)
 

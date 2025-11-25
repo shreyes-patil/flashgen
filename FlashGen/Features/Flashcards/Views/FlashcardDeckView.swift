@@ -10,121 +10,100 @@ import SwiftUI
 struct FlashcardDeckView: View {
     
     @StateObject var vm : FlashcardsViewModel
-    @State private var drag : CGSize = .zero
-    
-    private let commit : CGFloat = 100
-    private let maxTilt : Double = 8
+    var color: Color = .yellow
     
     var body: some View {
-        ZStack{
-            LinearGradient(colors: [Color(.systemBackground), Color(.secondarySystemBackground)], startPoint: .topLeading, endPoint: .bottomTrailing)
-                .ignoresSafeArea()
-            
-            VStack(spacing: 20) {
-                            header
-
-                            if let card = vm.current {
-                                GlassCard {
-                                    FlipCardView(question: card.question ?? "", answer: card.answer ?? "", isRevealed: vm.isRevealed)
-                                }
-                                .offset(x: drag.width)
-                                .rotationEffect(.degrees(clampedTilt))
-                    .animation(.spring(response: 0.32, dampingFraction: 0.88), value: drag)
-                    .contentShape(RoundedCornerShape(radius: 16, corners: [.topLeft, .bottomRight]))
-                    .onTapGesture {
-                        vm.flip()
+        VStack(spacing: 20) {
+            if vm.cards.isEmpty {
+                Text("flashcards.empty")
+                    .foregroundStyle(.secondary)
+                    .padding(.top, 40)
+                    .frame(maxHeight: .infinity)
+            } else {
+                TabView(selection: $vm.currentIndex) {
+                    ForEach(vm.cards.indices, id: \.self) { index in
+                        FlipCardView(
+                            question: vm.cards[index].question ?? "",
+                            answer: vm.cards[index].answer ?? "",
+                            isRevealed: vm.isRevealed && vm.currentIndex == index,
+                            color: color
+                        )
+                        .tag(index)
+                        .padding()
+                        .onTapGesture {
+                            withAnimation {
+                                vm.flip()
+                            }
+                        }
                     }
-                    .gesture(
-                        DragGesture(minimumDistance: 5)
-                            .onChanged { value in
-                                guard !vm.isPaging else {return}
-                                let resistance : CGFloat = vm.isRevealed ? 1 : 2.2
-                                drag = CGSize(width: value.translation.width / resistance, height: 0)
-                                
-                            }
-                            .onEnded { value in
-                                guard !vm.isPaging else { return }
-
-                                let dx = value.translation.width
-                                let vx = value.predictedEndTranslation.width
-
-                                let shouldGoNext = (dx < -commit) || (vx < -commit)
-                                let shouldGoPrev = (dx > commit)  || (vx > commit)    
-
-                                if shouldGoNext {
-                                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                                    withAnimation(.spring(response: 0.28, dampingFraction: 0.85)) {
-                                        drag.width = -600
-                                    }
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.12) {
-                                        vm.next()
-                                        drag = .zero
-                                    }
-                                } else if shouldGoPrev {
-                                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                                    withAnimation(.spring(response: 0.28, dampingFraction: 0.85)) {
-                                        drag.width = 600
-                                    }
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.12) {
-                                        vm.previous()
-                                        drag = .zero
-                                    }
-                                } else {
-                                    withAnimation(.spring(response: 0.3, dampingFraction: 0.9)) {
-                                        drag = .zero
-                                    }
-                                }
-                            }
-                                                )
-                                            }else {
-                                Text("flashcards.empty")
-                                    .foregroundStyle(.secondary)
-                                    .padding(.top, 40)
-                            }
-                controls
-            }.padding()
+                }
+                .tabViewStyle(.page(indexDisplayMode: .never))
+            }
+            
+            controls
         }
+        .padding(.vertical)
+        .background(Color(.systemBackground)) // Standard background
+        .navigationTitle("flashcards.title")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                ProgressPill(text: vm.progressText)
+            }
+        }
+        .toolbar(.hidden, for: .tabBar) // Hide tab bar in focus mode
+        .onChange(of: vm.currentIndex) { _ in
+            vm.isRevealed = false
+        }
     }
     
     private var controls: some View {
-            HStack(spacing: 12) {
-                Button {
-                    withAnimation { vm.previous() }
-                } label: {
-                    Label("flashcards.prev", systemImage: "chevron.left")
-                }
-                .buttonStyle(.bordered)
-
-                Button {
-                    withAnimation { vm.flip() }
-                } label: {
-                    Label(vm.isRevealed ? "flashcards.hide" : "flashcards.reveal",
-                          systemImage: "rectangle.on.rectangle")
-                }
-                .buttonStyle(.borderedProminent)
-
-                Button {
-                    withAnimation { vm.next() }
-                } label: {
-                    Label("flashcards.next", systemImage: "chevron.right")
-                }
-                .buttonStyle(.bordered)
+        HStack(spacing: 40) {
+            // Previous Button
+            Button {
+                withAnimation { vm.previous() }
+            } label: {
+                Image(systemName: "chevron.left")
+                    .font(.title2.bold())
+                    .frame(width: 60, height: 60)
+                    .background(Color(.secondarySystemFill))
+                    .clipShape(Circle())
+                    .foregroundStyle(.primary)
             }
-            .labelStyle(.titleAndIcon)
-        }
-    
-    private var clampedTilt: Double {
-        let raw = Double(drag.width / 12)
-        return min(max(raw, -maxTilt), maxTilt)
-    }
-                                                
-    private var header: some View {
-        HStack{
-            Text("flashcards.title")
-                .font(.title2).bold()
-            Spacer()
-            ProgressPill(text: vm.progressText)
-        }}
-}
+            .disabled(vm.currentIndex == 0)
+            .opacity(vm.currentIndex == 0 ? 0.3 : 1)
 
+            // Flip Button
+            Button {
+                withAnimation { vm.flip() }
+            } label: {
+                Image(systemName: "arrow.triangle.2.circlepath")
+                    .font(.title.bold())
+                    .frame(width: 80, height: 60)
+                    .background(Color.blue)
+                    .clipShape(Capsule())
+                    .foregroundStyle(.white)
+                    .shadow(color: .blue.opacity(0.3), radius: 5, y: 3)
+            }
+            .disabled(vm.cards.isEmpty)
+
+            // Next Button
+            Button {
+                withAnimation { vm.next() }
+            } label: {
+                Image(systemName: "chevron.right")
+                    .font(.title2.bold())
+                    .frame(width: 60, height: 60)
+                    .background(Color(.secondarySystemFill))
+                    .clipShape(Circle())
+                    .foregroundStyle(.primary)
+            }
+            .disabled(vm.currentIndex == vm.cards.count - 1)
+            .opacity(vm.currentIndex == vm.cards.count - 1 ? 0.3 : 1)
+        }
+        .padding(.horizontal)
+        .padding(.bottom, 20)
+    }
+    
+
+}

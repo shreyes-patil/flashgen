@@ -82,6 +82,7 @@ final class SupabaseFlashcardRepository: FlashcardRepository {
             .from("flashcard_sets")
             .select()
             .eq("user_id", value: try await getCurrentUserId())
+            .order("created_at", ascending: false)
             .execute()
             .value
         
