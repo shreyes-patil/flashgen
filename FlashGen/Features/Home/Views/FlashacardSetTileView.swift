@@ -46,13 +46,19 @@ struct FlashcardSetTileView: View {
 //                    .foregroundStyle(.black.opacity(0.7))
 //            }
             
-            Text(String.localizedStringWithFormat(NSLocalizedString("%d flashcards", comment: "Number of flashcards"),set.cards.count))
-                .font(.footnote)
-                .padding(.horizontal, 12)
-                .padding(.vertical, 6)
-                .background(Color.yellow)
-                .foregroundStyle(.black.opacity(0.8))
-                .cornerRadius(12)
+            HStack(spacing: 6) {
+                
+                Text(String.localizedStringWithFormat(NSLocalizedString("%d flashcards", comment: "Number of flashcards"),set.cards.count))
+                    .font(.footnote)
+                Circle()
+                    .fill(set.difficulty.color)
+                    .frame(width: 8, height: 8)
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 6)
+            .background(Color.white)
+            .foregroundStyle(.black)
+            .cornerRadius(12)
         }
         .padding()
         .frame(height: 180) 

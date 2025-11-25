@@ -13,14 +13,12 @@ struct FlashcardSetHeaderView: View {
     let lastReviewed: String
     let color: Color
     
-    // Pastel "Post-it" Colors
     private let paleMint = Color(hex: "A7F3D0")
     private let canaryYellow = Color(hex: "FDE68A")
     private let softRose = Color(hex: "FECACA")
     private let softBlue = Color(hex: "BFDBFE")
-    private let maskingTape = Color(hex: "E3DAC9") // True Neutral Bone/Beige
+    private let maskingTape = Color(hex: "E3DAC9") 
     
-    // Dynamic Secondary Color
     private var secondaryColor: Color {
         if color == softRose { return paleMint }
         if color == canaryYellow { return softBlue }
@@ -33,19 +31,16 @@ struct FlashcardSetHeaderView: View {
             let height = geometry.size.height
             
             ZStack {
-                // 1. Big Sticky (Title) - Anchored Left-Center (~55% width)
                 StickyNote(text: title, color: color, rotation: -3)
                     .frame(width: width * 0.55, height: height * 0.75)
                     .position(x: width * 0.35, y: height * 0.45)
                     .zIndex(2)
                 
-                // 2. Small Sticky (Count) - Peeking Top Right (~30% width)
                 StickyNote(text: "\(numberOfCards) Cards", color: secondaryColor, rotation: 4)
                     .frame(width: width * 0.30, height: height * 0.6)
                     .position(x: width * 0.78, y: height * 0.35)
                     .zIndex(1)
                 
-                // 3. Washi Tape / Tag - Bottom Center
                 Text("Last reviewed: \(lastReviewed)")
                     .font(.caption)
                     .fontWeight(.bold)
@@ -60,7 +55,7 @@ struct FlashcardSetHeaderView: View {
                     .zIndex(3)
             }
         }
-        .frame(height: 120) // Fixed height container, internal layout scales horizontally
+        .frame(height: 120) 
         .frame(maxWidth: .infinity)
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(Text("\(title). \(numberOfCards) flashcards. Last reviewed: \(lastReviewed)"))

@@ -9,7 +9,7 @@ import Foundation
 
 class NetworkManager {
     static let shared = NetworkManager()
-    private let baseURL = "http://localhost:3000"
+    private let baseURL = "http://127.0.0.1:3000"
     
     private init() {}
     
@@ -17,6 +17,7 @@ class NetworkManager {
         let url = URL(string: "\(baseURL)/ai/flashcards/generate/topic")!
         
         var request = URLRequest(url: url)
+        request.timeoutInterval = 120 // Increase timeout to 2 minutes for AI generation
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
@@ -35,7 +36,16 @@ class NetworkManager {
             throw NetworkError.invalidResponse
         }
         
-        return try JSONDecoder().decode(GenerateFlashcardsResponse.self, from: data)
+        if let jsonString = String(data: data, encoding: .utf8) {
+            print("Received response: \(jsonString)")
+        }
+        
+        do {
+            return try JSONDecoder().decode(GenerateFlashcardsResponse.self, from: data)
+        } catch {
+            print("Decoding error: \(error)")
+            throw error
+        }
     }
 }
 

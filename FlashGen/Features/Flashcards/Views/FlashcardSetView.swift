@@ -11,7 +11,9 @@ struct FlashcardSetView: View {
     let flashcardSetTitle : String
     let flashcards : [Flashcard]
     @State private var lastReviewed: String
+    
     let numberOfCards: Int
+    let difficulty: FlashcardDifficulty
     let isSavedInitial: Bool
     @State private var hasUpdatedReviewTime = false
     let setId: String
@@ -26,7 +28,9 @@ struct FlashcardSetView: View {
         flashcardSetTitle: String,
         flashcards: [Flashcard],
         lastReviewed: String,
+       
         numberOfCards: Int,
+        difficulty: FlashcardDifficulty = .medium,
         isSavedInitial: Bool = false,
         setId: String = "",
         color: Color = .yellow
@@ -35,6 +39,7 @@ struct FlashcardSetView: View {
         self.flashcards = flashcards
         self._lastReviewed = State(initialValue: lastReviewed)
         self.numberOfCards = numberOfCards
+        self.difficulty = difficulty
         self.isSavedInitial = isSavedInitial
         self.setId = setId
         self.color = color
@@ -46,7 +51,8 @@ struct FlashcardSetView: View {
         let newSet = FlashcardSet(
             id: UUID().uuidString,
             title: flashcardSetTitle,
-            difficulty: .easy,
+          
+            difficulty: self.difficulty,
             cards: flashcards,
             createdAt: Date(),
             updatedAt: Date(),

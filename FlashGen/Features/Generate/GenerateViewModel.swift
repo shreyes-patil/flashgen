@@ -38,7 +38,8 @@ final class GenerateViewModel: ObservableObject {
         }catch let error as GenerateFlashcardsError{
             self.errorMessage = error.localizedDescription
         } catch {
-            self.errorMessage = GenerateFlashcardsError.unknown.localizedDescription
+            print("GenerateViewModel error: \(error)")
+            self.errorMessage = "Error: \(error.localizedDescription)"
         }
       
         isLoading = false

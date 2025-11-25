@@ -288,8 +288,10 @@ struct GenerateView: View {
                     flashcardSetTitle: viewModel.topic,
                     flashcards: viewModel.flashcards,
                     lastReviewed: "Just now",
-                    numberOfCards: viewModel.flashcards.count
+                    numberOfCards: viewModel.flashcards.count,
+                    difficulty: viewModel.difficulty
                 )
+
             }
         }
     }

@@ -43,7 +43,7 @@ struct FlashcardDeckView: View {
             controls
         }
         .padding(.vertical)
-        .background(Color(.systemBackground)) // Standard background
+        .background(Color(.systemBackground)) 
         .navigationTitle("flashcards.title")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -51,7 +51,7 @@ struct FlashcardDeckView: View {
                 ProgressPill(text: vm.progressText)
             }
         }
-        .toolbar(.hidden, for: .tabBar) // Hide tab bar in focus mode
+        .toolbar(.hidden, for: .tabBar)
         .onChange(of: vm.currentIndex) { _ in
             vm.isRevealed = false
         }

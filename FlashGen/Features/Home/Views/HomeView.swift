@@ -33,7 +33,7 @@ struct HomeView: View {
                     Image(systemName: "line.3.horizontal.decrease.circle")
                         .imageScale(.large)
                         .font(.title2)
-                        .foregroundStyle(.primary)
+                        .foregroundStyle(.secondary)
                 }
             }
             .padding(.horizontal)
@@ -102,9 +102,7 @@ struct HomeView: View {
         }
         .navigationBarHidden(true)
         .task {
-            isLoading = true
             await viewModel.fetchSets()
-            isLoading = false
         }
         .onChange(of: scenePhase) { _, newPhase in
             if newPhase == .active {
@@ -139,7 +137,7 @@ private struct FlashcardSetGridItem: View {
                 flashcards: set.cards,
                 lastReviewed: lastReviewedText,
                 numberOfCards: set.cards.count,
-                isSavedInitial: true,
+                difficulty: set.difficulty, isSavedInitial: true,
                 setId: set.id,
                 color: backgroundColor
             )
