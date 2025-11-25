@@ -33,7 +33,7 @@ struct FlipCardView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 12) {
                 // Minimal label
-                Text(isAnswer ? "Answer" : "Question")
+                Text(isAnswer ? LocalizedStringKey("flashcard.answer") : LocalizedStringKey("flashcard.question"))
                     .font(.caption)
                     .fontWeight(.bold)
                     .foregroundStyle(.black.opacity(0.8))

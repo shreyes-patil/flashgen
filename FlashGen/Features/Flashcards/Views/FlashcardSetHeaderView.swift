@@ -36,12 +36,12 @@ struct FlashcardSetHeaderView: View {
                     .position(x: width * 0.35, y: height * 0.45)
                     .zIndex(2)
                 
-                StickyNote(text: "\(numberOfCards) Cards", color: secondaryColor, rotation: 4)
+                StickyNote(text: String.localizedStringWithFormat(NSLocalizedString("%d flashcards", comment: ""), numberOfCards), color: secondaryColor, rotation: 4)
                     .frame(width: width * 0.30, height: height * 0.6)
                     .position(x: width * 0.78, y: height * 0.35)
                     .zIndex(1)
                 
-                Text("Last reviewed: \(lastReviewed)")
+                Text(String(format: NSLocalizedString("Last reviewed %@", comment: ""), lastReviewed))
                     .font(.caption)
                     .fontWeight(.bold)
                     .foregroundStyle(.black.opacity(0.6))

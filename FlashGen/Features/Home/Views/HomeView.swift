@@ -24,10 +24,10 @@ struct HomeView: View {
                 Spacer()
                 
                 Menu {
-                    Picker("Sort By", selection: $viewModel.sortOption) {
-                        Label("Date Created", systemImage: "calendar").tag(HomeViewModel.SortOption.createdNewest)
-                        Label("Last Reviewed", systemImage: "clock").tag(HomeViewModel.SortOption.lastReviewed)
-                        Label("Alphabetical", systemImage: "textformat").tag(HomeViewModel.SortOption.alphabetical)
+                    Picker(LocalizedStringKey("sort_by"), selection: $viewModel.sortOption) {
+                        Label(LocalizedStringKey("sort_date_created"), systemImage: "calendar").tag(HomeViewModel.SortOption.createdNewest)
+                        Label(LocalizedStringKey("sort_last_reviewed"), systemImage: "clock").tag(HomeViewModel.SortOption.lastReviewed)
+                        Label(LocalizedStringKey("sort_alphabetical"), systemImage: "textformat").tag(HomeViewModel.SortOption.alphabetical)
                     }
                 } label: {
                     Image(systemName: "line.3.horizontal.decrease.circle")
@@ -123,11 +123,13 @@ private struct FlashcardSetGridItem: View {
     
     private var lastReviewedText: String {
         self.set.lastReviewed.relativeFormattedString(style: .short)
-            ?? NSLocalizedString("Never", comment: "")
+            ?? NSLocalizedString("never", comment: "Never reviewed")
     }
 
     private var accessibilitySummary: String {
-        "\(set.title), \(set.cards.count) cards, last reviewed: \(lastReviewedText)"
+        let cardsString = String.localizedStringWithFormat(NSLocalizedString("%d flashcards", comment: ""), set.cards.count)
+        let reviewedString = String(format: NSLocalizedString("Last reviewed %@", comment: ""), lastReviewedText)
+        return "\(set.title), \(cardsString), \(reviewedString)"
     }
 
     var body: some View {

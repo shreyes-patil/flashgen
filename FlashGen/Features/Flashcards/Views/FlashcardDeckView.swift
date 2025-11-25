@@ -70,6 +70,7 @@ struct FlashcardDeckView: View {
                     .clipShape(Circle())
                     .foregroundStyle(.primary)
             }
+            .accessibilityLabel(Text(LocalizedStringKey("flashcards.prev")))
             .disabled(vm.currentIndex == 0)
             .opacity(vm.currentIndex == 0 ? 0.3 : 1)
 
@@ -85,6 +86,7 @@ struct FlashcardDeckView: View {
                     .foregroundStyle(.white)
                     .shadow(color: .blue.opacity(0.3), radius: 5, y: 3)
             }
+            .accessibilityLabel(Text(vm.isRevealed ? LocalizedStringKey("flashcards.hide") : LocalizedStringKey("flashcards.reveal")))
             .disabled(vm.cards.isEmpty)
 
             // Next Button

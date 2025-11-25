@@ -103,8 +103,8 @@ struct FlashcardSetView: View {
                             .padding(.horizontal, 2)
                     }
                     .buttonStyle(.plain) // preserves your custom background
-                    .accessibilityLabel(Text("Start practicing"))
-                    .accessibilityHint(Text("Begin going through the flashcards in this set"))
+                    .accessibilityLabel(Text(LocalizedStringKey("start_practicing_accessibility_label")))
+                    .accessibilityHint(Text(LocalizedStringKey("start_practicing_accessibility_hint")))
                 }
                 
             }
@@ -120,7 +120,7 @@ struct FlashcardSetView: View {
                                 Image(systemName: "checkmark.circle.fill")
                                     .foregroundColor(.green)
                             } else {
-                                Text("Save")
+                                Text(LocalizedStringKey("save"))
                             }
                         }
                         .disabled(isSaving || saveSuccess)
@@ -141,7 +141,7 @@ struct FlashcardSetView: View {
                     try await repository.updateLastReviewed(setId: setId)
                     print("Updated last reviewed time")
                     // Update local state to reflect change immediately
-                    self.lastReviewed = NSLocalizedString("Just now", comment: "Relative time for just now")
+                    self.lastReviewed = NSLocalizedString("just_now", comment: "Relative time for just now")
                 } catch {
                     print("Failed to update last reviewed: \(error)")
                 }

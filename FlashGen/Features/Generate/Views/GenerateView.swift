@@ -186,7 +186,7 @@ struct GenerateView: View {
                             HStack {
                                 Image(systemName: "sparkles")
                                     .foregroundColor(.yellow)
-                                Text("Preview")
+                                Text(LocalizedStringKey("generate.preview.title"))
                                     .font(.caption)
                                     .fontWeight(.semibold)
                                     .foregroundColor(.secondary)
@@ -274,7 +274,7 @@ struct GenerateView: View {
                         .disabled(viewModel.topic.isEmpty || viewModel.isLoading)
                         .opacity(viewModel.topic.isEmpty || viewModel.isLoading ? 0.5 : 1)
                         .accessibilityLabel(Text("generate.button"))
-                        .accessibilityHint(Text("generate.button.hint"))
+                        .accessibilityHint(Text(LocalizedStringKey("generate.button.hint")))
                         .padding(.horizontal)
                         .padding(.vertical, 12)
                         .background(backgroundColor)

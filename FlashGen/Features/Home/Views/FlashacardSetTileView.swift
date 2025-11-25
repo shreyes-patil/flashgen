@@ -21,7 +21,7 @@ struct FlashcardSetTileView: View {
             
             Text(String.localizedStringWithFormat(
                 NSLocalizedString(
-                    "Last reviewed: %@",
+                    "Last reviewed %@",
                     comment: "Flashcard set tile view - last reviewed date"
                 ),set.lastReviewed.relativeFormattedString()))
                 .font(.subheadline)
