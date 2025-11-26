@@ -8,7 +8,7 @@
 import Foundation
 import Supabase
 
-final class SupabaseFlashcardRepository: FlashcardRepository {
+final class RemoteFlashcardRepository: FlashcardRepository {
     private let client: SupabaseClient
     
     private struct FlashcardSetDB: Codable {
@@ -147,6 +147,13 @@ final class SupabaseFlashcardRepository: FlashcardRepository {
         try await client.from("flashcard_sets")
             .delete()
             .eq("id", value: id)
+            .execute()
+    }
+    
+    func deleteAllSets() async throws {
+        try await client.from("flashcard_sets")
+            .delete()
+            .eq("user_id", value: try await getCurrentUserId())
             .execute()
     }
     

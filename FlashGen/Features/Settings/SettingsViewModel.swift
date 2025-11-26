@@ -54,6 +54,9 @@ final class SettingsViewModel: ObservableObject {
         isLoading = false
     }
     
+    private let repository: FlashcardRepository = CachedFlashcardRepository()
+    @Published var isDeleting = false
+    
     func signOut() async {
         isSigningOut = true
         errorMessage = nil
@@ -70,5 +73,20 @@ final class SettingsViewModel: ObservableObject {
         }
         
         isSigningOut = false
+    }
+    
+    func deleteAllSets() async {
+        isDeleting = true
+        errorMessage = nil
+        
+        do {
+            try await repository.deleteAllSets()
+            print("✅ All sets deleted")
+        } catch {
+            errorMessage = "Failed to delete sets: \(error.localizedDescription)"
+            print("❌ Delete all sets error: \(error)")
+        }
+        
+        isDeleting = false
     }
 }

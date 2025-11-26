@@ -10,7 +10,7 @@ import GoogleSignIn
 
 @main
 struct FlashGenApp: App {
-    private let repo: any FlashcardRepository = SupabaseFlashcardRepository()
+    private let repo: any FlashcardRepository = CachedFlashcardRepository()
     @State private var isAuthenticated = false
     @State private var isCheckingAuth = true
     

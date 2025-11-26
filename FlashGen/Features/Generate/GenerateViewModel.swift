@@ -15,6 +15,7 @@ final class GenerateViewModel: ObservableObject {
     @Published var isLoading : Bool = false
     @Published var errorMessage : String? = nil
     @Published var flashcards : [Flashcard] = []
+    @Published var generatedSetId: String = ""
     
     private let service : FlashcardGeneratorServiceProtocol
     
@@ -34,7 +35,8 @@ final class GenerateViewModel: ObservableObject {
         do{
             let flashcards = try await service.generateFlashcards(topic: topic, difficulty: difficulty, count: numberOfCards)
             self.flashcards = flashcards
-            print("Generated \(flashcards.count) flashcards")
+            self.generatedSetId = UUID().uuidString.lowercased()
+            print("Generated \(flashcards.count) flashcards, Set ID: \(generatedSetId)")
         }catch let error as GenerateFlashcardsError{
             self.errorMessage = error.localizedDescription
         } catch {

@@ -32,24 +32,40 @@ class HomeViewModel: ObservableObject {
         }
     }
     
-    private let repository: FlashcardRepository = SupabaseFlashcardRepository()
+    private let repository = CachedFlashcardRepository()
     
     init() {
         // fetchSets will be called by the view
     }
     
     func fetchSets() async {
-        guard !isLoading else { return }
-        isLoading = true
+        // 1. Load from local cache immediately
+        let localSets = repository.fetchLocalSets()
+        if !localSets.isEmpty {
+            self.flashcardSets = localSets.filter { $0.cards.count > 0 }
+            // Don't set isLoading to true if we have data
+        } else {
+            isLoading = true
+        }
+        
         errorMessage = nil
         
+        // 2. Fetch from remote (background sync)
         do {
-            let allSets = try await repository.fetchSets()
-                    
-            flashcardSets = allSets.filter { $0.cards.count > 0 }
-            print("Fetched \(flashcardSets.count) sets from Supabase")
+            let remoteSets = try await repository.refreshSets()
+            
+            // Update UI with fresh data
+            self.flashcardSets = remoteSets.filter { $0.cards.count > 0 }
+            print("Refreshed \(flashcardSets.count) sets from Remote")
+            flashcardSets.forEach { print("Fetched Set: \($0.title), ID: \($0.id)") }
+        } catch let error as URLError where error.code == .cancelled {
+            // Ignore cancellation errors
+            print("Fetch cancelled")
         } catch {
-            errorMessage = "Failed to load flashcard sets"
+            // Only show error if we have no data at all
+            if flashcardSets.isEmpty {
+                errorMessage = "Failed to load flashcard sets"
+            }
             print("Fetch error: \(error)")
         }
         

@@ -24,6 +24,11 @@ extension EnvironmentValues{
 }
 
 final class UnimplementedRepo: FlashcardRepository{
+    func deleteAllSets() async throws {
+        fatalError("repo not injected")
+
+    }
+    
     func updateLastReviewed(setId: String) async throws {
         fatalError("repo not injected")
     }

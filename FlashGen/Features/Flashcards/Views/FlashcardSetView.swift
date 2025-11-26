@@ -22,7 +22,7 @@ struct FlashcardSetView: View {
     @State private var saveSuccess = false
     @State private var isSaved: Bool = false
     
-    private let repository: FlashcardRepository = SupabaseFlashcardRepository()
+    private let repository: FlashcardRepository = CachedFlashcardRepository()
     
     init(
         flashcardSetTitle: String,
@@ -43,13 +43,20 @@ struct FlashcardSetView: View {
         self.isSavedInitial = isSavedInitial
         self.setId = setId
         self.color = color
+        print("FlashcardSetView init with setId: '\(setId)'")
     }
-    
+    @MainActor
     private func saveSet() async {
+        guard !isSaving && !saveSuccess else { return }
         isSaving = true
         
+        // Use the passed setId (which should be stable from GenerateViewModel)
+        // If setId is somehow empty (shouldn't happen for new sets now), we generate one, but this is a fallback.
+        let idToUse = setId.isEmpty ? UUID().uuidString.lowercased() : setId
+        print("saveSet called. setId: '\(setId)', idToUse: '\(idToUse)'")
+        
         let newSet = FlashcardSet(
-            id: UUID().uuidString,
+            id: idToUse,
             title: flashcardSetTitle,
           
             difficulty: self.difficulty,

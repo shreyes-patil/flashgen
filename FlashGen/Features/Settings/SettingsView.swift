@@ -11,6 +11,7 @@ import Supabase
 
 struct SettingsView: View {
     @StateObject private var viewModel = SettingsViewModel()
+    @State private var showDeleteConfirmation = false
     
     var body: some View {
         NavigationStack {
@@ -71,6 +72,31 @@ struct SettingsView: View {
                  
                 } header: {
                     Text("About")
+                }
+                
+                // Data Management Section
+                Section {
+                    Button(role: .destructive, action: { showDeleteConfirmation = true }) {
+                        HStack {
+                            if viewModel.isDeleting {
+                                ProgressView()
+                            }
+                            Text("Delete All Flashcard Sets")
+                        }
+                    }
+                    .disabled(viewModel.isDeleting)
+                    .alert("Delete All Data?", isPresented: $showDeleteConfirmation) {
+                        Button("Cancel", role: .cancel) { }
+                        Button("Delete", role: .destructive) {
+                            Task {
+                                await viewModel.deleteAllSets()
+                            }
+                        }
+                    } message: {
+                        Text("This action cannot be undone. All your flashcard sets will be permanently deleted.")
+                    }
+                } header: {
+                    Text("Data Management")
                 }
                 
                 // Sign Out Section
