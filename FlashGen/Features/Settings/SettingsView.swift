@@ -74,12 +74,42 @@ struct SettingsView: View {
                     Text("About")
                 }
                 
+                // Legal Section
+                Section {
+                    Link(destination: URL(string: "https://www.flashgen.app/privacy")!) {
+                        Label("Privacy Policy", systemImage: "hand.raised.fill")
+                            .foregroundColor(.primary)
+                    }
+                    Link(destination: URL(string: "https://www.flashgen.app/terms")!) {
+                        Label("Terms of Use", systemImage: "doc.text.fill")
+                            .foregroundColor(.primary)
+                    }
+                } header: {
+                    Text("Legal")
+                }
+                
+                // Feedback Section
+                Section {
+                    Link(destination: URL(string: "https://apps.apple.com/app/id123456789?action=write-review")!) {
+                        Label("Rate this App", systemImage: "star.fill")
+                            .foregroundColor(.primary)
+                    }
+                    Link(destination: URL(string: "mailto:support@flashgen.app")!) {
+                        Label("Send Feedback", systemImage: "envelope.fill")
+                            .foregroundColor(.primary)
+                    }
+                } header: {
+                    Text("Feedback")
+                }
+                
                 // Data Management Section
                 Section {
                     Button(role: .destructive, action: { showDeleteConfirmation = true }) {
                         HStack {
                             if viewModel.isDeleting {
                                 ProgressView()
+                            } else {
+                                Image(systemName: "trash")
                             }
                             Text("Delete All Flashcard Sets")
                         }
@@ -111,6 +141,8 @@ struct SettingsView: View {
                         HStack {
                             if viewModel.isSigningOut {
                                 ProgressView()
+                            } else {
+                                Image(systemName: "door.left.hand.open")
                             }
                             Text("Sign Out")
                         }

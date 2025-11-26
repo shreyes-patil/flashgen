@@ -93,6 +93,8 @@ struct FlashcardSetView: View {
                     FlashcardListView(flashcards: flashcards, color: color)
                         .padding()
                         .padding(.bottom, 100)
+                        .frame(maxWidth: 700) // Keep the content centered and readable
+                        .frame(maxWidth: .infinity) // Fill the screen background
                 }
                 
                 .safeAreaInset(edge: .bottom) {

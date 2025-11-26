@@ -11,7 +11,7 @@ struct HomeView: View {
     @StateObject private var viewModel = HomeViewModel()
     @Environment(\.scenePhase) private var scenePhase
     @State private var isLoading: Bool = false
-    private let columns = [GridItem(.flexible()), GridItem(.flexible())]
+    private let columns = [GridItem(.adaptive(minimum: 220, maximum: 300), spacing: 20)]
 
     var body: some View {
         VStack(spacing: 0) {
@@ -30,10 +30,10 @@ struct HomeView: View {
                         Label(LocalizedStringKey("sort_alphabetical"), systemImage: "textformat").tag(HomeViewModel.SortOption.alphabetical)
                     }
                 } label: {
-                    Image(systemName: "line.3.horizontal.decrease.circle")
+                    Image(systemName: "line.3.horizontal.decrease.circle.fill")
                         .imageScale(.large)
                         .font(.title2)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(.primary)
                 }
             }
             .padding(.horizontal)

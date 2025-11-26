@@ -28,8 +28,12 @@ struct FlashcardDeckView: View {
                             isRevealed: vm.isRevealed && vm.currentIndex == index,
                             color: color
                         )
+                        
                         .tag(index)
                         .padding()
+                        .frame(maxWidth: 600, maxHeight: 400) // Constrain size on iPad
+                        .aspectRatio(1.5, contentMode: .fit) // Enforce card shape (3:2 ratio)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity) // Center in TabView
                         .onTapGesture {
                             withAnimation {
                                 vm.flip()

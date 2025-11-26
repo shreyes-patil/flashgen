@@ -70,9 +70,10 @@
 "flashcard_singular" = "Flashcard";
 "flashcards_plural" = "Flashcards";
 "generate.button" = "Generate Flashcards";
-"generate.button.hint" = "Starts generating flashcards based on your inputs";
+"generate.button.hint" = "Double tap to generate flashcards";
 "generate.preview.title" = "Preview";
 "generate.preview.no_topic" = "No topic selected";
+"generate.preview.empty_hint" = "Enter a topic to see a preview!";
 
 "difficulty_easy" = "Easy";
 "difficulty_medium" = "Medium";
