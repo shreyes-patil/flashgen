@@ -95,4 +95,24 @@
 
 // FlipCardView
 "flashcard.question" = "Question";
-"flashcard.answer" = "Answer";
+
+// Mark: Settings
+"settings.guest.title" = "Guest User";
+"settings.guest.subtitle" = "Sign in to save your flashcards";
+"settings.account.header" = "Account";
+"settings.about.header" = "About";
+"settings.version" = "Version";
+"settings.legal.header" = "Legal";
+"settings.privacy" = "Privacy Policy";
+"settings.terms" = "Terms of Use";
+"settings.feedback.header" = "Feedback";
+"settings.rate_app" = "Rate this App";
+"settings.send_feedback" = "Send Feedback";
+"settings.data.header" = "Data Management";
+"settings.delete_all" = "Delete All Flashcard Sets";
+"settings.delete_all.alert.title" = "Delete All Data?";
+"settings.delete_all.alert.message" = "This action cannot be undone. All your flashcard sets will be permanently deleted.";
+"settings.signin_create" = "Sign In / Create Account";
+"settings.signout" = "Sign Out";
+"settings.loading_profile" = "Loading profile...";
+

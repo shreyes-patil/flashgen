@@ -28,9 +28,9 @@ struct SettingsView: View {
                                 .foregroundColor(.gray)
                             
                             VStack(alignment: .leading, spacing: 4) {
-                                Text("Guest User")
+                                Text(LocalizedStringKey("settings.guest.title"))
                                     .font(.headline)
-                                Text("Sign in to save your flashcards")
+                                Text(LocalizedStringKey("settings.guest.subtitle"))
                                     .font(.subheadline)
                                     .foregroundColor(.secondary)
                             }
@@ -71,18 +71,18 @@ struct SettingsView: View {
                     } else if viewModel.isLoading {
                         HStack {
                             ProgressView()
-                            Text("Loading profile...")
+                            Text(LocalizedStringKey("settings.loading_profile"))
                                 .foregroundColor(.secondary)
                         }
                     }
                 } header: {
-                    Text("Account")
+                    Text(LocalizedStringKey("settings.account.header"))
                 }
                 
                 // App Info Section
                 Section {
                     HStack {
-                        Text("Version")
+                        Text(LocalizedStringKey("settings.version"))
                         Spacer()
                         Text(viewModel.appVersion)
                             .foregroundColor(.secondary)
@@ -90,64 +90,35 @@ struct SettingsView: View {
                     
                  
                 } header: {
-                    Text("About")
+                    Text(LocalizedStringKey("settings.about.header"))
                 }
                 
                 // Legal Section
                 Section {
-                    Link(destination: URL(string: "https://www.flashgen.app/privacy")!) {
-                        Label("Privacy Policy", systemImage: "hand.raised.fill")
+                    Link(destination: URL(string: "https://flashgen-web.vercel.app/privacy")!) {
+                        Label(LocalizedStringKey("settings.privacy"), systemImage: "hand.raised.fill")
                             .foregroundColor(.primary)
                     }
-                    Link(destination: URL(string: "https://www.flashgen.app/terms")!) {
-                        Label("Terms of Use", systemImage: "doc.text.fill")
+                    Link(destination: URL(string: "https://flashgen-web.vercel.app/terms")!) {
+                        Label(LocalizedStringKey("settings.terms"), systemImage: "doc.text.fill")
                             .foregroundColor(.primary)
                     }
                 } header: {
-                    Text("Legal")
+                    Text(LocalizedStringKey("settings.legal.header"))
                 }
                 
                 // Feedback Section
                 Section {
                     Link(destination: URL(string: "https://apps.apple.com/app/id123456789?action=write-review")!) {
-                        Label("Rate this App", systemImage: "star.fill")
+                        Label(LocalizedStringKey("settings.rate_app"), systemImage: "star.fill")
                             .foregroundColor(.primary)
                     }
-                    Link(destination: URL(string: "mailto:support@flashgen.app")!) {
-                        Label("Send Feedback", systemImage: "envelope.fill")
+                    Link(destination: URL(string: "mailto:shreyas.patil0602@gmail.com")!) {
+                        Label(LocalizedStringKey("settings.send_feedback"), systemImage: "envelope.fill")
                             .foregroundColor(.primary)
                     }
                 } header: {
-                    Text("Feedback")
-                }
-                
-                // Data Management Section (Only for Authenticated Users)
-                if !authManager.isGuestMode {
-                    Section {
-                        Button(role: .destructive, action: { showDeleteConfirmation = true }) {
-                            HStack {
-                                if viewModel.isDeleting {
-                                    ProgressView()
-                                } else {
-                                    Image(systemName: "trash")
-                                }
-                                Text("Delete All Flashcard Sets")
-                            }
-                        }
-                        .disabled(viewModel.isDeleting)
-                        .alert("Delete All Data?", isPresented: $showDeleteConfirmation) {
-                            Button("Cancel", role: .cancel) { }
-                            Button("Delete", role: .destructive) {
-                                Task {
-                                    await viewModel.deleteAllSets()
-                                }
-                            }
-                        } message: {
-                            Text("This action cannot be undone. All your flashcard sets will be permanently deleted.")
-                        }
-                    } header: {
-                        Text("Data Management")
-                    }
+                    Text(LocalizedStringKey("settings.feedback.header"))
                 }
                 
                 // Sign Out / Sign In Section
@@ -162,7 +133,7 @@ struct SettingsView: View {
                         Button(action: { showLoginSheet = true }) {
                             HStack {
                                 Image(systemName: "person.crop.circle.badge.plus")
-                                Text("Sign In / Create Account")
+                                Text(LocalizedStringKey("settings.signin_create"))
                             }
                         }
                     } else {
@@ -173,10 +144,39 @@ struct SettingsView: View {
                                 } else {
                                     Image(systemName: "door.left.hand.open")
                                 }
-                                Text("Sign Out")
+                                Text(LocalizedStringKey("settings.signout"))
                             }
                         }
                         .disabled(viewModel.isSigningOut)
+                    }
+                }
+                
+                // Data Management Section (Only for Authenticated Users)
+                if !authManager.isGuestMode {
+                    Section {
+                        Button(role: .destructive, action: { showDeleteConfirmation = true }) {
+                            HStack {
+                                if viewModel.isDeleting {
+                                    ProgressView()
+                                } else {
+                                    Image(systemName: "trash")
+                                }
+                                Text(LocalizedStringKey("settings.delete_all"))
+                            }
+                        }
+                        .disabled(viewModel.isDeleting)
+                        .alert(LocalizedStringKey("settings.delete_all.alert.title"), isPresented: $showDeleteConfirmation) {
+                            Button(LocalizedStringKey("cancel"), role: .cancel) { }
+                            Button(LocalizedStringKey("delete"), role: .destructive) {
+                                Task {
+                                    await viewModel.deleteAllSets()
+                                }
+                            }
+                        } message: {
+                            Text(LocalizedStringKey("settings.delete_all.alert.message"))
+                        }
+                    } header: {
+                        Text(LocalizedStringKey("settings.data.header"))
                     }
                 }
             }

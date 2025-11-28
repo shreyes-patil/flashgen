@@ -36,14 +36,16 @@ class NetworkManager {
             throw NetworkError.invalidResponse
         }
         
-        if let jsonString = String(data: data, encoding: .utf8) {
-            print("Received response: \(jsonString)")
+        if let _ = String(data: data, encoding: .utf8) {
+            // Log response in debug only
+            #if DEBUG
+            // print("Received response: \(jsonString)")
+            #endif
         }
         
         do {
             return try JSONDecoder().decode(GenerateFlashcardsResponse.self, from: data)
         } catch {
-            print("Decoding error: \(error)")
             throw error
         }
     }

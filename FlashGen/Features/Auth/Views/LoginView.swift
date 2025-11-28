@@ -18,9 +18,10 @@ struct LoginView: View {
                 Spacer()
                 
                 VStack(spacing: 16) {
-                    Image(systemName: "brain.head.profile")
-                        .font(.system(size: 80))
-                        .foregroundColor(.blue)
+                    Image("AppLogo")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 120, height: 120)
                     
                     Text("FlashGen")
                         .font(.largeTitle)
@@ -57,20 +58,23 @@ struct LoginView: View {
                     .frame(maxWidth: .infinity)
                     .padding()
                     .background(Color.blue)
-                    .cornerRadius(12)
+                    .clipShape(RoundedCornerShape(radius: 18, corners: [.topLeft, .bottomRight]))
+                    .shadow(radius: 4)
                 }
                 .disabled(isLoading)
                 .padding(.horizontal, 32)
                 
-                Button(action: {
-                    authManager.continueAsGuest()
-                }) {
-                    Text("Continue as Guest")
-                        .font(.subheadline)
-                        .fontWeight(.medium)
-                        .foregroundColor(.secondary)
+                if !authManager.isGuestMode {
+                    Button(action: {
+                        authManager.continueAsGuest()
+                    }) {
+                        Text("Continue as Guest")
+                            .font(.subheadline)
+                            .fontWeight(.medium)
+                            .foregroundColor(.secondary)
+                    }
+                    .padding(.top, 8)
                 }
-                .padding(.top, 8)
                 
                 
                 Spacer()
@@ -105,6 +109,9 @@ struct LoginView: View {
                     idToken: idToken
                 )
             )
+            
+            // Explicitly check session to update AuthManager state immediately
+            await authManager.checkSession()
           
             
         } catch {

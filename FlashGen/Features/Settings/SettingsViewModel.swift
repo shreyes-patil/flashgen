@@ -48,7 +48,7 @@ final class SettingsViewModel: ObservableObject {
                 photoURL: photoURLString.flatMap { URL(string: $0) }
             )
         } catch {
-            print("❌ Failed to load user: \(error)")
+            // Handle error
         }
         
         isLoading = false
@@ -69,7 +69,6 @@ final class SettingsViewModel: ObservableObject {
             NotificationCenter.default.post(name: NSNotification.Name("UserDidSignOut"), object: nil)
         } catch {
             errorMessage = "Sign out failed: \(error.localizedDescription)"
-            print("❌ Sign out error: \(error)")
         }
         
         isSigningOut = false
@@ -81,10 +80,8 @@ final class SettingsViewModel: ObservableObject {
         
         do {
             try await repository.deleteAllSets()
-            print("✅ All sets deleted")
         } catch {
             errorMessage = "Failed to delete sets: \(error.localizedDescription)"
-            print("❌ Delete all sets error: \(error)")
         }
         
         isDeleting = false

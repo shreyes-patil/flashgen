@@ -45,7 +45,6 @@ struct FlashcardSetView: View {
         self.isSavedInitial = isSavedInitial
         self.setId = setId
         self.color = color
-        print("FlashcardSetView init with setId: '\(setId)'")
     }
     @MainActor
     private func saveSet() async {
@@ -61,7 +60,6 @@ struct FlashcardSetView: View {
         // Use the passed setId (which should be stable from GenerateViewModel)
         // If setId is somehow empty (shouldn't happen for new sets now), we generate one, but this is a fallback.
         let idToUse = setId.isEmpty ? UUID().uuidString.lowercased() : setId
-        print("saveSet called. setId: '\(setId)', idToUse: '\(idToUse)'")
         
         let newSet = FlashcardSet(
             id: idToUse,
@@ -83,7 +81,7 @@ struct FlashcardSetView: View {
             saveSuccess = true
             isSaved = true
         } catch {
-            print("Save error: \(error)")
+            // Handle error
         }
         
         isSaving = false
@@ -156,11 +154,10 @@ struct FlashcardSetView: View {
                 
                 do {
                     try await repository.updateLastReviewed(setId: setId)
-                    print("Updated last reviewed time")
                     // Update local state to reflect change immediately
                     self.lastReviewed = NSLocalizedString("just_now", comment: "Relative time for just now")
                 } catch {
-                    print("Failed to update last reviewed: \(error)")
+                    // Fail silently or log to analytics in production
                 }
             }
             .sheet(isPresented: $showLoginSheet) {
