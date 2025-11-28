@@ -11,7 +11,7 @@ struct HomeView: View {
     @StateObject private var viewModel = HomeViewModel()
     @Environment(\.scenePhase) private var scenePhase
     @State private var isLoading: Bool = false
-    private let columns = [GridItem(.adaptive(minimum: 220, maximum: 300), spacing: 20)]
+    private let columns = [GridItem(.adaptive(minimum: 160), spacing: 20)]
 
     var body: some View {
         VStack(spacing: 0) {

@@ -45,4 +45,8 @@ final class InMemoryFlashcardRepository: FlashcardRepository {
         lock.lock(); defer { lock.unlock() }
         storage.removeAll()
     }
+    
+    func clearLocalCache() async throws {
+        try await deleteAllSets()
+    }
 }

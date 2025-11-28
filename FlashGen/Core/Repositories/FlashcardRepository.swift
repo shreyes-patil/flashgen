@@ -15,4 +15,5 @@ protocol FlashcardRepository {
     func deleteSet(id : String) async throws
     func updateLastReviewed(setId: String) async throws
     func deleteAllSets() async throws
+    func clearLocalCache() async throws
 }

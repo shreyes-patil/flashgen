@@ -32,40 +32,69 @@ struct GenerateView: View {
                 backgroundColor
                     .ignoresSafeArea()
                 
-                // Unified Single Column Layout
-                ZStack(alignment: .bottom) {
-                    ScrollView {
-                        VStack(spacing: 24) {
-                            errorMessageView
-                            
-                            // Input Section
-                            VStack(spacing: 20) {
-                                topicInputView
-                                difficultySelectorView
-                                cardCountSliderView
+                GeometryReader { geometry in
+                    let isIpad = geometry.size.width > 600
+                    
+                    if isIpad {
+                        // iPad Layout (Unified Single Column with Max Width)
+                        ZStack(alignment: .bottom) {
+                            ScrollView {
+                                VStack(spacing: 24) {
+                                    errorMessageView
+                                    
+                                    // Input Section
+                                    VStack(spacing: 20) {
+                                        topicInputView
+                                        difficultySelectorView
+                                        cardCountSliderView
+                                    }
+                                    
+                                    // Preview Section
+                                    previewCardView
+                                        .frame(minHeight: 200)
+                                    
+                                    Color.clear.frame(height: 100)
+                                }
+                                .padding(.top)
+                                .padding(.horizontal)
+                                .frame(maxWidth: 700)
+                                .frame(maxWidth: .infinity)
                             }
                             
-                            // Preview Section
-                            previewCardView
-                                .frame(minHeight: 200) // Ensure it has some presence
-                            
-                            Color.clear.frame(height: 100) // Spacing for floating button
+                            // Floating Generate Button
+                            VStack(spacing: 0) {
+                                Divider()
+                                    .background(Color.gray.opacity(0.3))
+                                generateButtonView
+                                    .frame(maxWidth: 700)
+                            }
+                            .background(backgroundColor)
+                            .frame(maxWidth: .infinity)
                         }
-                        .padding(.top)
-                        .padding(.horizontal)
-                        .frame(maxWidth: 700) // Constrain width for readability on iPad
-                        .frame(maxWidth: .infinity) // Center in parent
+                    } else {
+                        // iPhone Layout (Native, Full Width)
+                        ZStack(alignment: .bottom) {
+                            ScrollView {
+                                VStack(spacing: 20) {
+                                    errorMessageView
+                                    topicInputView
+                                    difficultySelectorView
+                                    cardCountSliderView
+                                    previewCardView
+                                    Color.clear.frame(height: 100) // Spacing for floating button
+                                }
+                                .padding(.top)
+                            }
+                            
+                            // Floating Generate Button
+                            VStack(spacing: 0) {
+                                Divider()
+                                    .background(Color.gray.opacity(0.3))
+                                generateButtonView
+                            }
+                            .background(backgroundColor)
+                        }
                     }
-                    
-                    // Floating Generate Button
-                    VStack(spacing: 0) {
-                        Divider()
-                            .background(Color.gray.opacity(0.3))
-                        generateButtonView
-                            .frame(maxWidth: 700) // Match content width
-                    }
-                    .background(backgroundColor)
-                    .frame(maxWidth: .infinity) // Ensure full width background for the bar
                 }
             }
             .navigationTitle(Text("generate.title"))

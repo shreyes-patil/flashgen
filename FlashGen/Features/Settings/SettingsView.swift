@@ -12,13 +12,32 @@ import Supabase
 struct SettingsView: View {
     @StateObject private var viewModel = SettingsViewModel()
     @State private var showDeleteConfirmation = false
+    @EnvironmentObject var authManager: AuthenticationManager
+    @State private var showLoginSheet = false
     
     var body: some View {
         NavigationStack {
             Form {
                 // User Profile Section
                 Section {
-                    if let user = viewModel.user {
+                    if authManager.isGuestMode {
+                        HStack {
+                            Image(systemName: "person.circle")
+                                .resizable()
+                                .frame(width: 60, height: 60)
+                                .foregroundColor(.gray)
+                            
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("Guest User")
+                                    .font(.headline)
+                                Text("Sign in to save your flashcards")
+                                    .font(.subheadline)
+                                    .foregroundColor(.secondary)
+                            }
+                            .padding(.leading, 8)
+                        }
+                        .padding(.vertical, 8)
+                    } else if let user = viewModel.user {
                         HStack {
                             // Profile picture
                             if let photoURL = user.photoURL {
@@ -102,34 +121,36 @@ struct SettingsView: View {
                     Text("Feedback")
                 }
                 
-                // Data Management Section
-                Section {
-                    Button(role: .destructive, action: { showDeleteConfirmation = true }) {
-                        HStack {
-                            if viewModel.isDeleting {
-                                ProgressView()
-                            } else {
-                                Image(systemName: "trash")
-                            }
-                            Text("Delete All Flashcard Sets")
-                        }
-                    }
-                    .disabled(viewModel.isDeleting)
-                    .alert("Delete All Data?", isPresented: $showDeleteConfirmation) {
-                        Button("Cancel", role: .cancel) { }
-                        Button("Delete", role: .destructive) {
-                            Task {
-                                await viewModel.deleteAllSets()
+                // Data Management Section (Only for Authenticated Users)
+                if !authManager.isGuestMode {
+                    Section {
+                        Button(role: .destructive, action: { showDeleteConfirmation = true }) {
+                            HStack {
+                                if viewModel.isDeleting {
+                                    ProgressView()
+                                } else {
+                                    Image(systemName: "trash")
+                                }
+                                Text("Delete All Flashcard Sets")
                             }
                         }
-                    } message: {
-                        Text("This action cannot be undone. All your flashcard sets will be permanently deleted.")
+                        .disabled(viewModel.isDeleting)
+                        .alert("Delete All Data?", isPresented: $showDeleteConfirmation) {
+                            Button("Cancel", role: .cancel) { }
+                            Button("Delete", role: .destructive) {
+                                Task {
+                                    await viewModel.deleteAllSets()
+                                }
+                            }
+                        } message: {
+                            Text("This action cannot be undone. All your flashcard sets will be permanently deleted.")
+                        }
+                    } header: {
+                        Text("Data Management")
                     }
-                } header: {
-                    Text("Data Management")
                 }
                 
-                // Sign Out Section
+                // Sign Out / Sign In Section
                 Section {
                     if let error = viewModel.errorMessage {
                         Text(error)
@@ -137,22 +158,37 @@ struct SettingsView: View {
                             .font(.caption)
                     }
                     
-                    Button(role: .destructive, action: { Task { await viewModel.signOut() } }) {
-                        HStack {
-                            if viewModel.isSigningOut {
-                                ProgressView()
-                            } else {
-                                Image(systemName: "door.left.hand.open")
+                    if authManager.isGuestMode {
+                        Button(action: { showLoginSheet = true }) {
+                            HStack {
+                                Image(systemName: "person.crop.circle.badge.plus")
+                                Text("Sign In / Create Account")
                             }
-                            Text("Sign Out")
                         }
+                    } else {
+                        Button(role: .destructive, action: { Task { await viewModel.signOut(); await authManager.signOut() } }) {
+                            HStack {
+                                if viewModel.isSigningOut {
+                                    ProgressView()
+                                } else {
+                                    Image(systemName: "door.left.hand.open")
+                                }
+                                Text("Sign Out")
+                            }
+                        }
+                        .disabled(viewModel.isSigningOut)
                     }
-                    .disabled(viewModel.isSigningOut)
                 }
             }
             .navigationTitle("Settings")
             .task {
-                await viewModel.loadUserProfile()
+                if !authManager.isGuestMode {
+                    await viewModel.loadUserProfile()
+                }
+            }
+            .sheet(isPresented: $showLoginSheet) {
+                LoginView()
+                    .environmentObject(authManager)
             }
         }
     }

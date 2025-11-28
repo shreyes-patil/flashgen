@@ -7,6 +7,7 @@ struct LoginView: View {
     @State private var errorMessage: String?
     @Environment(\.dismiss) var dismiss
     @State private var isSigningOut = false
+    @EnvironmentObject var authManager: AuthenticationManager
     
     var body: some View {
         ZStack {
@@ -60,6 +61,16 @@ struct LoginView: View {
                 }
                 .disabled(isLoading)
                 .padding(.horizontal, 32)
+                
+                Button(action: {
+                    authManager.continueAsGuest()
+                }) {
+                    Text("Continue as Guest")
+                        .font(.subheadline)
+                        .fontWeight(.medium)
+                        .foregroundColor(.secondary)
+                }
+                .padding(.top, 8)
                 
                 
                 Spacer()

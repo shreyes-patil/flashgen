@@ -143,6 +143,10 @@ final class RemoteFlashcardRepository: FlashcardRepository {
         return nil
     }
     
+    func clearLocalCache() async throws {
+        // No local cache to clear for remote repository
+    }
+    
     func deleteSet(id: String) async throws {
         try await client.from("flashcard_sets")
             .delete()

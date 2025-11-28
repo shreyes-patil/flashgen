@@ -22,21 +22,37 @@ struct FlashcardDeckView: View {
             } else {
                 TabView(selection: $vm.currentIndex) {
                     ForEach(vm.cards.indices, id: \.self) { index in
-                        FlipCardView(
-                            question: vm.cards[index].question ?? "",
-                            answer: vm.cards[index].answer ?? "",
-                            isRevealed: vm.isRevealed && vm.currentIndex == index,
-                            color: color
-                        )
-                        
-                        .tag(index)
-                        .padding()
-                        .frame(maxWidth: 600, maxHeight: 400) // Constrain size on iPad
-                        .aspectRatio(1.5, contentMode: .fit) // Enforce card shape (3:2 ratio)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity) // Center in TabView
-                        .onTapGesture {
-                            withAnimation {
-                                vm.flip()
+                        if UIDevice.current.userInterfaceIdiom == .pad {
+                            FlipCardView(
+                                question: vm.cards[index].question ?? "",
+                                answer: vm.cards[index].answer ?? "",
+                                isRevealed: vm.isRevealed && vm.currentIndex == index,
+                                color: color
+                            )
+                            .tag(index)
+                            .padding()
+                            .frame(maxWidth: 600, maxHeight: 400) // Constrain size on iPad
+                            .aspectRatio(1.5, contentMode: .fit) // Enforce card shape (3:2 ratio)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity) // Center in TabView
+                            .onTapGesture {
+                                withAnimation {
+                                    vm.flip()
+                                }
+                            }
+                        } else {
+                            FlipCardView(
+                                question: vm.cards[index].question ?? "",
+                                answer: vm.cards[index].answer ?? "",
+                                isRevealed: vm.isRevealed && vm.currentIndex == index,
+                                color: color
+                            )
+                            .tag(index)
+                            .padding()
+                            .frame(maxWidth: .infinity, maxHeight: .infinity) // Fill space on iPhone
+                            .onTapGesture {
+                                withAnimation {
+                                    vm.flip()
+                                }
                             }
                         }
                     }

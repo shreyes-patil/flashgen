@@ -21,6 +21,8 @@ struct FlashcardSetView: View {
     @State private var isSaving = false
     @State private var saveSuccess = false
     @State private var isSaved: Bool = false
+    @EnvironmentObject var authManager: AuthenticationManager
+    @State private var showLoginSheet = false
     
     private let repository: FlashcardRepository = CachedFlashcardRepository()
     
@@ -48,6 +50,12 @@ struct FlashcardSetView: View {
     @MainActor
     private func saveSet() async {
         guard !isSaving && !saveSuccess else { return }
+        
+        if !authManager.isAuthenticated {
+            showLoginSheet = true
+            return
+        }
+        
         isSaving = true
         
         // Use the passed setId (which should be stable from GenerateViewModel)
@@ -153,6 +161,18 @@ struct FlashcardSetView: View {
                     self.lastReviewed = NSLocalizedString("just_now", comment: "Relative time for just now")
                 } catch {
                     print("Failed to update last reviewed: \(error)")
+                }
+            }
+            .sheet(isPresented: $showLoginSheet) {
+                LoginView()
+                    .environmentObject(authManager)
+            }
+            .onChange(of: authManager.isAuthenticated) { isAuthenticated in
+                if isAuthenticated && showLoginSheet {
+                    showLoginSheet = false
+                    Task {
+                        await saveSet()
+                    }
                 }
             }
                 }

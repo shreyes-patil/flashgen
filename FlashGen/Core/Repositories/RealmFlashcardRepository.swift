@@ -73,4 +73,8 @@ final class RealmFlashcardRepository {
             realm.deleteAll()
         }
     }
+    
+    func clearLocalCache() throws {
+        try deleteAllSets()
+    }
 }

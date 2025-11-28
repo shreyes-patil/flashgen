@@ -102,10 +102,11 @@ final class CachedFlashcardRepository: FlashcardRepository {
     }
     
     func deleteAllSets() async throws {
-        // 1. Delete from local
-        try? local.deleteAllSets()
-        
-        // 2. Delete from remote
+        try await local.deleteAllSets()
         try await remote.deleteAllSets()
+    }
+    
+    func clearLocalCache() async throws {
+        try await local.clearLocalCache()
     }
 }
