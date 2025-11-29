@@ -7,6 +7,7 @@ struct LoginView: View {
     @State private var errorMessage: String?
     @Environment(\.dismiss) var dismiss
     @State private var isSigningOut = false
+    @EnvironmentObject var authManager: AuthenticationManager
     
     var body: some View {
         ZStack {
@@ -17,9 +18,10 @@ struct LoginView: View {
                 Spacer()
                 
                 VStack(spacing: 16) {
-                    Image(systemName: "brain.head.profile")
-                        .font(.system(size: 80))
-                        .foregroundColor(.blue)
+                    Image("AppLogo")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 120, height: 120)
                     
                     Text("FlashGen")
                         .font(.largeTitle)
@@ -56,10 +58,23 @@ struct LoginView: View {
                     .frame(maxWidth: .infinity)
                     .padding()
                     .background(Color.blue)
-                    .cornerRadius(12)
+                    .clipShape(RoundedCornerShape(radius: 18, corners: [.topLeft, .bottomRight]))
+                    .shadow(radius: 4)
                 }
                 .disabled(isLoading)
                 .padding(.horizontal, 32)
+                
+                if !authManager.isGuestMode {
+                    Button(action: {
+                        authManager.continueAsGuest()
+                    }) {
+                        Text("Continue as Guest")
+                            .font(.subheadline)
+                            .fontWeight(.medium)
+                            .foregroundColor(.secondary)
+                    }
+                    .padding(.top, 8)
+                }
                 
                 
                 Spacer()

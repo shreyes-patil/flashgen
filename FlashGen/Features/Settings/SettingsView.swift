@@ -11,13 +11,33 @@ import Supabase
 
 struct SettingsView: View {
     @StateObject private var viewModel = SettingsViewModel()
+    @State private var showDeleteConfirmation = false
+    @EnvironmentObject var authManager: AuthenticationManager
+    @State private var showLoginSheet = false
     
     var body: some View {
         NavigationStack {
             Form {
                 // User Profile Section
                 Section {
-                    if let user = viewModel.user {
+                    if authManager.isGuestMode {
+                        HStack {
+                            Image(systemName: "person.circle")
+                                .resizable()
+                                .frame(width: 60, height: 60)
+                                .foregroundColor(.gray)
+                            
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text(LocalizedStringKey("settings.guest.title"))
+                                    .font(.headline)
+                                Text(LocalizedStringKey("settings.guest.subtitle"))
+                                    .font(.subheadline)
+                                    .foregroundColor(.secondary)
+                            }
+                            .padding(.leading, 8)
+                        }
+                        .padding(.vertical, 8)
+                    } else if let user = viewModel.user {
                         HStack {
                             // Profile picture
                             if let photoURL = user.photoURL {
@@ -51,18 +71,18 @@ struct SettingsView: View {
                     } else if viewModel.isLoading {
                         HStack {
                             ProgressView()
-                            Text("Loading profile...")
+                            Text(LocalizedStringKey("settings.loading_profile"))
                                 .foregroundColor(.secondary)
                         }
                     }
                 } header: {
-                    Text("Account")
+                    Text(LocalizedStringKey("settings.account.header"))
                 }
                 
                 // App Info Section
                 Section {
                     HStack {
-                        Text("Version")
+                        Text(LocalizedStringKey("settings.version"))
                         Spacer()
                         Text(viewModel.appVersion)
                             .foregroundColor(.secondary)
@@ -70,10 +90,38 @@ struct SettingsView: View {
                     
                  
                 } header: {
-                    Text("About")
+                    Text(LocalizedStringKey("settings.about.header"))
                 }
                 
-                // Sign Out Section
+                // Legal Section
+                Section {
+                    Link(destination: URL(string: "https://flashgen-web.vercel.app/privacy")!) {
+                        Label(LocalizedStringKey("settings.privacy"), systemImage: "hand.raised.fill")
+                            .foregroundColor(.primary)
+                    }
+                    Link(destination: URL(string: "https://flashgen-web.vercel.app/terms")!) {
+                        Label(LocalizedStringKey("settings.terms"), systemImage: "doc.text.fill")
+                            .foregroundColor(.primary)
+                    }
+                } header: {
+                    Text(LocalizedStringKey("settings.legal.header"))
+                }
+                
+                // Feedback Section
+                Section {
+                    Link(destination: URL(string: "https://apps.apple.com/app/id123456789?action=write-review")!) {
+                        Label(LocalizedStringKey("settings.rate_app"), systemImage: "star.fill")
+                            .foregroundColor(.primary)
+                    }
+                    Link(destination: URL(string: "mailto:shreyas.patil0602@gmail.com")!) {
+                        Label(LocalizedStringKey("settings.send_feedback"), systemImage: "envelope.fill")
+                            .foregroundColor(.primary)
+                    }
+                } header: {
+                    Text(LocalizedStringKey("settings.feedback.header"))
+                }
+                
+                // Sign Out / Sign In Section
                 Section {
                     if let error = viewModel.errorMessage {
                         Text(error)
@@ -81,20 +129,66 @@ struct SettingsView: View {
                             .font(.caption)
                     }
                     
-                    Button(role: .destructive, action: { Task { await viewModel.signOut() } }) {
-                        HStack {
-                            if viewModel.isSigningOut {
-                                ProgressView()
+                    if authManager.isGuestMode {
+                        Button(action: { showLoginSheet = true }) {
+                            HStack {
+                                Image(systemName: "person.crop.circle.badge.plus")
+                                Text(LocalizedStringKey("settings.signin_create"))
                             }
-                            Text("Sign Out")
                         }
+                    } else {
+                        Button(role: .destructive, action: { Task { await viewModel.signOut(); await authManager.signOut() } }) {
+                            HStack {
+                                if viewModel.isSigningOut {
+                                    ProgressView()
+                                } else {
+                                    Image(systemName: "door.left.hand.open")
+                                }
+                                Text(LocalizedStringKey("settings.signout"))
+                            }
+                        }
+                        .disabled(viewModel.isSigningOut)
                     }
-                    .disabled(viewModel.isSigningOut)
+                }
+                
+                // Data Management Section (Only for Authenticated Users)
+                if !authManager.isGuestMode {
+                    Section {
+                        Button(role: .destructive, action: { showDeleteConfirmation = true }) {
+                            HStack {
+                                if viewModel.isDeleting {
+                                    ProgressView()
+                                } else {
+                                    Image(systemName: "trash")
+                                }
+                                Text(LocalizedStringKey("settings.delete_all"))
+                            }
+                        }
+                        .disabled(viewModel.isDeleting)
+                        .alert(LocalizedStringKey("settings.delete_all.alert.title"), isPresented: $showDeleteConfirmation) {
+                            Button(LocalizedStringKey("cancel"), role: .cancel) { }
+                            Button(LocalizedStringKey("delete"), role: .destructive) {
+                                Task {
+                                    await viewModel.deleteAllSets()
+                                }
+                            }
+                        } message: {
+                            Text(LocalizedStringKey("settings.delete_all.alert.message"))
+                        }
+                    } header: {
+                        Text(LocalizedStringKey("settings.data.header"))
+                    }
                 }
             }
             .navigationTitle("Settings")
             .task {
-                await viewModel.loadUserProfile()
+                if !authManager.isGuestMode {
+                    await viewModel.loadUserProfile()
+                }
+            }
+            .sheet(isPresented: $showLoginSheet) {
+                LoginView()
+                    .environmentObject(authManager)
             }
         }
     }

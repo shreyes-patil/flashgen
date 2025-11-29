@@ -30,30 +30,37 @@ struct FlipCardView: View {
     
     @ViewBuilder
     private func face(_ text: String, isAnswer: Bool) -> some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 12) {
-                // Minimal label
-                Text(isAnswer ? "Answer" : "Question")
-                    .font(.caption)
-                    .fontWeight(.bold)
-                    .foregroundStyle(.black.opacity(0.8))
-                    .textCase(.uppercase)
-                    .tracking(0.8)
-                    .padding(.horizontal, 12)
-                    .padding(.vertical, 6)
-                    .background(color)
-                    .clipShape(RoundedCornerShape(radius: 12, corners: [.topLeft, .bottomRight]))
-                
-                Text(text)
-                    .font(.title3)
-                    .fontWeight(.regular)
-                    .foregroundStyle(.primary)
-                    .multilineTextAlignment(.leading)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .lineSpacing(8) // Increased line spacing for readability
+        GeometryReader { proxy in
+            ScrollView {
+                VStack(alignment: .leading, spacing: 12) {
+                    Spacer(minLength: 0)
+                    
+                    // Minimal label
+                    Text(isAnswer ? LocalizedStringKey("flashcard.answer") : LocalizedStringKey("flashcard.question"))
+                        .font(.caption)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.black.opacity(0.8))
+                        .textCase(.uppercase)
+                        .tracking(0.8)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 6)
+                        .background(color)
+                        .clipShape(RoundedCornerShape(radius: 12, corners: [.topLeft, .bottomRight]))
+                    
+                    Text(text)
+                        .font(.title3)
+                        .fontWeight(.regular)
+                        .foregroundStyle(.primary)
+                        .multilineTextAlignment(.leading)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .lineSpacing(8) // Increased line spacing for readability
+                    
+                    Spacer(minLength: 0)
+                }
+                .padding(32) // Increased padding
+                .frame(maxWidth: .infinity)
+                .frame(minHeight: proxy.size.height)
             }
-            .padding(32) // Increased padding
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         }
         .background(Color(.systemBackground))
         .cornerMask(34, [.topLeft, .bottomRight])

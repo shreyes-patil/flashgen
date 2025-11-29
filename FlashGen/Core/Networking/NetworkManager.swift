@@ -9,14 +9,15 @@ import Foundation
 
 class NetworkManager {
     static let shared = NetworkManager()
-    private let baseURL = "http://localhost:3000"
+    private let baseURL = "https://flashgen-backend-nextjs.vercel.app"
     
     private init() {}
     
     func generateFlashcards(topic: String, count: Int, difficulty: String) async throws -> GenerateFlashcardsResponse {
-        let url = URL(string: "\(baseURL)/ai/flashcards/generate/topic")!
+        let url = URL(string: "\(baseURL)/api/ai/flashcards/generate/text")!
         
         var request = URLRequest(url: url)
+        request.timeoutInterval = 120 // Increase timeout to 2 minutes for AI generation
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
@@ -35,7 +36,18 @@ class NetworkManager {
             throw NetworkError.invalidResponse
         }
         
-        return try JSONDecoder().decode(GenerateFlashcardsResponse.self, from: data)
+        if let _ = String(data: data, encoding: .utf8) {
+            // Log response in debug only
+            #if DEBUG
+            // print("Received response: \(jsonString)")
+            #endif
+        }
+        
+        do {
+            return try JSONDecoder().decode(GenerateFlashcardsResponse.self, from: data)
+        } catch {
+            throw error
+        }
     }
 }
 
@@ -54,7 +66,7 @@ struct FlashcardData: Codable {
     let flashcards: [GeneratedFlashcard]
     let count: Int
     let source: String
-    let topic: String
+    let topic: String?
     let difficulty: String
 }
 

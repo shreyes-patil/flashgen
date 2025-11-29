@@ -8,7 +8,7 @@
 import Foundation
 import Supabase
 
-final class SupabaseFlashcardRepository: FlashcardRepository {
+final class RemoteFlashcardRepository: FlashcardRepository {
     private let client: SupabaseClient
     
     private struct FlashcardSetDB: Codable {
@@ -22,6 +22,7 @@ final class SupabaseFlashcardRepository: FlashcardRepository {
         let last_reviewed: String?
         let created_at: String
         let updated_at: String
+        let flashcards: [FlashcardDB]?
     }
     
     private struct FlashcardDB: Codable {
@@ -52,7 +53,8 @@ final class SupabaseFlashcardRepository: FlashcardRepository {
             num_cards: set.cards.count,
             last_reviewed: dateFormatter.string(from: set.lastReviewed),
             created_at: dateFormatter.string(from: set.createdAt),
-            updated_at: dateFormatter.string(from: set.updatedAt)
+            updated_at: dateFormatter.string(from: set.updatedAt),
+            flashcards: nil
         )
         
         try await client.from("flashcard_sets")
@@ -77,10 +79,10 @@ final class SupabaseFlashcardRepository: FlashcardRepository {
     }
     
     func fetchSets() async throws -> [FlashcardSet] {
-        // Fetch all sets for this user
+        // Fetch all sets for this user with their flashcards
         let response: [FlashcardSetDB] = try await client
             .from("flashcard_sets")
-            .select()
+            .select("*, flashcards(*)")
             .eq("user_id", value: try await getCurrentUserId())
             .order("created_at", ascending: false)
             .execute()
@@ -92,16 +94,8 @@ final class SupabaseFlashcardRepository: FlashcardRepository {
         var sets: [FlashcardSet] = []
         
         for setDB in response {
-            // Fetch flashcards for this set
-            let cardsResponse: [FlashcardDB] = try await client
-                .from("flashcards")
-                .select()
-                .eq("set_id", value: setDB.id)
-                .execute()
-                .value
-            
             // Convert flashcards
-            let cards = cardsResponse.map { cardDB in
+            let cards = (setDB.flashcards ?? []).map { cardDB in
                 Flashcard(
                     id: UUID(uuidString: cardDB.id) ?? UUID(),
                     question: cardDB.question,
@@ -112,6 +106,8 @@ final class SupabaseFlashcardRepository: FlashcardRepository {
                     tags: nil
                 )
             }
+            
+            print("Set: \(setDB.title), Raw Difficulty: \(setDB.difficulty)")
             
             // Create FlashcardSet
             let set = FlashcardSet(
@@ -127,7 +123,6 @@ final class SupabaseFlashcardRepository: FlashcardRepository {
                 pdfPageRange: nil,
                 notes: nil
             )
-            print(" Loaded set: \(set.title) with \(set.cards.count) cards")
             sets.append(set)
         }
         
@@ -148,10 +143,21 @@ final class SupabaseFlashcardRepository: FlashcardRepository {
         return nil
     }
     
+    func clearLocalCache() async throws {
+        // No local cache to clear for remote repository
+    }
+    
     func deleteSet(id: String) async throws {
         try await client.from("flashcard_sets")
             .delete()
             .eq("id", value: id)
+            .execute()
+    }
+    
+    func deleteAllSets() async throws {
+        try await client.from("flashcard_sets")
+            .delete()
+            .eq("user_id", value: try await getCurrentUserId())
             .execute()
     }
     

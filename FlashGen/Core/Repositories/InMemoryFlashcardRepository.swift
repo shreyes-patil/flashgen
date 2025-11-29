@@ -33,11 +33,20 @@ final class InMemoryFlashcardRepository: FlashcardRepository {
     func updateLastReviewed(setId: String) async throws {
         lock.lock(); defer { lock.unlock() }
         
-        guard var set = storage[setId] else { return }
+        guard let set = storage[setId] else { return }
         
         var updatedSet = set
         updatedSet.lastReviewed = Date()
         
         storage[setId] = updatedSet
+    }
+    
+    func deleteAllSets() async throws {
+        lock.lock(); defer { lock.unlock() }
+        storage.removeAll()
+    }
+    
+    func clearLocalCache() async throws {
+        try await deleteAllSets()
     }
 }

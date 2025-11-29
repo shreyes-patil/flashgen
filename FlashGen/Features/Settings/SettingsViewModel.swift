@@ -48,11 +48,14 @@ final class SettingsViewModel: ObservableObject {
                 photoURL: photoURLString.flatMap { URL(string: $0) }
             )
         } catch {
-            print("❌ Failed to load user: \(error)")
+            // Handle error
         }
         
         isLoading = false
     }
+    
+    private let repository: FlashcardRepository = CachedFlashcardRepository()
+    @Published var isDeleting = false
     
     func signOut() async {
         isSigningOut = true
@@ -66,9 +69,21 @@ final class SettingsViewModel: ObservableObject {
             NotificationCenter.default.post(name: NSNotification.Name("UserDidSignOut"), object: nil)
         } catch {
             errorMessage = "Sign out failed: \(error.localizedDescription)"
-            print("❌ Sign out error: \(error)")
         }
         
         isSigningOut = false
+    }
+    
+    func deleteAllSets() async {
+        isDeleting = true
+        errorMessage = nil
+        
+        do {
+            try await repository.deleteAllSets()
+        } catch {
+            errorMessage = "Failed to delete sets: \(error.localizedDescription)"
+        }
+        
+        isDeleting = false
     }
 }

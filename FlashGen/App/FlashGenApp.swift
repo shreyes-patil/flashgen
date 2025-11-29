@@ -10,9 +10,8 @@ import GoogleSignIn
 
 @main
 struct FlashGenApp: App {
-    private let repo: any FlashcardRepository = SupabaseFlashcardRepository()
-    @State private var isAuthenticated = false
-    @State private var isCheckingAuth = true
+    private let repo: any FlashcardRepository = CachedFlashcardRepository()
+    @StateObject private var authManager = AuthenticationManager.shared
     
     init() {
         GIDSignIn.sharedInstance.configuration = GIDConfiguration(
@@ -23,27 +22,20 @@ struct FlashGenApp: App {
     var body: some Scene {
         WindowGroup {
             Group {
-                if isCheckingAuth {
+                if authManager.isLoading {
                     ProgressView()
-                } else if isAuthenticated {
+                } else if authManager.isAuthenticated || authManager.isGuestMode {
                     MainTabView()
                         .environment(\.flashcardRepository, repo)
+                        .environmentObject(authManager)
                 } else {
                     LoginView()
+                        .environmentObject(authManager)
                 }
             }
             .onOpenURL { url in
                 GIDSignIn.sharedInstance.handle(url)
             }
-            .task {
-                for await state in await SupabaseManager.shared.client.auth.authStateChanges {
-                    await MainActor.run {
-                        isAuthenticated = state.session != nil
-                        isCheckingAuth = false
-                    }
-                }
-            }
-           
         }
     }
 }

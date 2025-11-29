@@ -11,7 +11,9 @@ struct FlashcardSetView: View {
     let flashcardSetTitle : String
     let flashcards : [Flashcard]
     @State private var lastReviewed: String
+    
     let numberOfCards: Int
+    let difficulty: FlashcardDifficulty
     let isSavedInitial: Bool
     @State private var hasUpdatedReviewTime = false
     let setId: String
@@ -19,14 +21,18 @@ struct FlashcardSetView: View {
     @State private var isSaving = false
     @State private var saveSuccess = false
     @State private var isSaved: Bool = false
+    @EnvironmentObject var authManager: AuthenticationManager
+    @State private var showLoginSheet = false
     
-    private let repository: FlashcardRepository = SupabaseFlashcardRepository()
+    private let repository: FlashcardRepository = CachedFlashcardRepository()
     
     init(
         flashcardSetTitle: String,
         flashcards: [Flashcard],
         lastReviewed: String,
+       
         numberOfCards: Int,
+        difficulty: FlashcardDifficulty = .medium,
         isSavedInitial: Bool = false,
         setId: String = "",
         color: Color = .yellow
@@ -35,18 +41,31 @@ struct FlashcardSetView: View {
         self.flashcards = flashcards
         self._lastReviewed = State(initialValue: lastReviewed)
         self.numberOfCards = numberOfCards
+        self.difficulty = difficulty
         self.isSavedInitial = isSavedInitial
         self.setId = setId
         self.color = color
     }
-    
+    @MainActor
     private func saveSet() async {
+        guard !isSaving && !saveSuccess else { return }
+        
+        if !authManager.isAuthenticated {
+            showLoginSheet = true
+            return
+        }
+        
         isSaving = true
         
+        // Use the passed setId (which should be stable from GenerateViewModel)
+        // If setId is somehow empty (shouldn't happen for new sets now), we generate one, but this is a fallback.
+        let idToUse = setId.isEmpty ? UUID().uuidString.lowercased() : setId
+        
         let newSet = FlashcardSet(
-            id: UUID().uuidString,
+            id: idToUse,
             title: flashcardSetTitle,
-            difficulty: .easy,
+          
+            difficulty: self.difficulty,
             cards: flashcards,
             createdAt: Date(),
             updatedAt: Date(),
@@ -62,7 +81,7 @@ struct FlashcardSetView: View {
             saveSuccess = true
             isSaved = true
         } catch {
-            print("Save error: \(error)")
+            // Handle error
         }
         
         isSaving = false
@@ -80,6 +99,8 @@ struct FlashcardSetView: View {
                     FlashcardListView(flashcards: flashcards, color: color)
                         .padding()
                         .padding(.bottom, 100)
+                        .frame(maxWidth: 700) // Keep the content centered and readable
+                        .frame(maxWidth: .infinity) // Fill the screen background
                 }
                 
                 .safeAreaInset(edge: .bottom) {
@@ -97,8 +118,8 @@ struct FlashcardSetView: View {
                             .padding(.horizontal, 2)
                     }
                     .buttonStyle(.plain) // preserves your custom background
-                    .accessibilityLabel(Text("Start practicing"))
-                    .accessibilityHint(Text("Begin going through the flashcards in this set"))
+                    .accessibilityLabel(Text(LocalizedStringKey("start_practicing_accessibility_label")))
+                    .accessibilityHint(Text(LocalizedStringKey("start_practicing_accessibility_hint")))
                 }
                 
             }
@@ -114,7 +135,7 @@ struct FlashcardSetView: View {
                                 Image(systemName: "checkmark.circle.fill")
                                     .foregroundColor(.green)
                             } else {
-                                Text("Save")
+                                Text(LocalizedStringKey("save"))
                             }
                         }
                         .disabled(isSaving || saveSuccess)
@@ -133,11 +154,22 @@ struct FlashcardSetView: View {
                 
                 do {
                     try await repository.updateLastReviewed(setId: setId)
-                    print("Updated last reviewed time")
                     // Update local state to reflect change immediately
-                    self.lastReviewed = NSLocalizedString("Just now", comment: "Relative time for just now")
+                    self.lastReviewed = NSLocalizedString("just_now", comment: "Relative time for just now")
                 } catch {
-                    print("Failed to update last reviewed: \(error)")
+                    // Fail silently or log to analytics in production
+                }
+            }
+            .sheet(isPresented: $showLoginSheet) {
+                LoginView()
+                    .environmentObject(authManager)
+            }
+            .onChange(of: authManager.isAuthenticated) { isAuthenticated in
+                if isAuthenticated && showLoginSheet {
+                    showLoginSheet = false
+                    Task {
+                        await saveSet()
+                    }
                 }
             }
                 }

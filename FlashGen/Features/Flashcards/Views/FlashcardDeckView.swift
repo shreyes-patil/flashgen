@@ -22,17 +22,37 @@ struct FlashcardDeckView: View {
             } else {
                 TabView(selection: $vm.currentIndex) {
                     ForEach(vm.cards.indices, id: \.self) { index in
-                        FlipCardView(
-                            question: vm.cards[index].question ?? "",
-                            answer: vm.cards[index].answer ?? "",
-                            isRevealed: vm.isRevealed && vm.currentIndex == index,
-                            color: color
-                        )
-                        .tag(index)
-                        .padding()
-                        .onTapGesture {
-                            withAnimation {
-                                vm.flip()
+                        if UIDevice.current.userInterfaceIdiom == .pad {
+                            FlipCardView(
+                                question: vm.cards[index].question ?? "",
+                                answer: vm.cards[index].answer ?? "",
+                                isRevealed: vm.isRevealed && vm.currentIndex == index,
+                                color: color
+                            )
+                            .tag(index)
+                            .padding()
+                            .frame(maxWidth: 600, maxHeight: 400) // Constrain size on iPad
+                            .aspectRatio(1.5, contentMode: .fit) // Enforce card shape (3:2 ratio)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity) // Center in TabView
+                            .onTapGesture {
+                                withAnimation {
+                                    vm.flip()
+                                }
+                            }
+                        } else {
+                            FlipCardView(
+                                question: vm.cards[index].question ?? "",
+                                answer: vm.cards[index].answer ?? "",
+                                isRevealed: vm.isRevealed && vm.currentIndex == index,
+                                color: color
+                            )
+                            .tag(index)
+                            .padding()
+                            .frame(maxWidth: .infinity, maxHeight: .infinity) // Fill space on iPhone
+                            .onTapGesture {
+                                withAnimation {
+                                    vm.flip()
+                                }
                             }
                         }
                     }
@@ -43,7 +63,7 @@ struct FlashcardDeckView: View {
             controls
         }
         .padding(.vertical)
-        .background(Color(.systemBackground)) // Standard background
+        .background(Color(.systemBackground)) 
         .navigationTitle("flashcards.title")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -51,7 +71,7 @@ struct FlashcardDeckView: View {
                 ProgressPill(text: vm.progressText)
             }
         }
-        .toolbar(.hidden, for: .tabBar) // Hide tab bar in focus mode
+        .toolbar(.hidden, for: .tabBar)
         .onChange(of: vm.currentIndex) { _ in
             vm.isRevealed = false
         }
@@ -70,6 +90,7 @@ struct FlashcardDeckView: View {
                     .clipShape(Circle())
                     .foregroundStyle(.primary)
             }
+            .accessibilityLabel(Text(LocalizedStringKey("flashcards.prev")))
             .disabled(vm.currentIndex == 0)
             .opacity(vm.currentIndex == 0 ? 0.3 : 1)
 
@@ -85,6 +106,7 @@ struct FlashcardDeckView: View {
                     .foregroundStyle(.white)
                     .shadow(color: .blue.opacity(0.3), radius: 5, y: 3)
             }
+            .accessibilityLabel(Text(vm.isRevealed ? LocalizedStringKey("flashcards.hide") : LocalizedStringKey("flashcards.reveal")))
             .disabled(vm.cards.isEmpty)
 
             // Next Button

@@ -28,6 +28,21 @@
 "delete" = "Delete";
 "cancel" = "Cancel";
 
+"empty_sets_title" = "No Flashcard Sets";
+"empty_sets_subtitle" = "Tap the Generate tab to create your first set!";
+"empty_sets_accessibility_hint" = "You haven't created any flashcard sets yet.";
+"retry_button_title" = "Retry";
+"retry_button_accessibility_label" = "Retry loading sets";
+"retry_button_accessibility_hint" = "Attempts to reload your flashcard sets from the server";
+"loading_sets_accessibility_label" = "Loading your flashcard sets";
+"saved_flashcard_sets_list_accessibility_label" = "List of your saved flashcard sets";
+
+"sort_by" = "Sort By";
+"sort_date_created" = "Date Created";
+"sort_last_reviewed" = "Last Reviewed";
+"sort_alphabetical" = "Alphabetical";
+"never" = "Never";
+
 // Mark: Flashcards
 //FlashcardListView
 "question_label" = "Question";
@@ -37,18 +52,28 @@
 "Last reviewed %@" = "Last reviewed %@";
 
 //FlashcardSetView
+"save" = "Save";
+"just_now" = "Just now";
 "start_practicing" = "Start Practicing";
+"start_practicing_accessibility_label" = "Start practicing";
+"start_practicing_accessibility_hint" = "Begin going through the flashcards in this set";
 "flashcard_set_title" = "%@ Flashcards";
 
 // Mark: Generate
 //GenerateView
-"generate.title" = "Generate";
+"generate.title" = "Create Set";
 "generate.topic.placeholder" = "Enter a topic";
 "generate.topic.label" = "Topic";
 "generate.difficulty.label" = "Difficulty";
 "generate.count.label" = "Number of Flashcards";
 "generate.count.value" = "%d Flashcards";
+"flashcard_singular" = "Flashcard";
+"flashcards_plural" = "Flashcards";
 "generate.button" = "Generate Flashcards";
+"generate.button.hint" = "Double tap to generate flashcards";
+"generate.preview.title" = "Preview";
+"generate.preview.no_topic" = "No topic selected";
+"generate.preview.empty_hint" = "Enter a topic to see a preview!";
 
 "difficulty_easy" = "Easy";
 "difficulty_medium" = "Medium";
@@ -71,3 +96,24 @@
 // FlipCardView
 "flashcard.question" = "Question";
 "flashcard.answer" = "Answer";
+
+// Mark: Settings
+"settings.guest.title" = "Guest User";
+"settings.guest.subtitle" = "Sign in to save your flashcards";
+"settings.account.header" = "Account";
+"settings.about.header" = "About";
+"settings.version" = "Version";
+"settings.legal.header" = "Legal";
+"settings.privacy" = "Privacy Policy";
+"settings.terms" = "Terms of Use";
+"settings.feedback.header" = "Feedback";
+"settings.rate_app" = "Rate this App";
+"settings.send_feedback" = "Send Feedback";
+"settings.data.header" = "Data Management";
+"settings.delete_all" = "Delete All Flashcard Sets";
+"settings.delete_all.alert.title" = "Delete All Data?";
+"settings.delete_all.alert.message" = "This action cannot be undone. All your flashcard sets will be permanently deleted.";
+"settings.signin_create" = "Sign In / Create Account";
+"settings.signout" = "Sign Out";
+"settings.loading_profile" = "Loading profile...";
+
