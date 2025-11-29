@@ -109,9 +109,6 @@ struct LoginView: View {
                     idToken: idToken
                 )
             )
-            
-            // Explicitly check session to update AuthManager state immediately
-            await authManager.checkSession()
           
             
         } catch {

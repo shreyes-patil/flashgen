@@ -61,7 +61,7 @@
 
 // Mark: Generate
 //GenerateView
-"generate.title" = "Generate";
+"generate.title" = "Create Set";
 "generate.topic.placeholder" = "Enter a topic";
 "generate.topic.label" = "Topic";
 "generate.difficulty.label" = "Difficulty";
@@ -95,6 +95,7 @@
 
 // FlipCardView
 "flashcard.question" = "Question";
+"flashcard.answer" = "Answer";
 
 // Mark: Settings
 "settings.guest.title" = "Guest User";
