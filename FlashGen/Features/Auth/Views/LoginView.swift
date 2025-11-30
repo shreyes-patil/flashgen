@@ -80,6 +80,7 @@ struct LoginView: View {
                 Spacer()
             }
         }
+        .keyboardDismissal()
     }
     
     private func signInWithGoogle() async {

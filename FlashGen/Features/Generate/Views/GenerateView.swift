@@ -97,6 +97,8 @@ struct GenerateView: View {
                     }
                 }
             }
+            }
+            .keyboardDismissal()
             .navigationTitle(Text("generate.title"))
             .navigationBarTitleDisplayMode(.large)
             .navigationDestination(isPresented: $showFlashcardSet) {
@@ -109,7 +111,7 @@ struct GenerateView: View {
                     setId: viewModel.generatedSetId
                 )
 
-            }
+                
         }
     }
     

@@ -23,22 +23,27 @@ struct FlashcardDeckView: View {
                 TabView(selection: $vm.currentIndex) {
                     ForEach(vm.cards.indices, id: \.self) { index in
                         if UIDevice.current.userInterfaceIdiom == .pad {
-                            FlipCardView(
-                                question: vm.cards[index].question ?? "",
-                                answer: vm.cards[index].answer ?? "",
-                                isRevealed: vm.isRevealed && vm.currentIndex == index,
-                                color: color
-                            )
-                            .tag(index)
-                            .padding()
-                            .frame(maxWidth: 600, maxHeight: 400) // Constrain size on iPad
-                            .aspectRatio(1.5, contentMode: .fit) // Enforce card shape (3:2 ratio)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity) // Center in TabView
-                            .onTapGesture {
-                                withAnimation {
-                                    vm.flip()
+                            VStack {
+                                Spacer()
+                                FlipCardView(
+                                    question: vm.cards[index].question ?? "",
+                                    answer: vm.cards[index].answer ?? "",
+                                    isRevealed: vm.isRevealed && vm.currentIndex == index,
+                                    color: color
+                                )
+                                .tag(index)
+                                .frame(maxWidth: 700, maxHeight: 500) // Larger card for iPad
+                                .aspectRatio(1.5, contentMode: .fit)
+                                .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 5) // Add depth
+                                .onTapGesture {
+                                    withAnimation {
+                                        vm.flip()
+                                    }
                                 }
+                                Spacer()
                             }
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .background(Color(.systemGroupedBackground)) // Grounding background
                         } else {
                             FlipCardView(
                                 question: vm.cards[index].question ?? "",
