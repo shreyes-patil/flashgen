@@ -194,6 +194,13 @@ struct SettingsView: View {
                 LoginView()
                     .environmentObject(authManager)
             }
+            .onChange(of: authManager.isAuthenticated) { isAuthenticated in
+                if isAuthenticated {
+                    Task {
+                        await viewModel.loadUserProfile()
+                    }
+                }
+            }
         }
     }
 }

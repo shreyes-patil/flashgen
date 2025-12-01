@@ -11,8 +11,11 @@ class AuthenticationManager: ObservableObject {
     
     init() {
         Task {
-            await checkSession()
             await setupAuthListener()
+        }
+        
+        Task {
+            await checkSession()
         }
     }
     
@@ -40,7 +43,17 @@ class AuthenticationManager: ObservableObject {
     }
     
     func continueAsGuest() {
-        self.isGuestMode = true
+        Task {
+            // Ensure we are starting fresh
+            let repo = CachedFlashcardRepository()
+            try? await repo.clearLocalCache()
+            try? await SupabaseManager.shared.client.auth.signOut()
+            
+            await MainActor.run {
+                self.isAuthenticated = false
+                self.isGuestMode = true
+            }
+        }
     }
     
     func signOut() async {
