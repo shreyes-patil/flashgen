@@ -10,7 +10,6 @@ import SwiftUI
 struct HomeView: View {
     @StateObject private var viewModel = HomeViewModel()
     @Environment(\.scenePhase) private var scenePhase
-    @State private var isLoading: Bool = false
     private let columns = [GridItem(.adaptive(minimum: 160), spacing: 20)]
 
     var body: some View {
@@ -43,7 +42,7 @@ struct HomeView: View {
             ZStack {
                 ScrollView {
                     if viewModel.flashcardSets.isEmpty {
-                        if !isLoading {
+                        if !viewModel.isLoading {
                             VStack(spacing: 12) {
                                 Image(systemName: "rectangle.stack.badge.plus")
                                     .imageScale(.large)
@@ -87,7 +86,7 @@ struct HomeView: View {
                     await viewModel.fetchSets()
                 }
 
-                if isLoading && viewModel.flashcardSets.isEmpty {
+                if viewModel.isLoading && viewModel.flashcardSets.isEmpty {
                     VStack(spacing: 12) {
                         ProgressView(LocalizedStringKey("loading_sets_progress_title"))
                             .progressViewStyle(.circular)
