@@ -1,0 +1,149 @@
+//
+//  Localizable.strings
+//  FlashGen
+//
+//  Created by Shreyas Patil on 8/7/25.
+//
+
+// Mark: MainTab
+"tab_home" = "Inicio";
+"tab_generate" = "Generar";
+"tab_settings" = "Ajustes";
+
+// Mark: Home
+//FlashcardSetTileView
+"Last reviewed %@" = "Última revisión %@";
+"%d flashcards" = "%d tarjetas";
+
+//HomeView
+"saved_flashcard_sets_title" = "Mis Sets";
+"loading_sets_progress_title" = "Cargando sets de tarjetas";
+/* Delete flashcard set */
+"delete_set_button" = "Eliminar";
+"delete_set_accessibility_label" = "Eliminar set de tarjetas";
+"delete_set_accessibility_hint" = "Elimina permanentemente este set de tarjetas";
+"delete_set_alert_title" = "¿Eliminar Set?";
+"delete_set_alert_message" = "Esto eliminará permanentemente este set de tarjetas y todas sus cartas. Esta acción no se puede deshacer.";
+"delete" = "Eliminar";
+"cancel" = "Cancelar";
+
+"empty_sets_title" = "No hay sets de tarjetas";
+"empty_sets_subtitle" = "¡Toca la pestaña Generar para crear tu primer set!";
+"empty_sets_accessibility_hint" = "Aún no has creado ningún set de tarjetas.";
+"retry_button_title" = "Reintentar";
+"retry_button_accessibility_label" = "Reintentar cargar sets";
+"retry_button_accessibility_hint" = "Intenta recargar tus sets de tarjetas desde el servidor";
+"loading_sets_accessibility_label" = "Cargando tus sets de tarjetas";
+"saved_flashcard_sets_list_accessibility_label" = "Lista de tus sets de tarjetas guardados";
+
+"sort_by" = "Ordenar por";
+"sort_date_created" = "Fecha de creación";
+"sort_last_reviewed" = "Última revisión";
+"sort_alphabetical" = "Alfabético";
+"never" = "Nunca";
+
+// Mark: Flashcards
+//FlashcardListView
+"question_label" = "Pregunta";
+
+//FlashcardSetHeaderView
+"%d flashcards" = "%d tarjetas";
+"Last reviewed %@" = "Última revisión %@";
+
+//FlashcardSetView
+"save" = "Guardar";
+"just_now" = "Justo ahora";
+"start_practicing" = "Empezar a practicar";
+"start_practicing_accessibility_label" = "Empezar a practicar";
+"start_practicing_accessibility_hint" = "Comenzar a repasar las tarjetas de este set";
+"flashcard_set_title" = "%@ Tarjetas";
+
+// Mark: Generate
+//GenerateView
+"generate.title" = "Crear Set";
+"generate.topic.placeholder" = "Introduce un tema";
+"generate.topic.label" = "Tema";
+"generate.difficulty.label" = "Dificultad";
+"generate.count.label" = "Número de Tarjetas";
+"generate.count.value" = "%d Tarjetas";
+"flashcard_singular" = "Tarjeta";
+"flashcards_plural" = "Tarjetas";
+"generate.button" = "Generar Tarjetas";
+"generate.button.hint" = "Toca dos veces para generar tarjetas";
+"generate.preview.title" = "Vista Previa";
+"generate.preview.no_topic" = "Ningún tema seleccionado";
+"generate.preview.empty_hint" = "¡Introduce un tema para ver una vista previa!";
+
+"difficulty_easy" = "Fácil";
+"difficulty_medium" = "Medio";
+"difficulty_hard" = "Difícil";
+
+"error.empty_topic" = "Por favor, introduce un tema.";
+"error.network" = "Ocurrió un error de red. Inténtalo de nuevo.";
+"error.decoding" = "Error al decodificar las tarjetas.";
+"error.unknown" = "Ocurrió un error desconocido.";
+
+// Mark: Flashcard Practice
+// FlashcardDeckView
+"flashcards.title" = "Tarjetas";
+"flashcards.empty" = "No hay tarjetas disponibles";
+"flashcards.prev" = "Anterior";
+"flashcards.next" = "Siguiente";
+"flashcards.reveal" = "Revelar";
+"flashcards.hide" = "Ocultar";
+
+// FlipCardView
+"flashcard.question" = "Pregunta";
+"flashcard.answer" = "Respuesta";
+
+// Mark: Settings
+"settings.guest.title" = "Usuario Invitado";
+"settings.guest.subtitle" = "Inicia sesión para guardar tus tarjetas";
+"settings.account.header" = "Cuenta";
+"settings.about.header" = "Acerca de";
+"settings.version" = "Versión";
+"settings.legal.header" = "Legal";
+"settings.privacy" = "Política de Privacidad";
+"settings.terms" = "Términos de Uso";
+"settings.feedback.header" = "Comentarios";
+"settings.rate_app" = "Calificar esta App";
+"settings.send_feedback" = "Enviar Comentarios";
+"settings.data.header" = "Gestión de Datos";
+"settings.delete_all" = "Eliminar Todos los Sets";
+"settings.delete_all.alert.title" = "¿Eliminar Todos los Datos?";
+"settings.delete_all.alert.message" = "Esta acción no se puede deshacer. Todos tus sets de tarjetas se eliminarán permanentemente.";
+"settings.signin_create" = "Iniciar Sesión / Crear Cuenta";
+"settings.signout" = "Cerrar Sesión";
+"settings.loading_profile" = "Cargando perfil...";
+
+
+// Mark: Login
+"login.app_name" = "FlashGen";
+"login.subtitle" = "Tarjetas con IA";
+"login.google_button" = "Iniciar sesión con Google";
+"login.guest_button" = "Continuar como Invitado";
+"login.error.root_view" = "No se puede encontrar el controlador de vista raíz";
+"login.error.id_token" = "Error al obtener el token de ID";
+"login.error.signin_failed" = "Error al iniciar sesión: %@";
+"login.error.apple_signin_failed" = "Error al iniciar sesión con Apple: %@";
+"login.logo.accessibility_label" = "Logotipo de la aplicación FlashGen";
+
+// Mark: Home Accessibility
+"home.filter_button.accessibility_label" = "Ordenar sets de tarjetas";
+"tile.difficulty.accessibility_label" = "Dificultad %@";
+
+// Mark: Generate Accessibility
+"generate.count.min" = "5";
+"generate.count.max" = "20";
+"generate.preview.accessibility_label" = "Vista previa del set: %@, %d tarjetas, dificultad %@";
+"generate.preview.empty.accessibility_label" = "Vista previa vacía. Introduce un tema para ver detalles.";
+
+// Mark: Settings Accessibility
+"settings.title" = "Ajustes";
+"settings.profile_picture" = "Foto de perfil";
+
+// Mark: Flashcards Accessibility
+"generation.error.title" = "Error de Generación";
+"generation.error.unknown" = "Error desconocido";
+"alert.ok" = "OK";
+"flashcards.next" = "Siguiente";

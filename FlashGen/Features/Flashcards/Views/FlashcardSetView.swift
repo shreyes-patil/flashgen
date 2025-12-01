@@ -167,15 +167,15 @@ struct FlashcardSetView: View {
                     }
                 }
             }
-            .alert("Generation Failed", isPresented: Binding(
+            .alert(LocalizedStringKey("generation.error.title"), isPresented: Binding(
                 get: { generationError != nil },
                 set: { if !$0 { generationError = nil; dismiss() } }
             )) {
-                Button("OK") {
+                Button(LocalizedStringKey("alert.ok")) {
                     dismiss()
                 }
             } message: {
-                Text(generationError ?? "Unknown error")
+                Text(generationError ?? NSLocalizedString("generation.error.unknown", comment: ""))
             }
             .onAppear {
                 self.isSaved = isSavedInitial

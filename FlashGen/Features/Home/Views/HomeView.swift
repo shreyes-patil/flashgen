@@ -33,6 +33,7 @@ struct HomeView: View {
                         .imageScale(.large)
                         .font(.title2)
                         .foregroundStyle(.primary)
+                        .accessibilityLabel(Text(LocalizedStringKey("home.filter_button.accessibility_label")))
                 }
             }
             .padding(.horizontal)

@@ -125,6 +125,7 @@ struct FlashcardDeckView: View {
                     .clipShape(Circle())
                     .foregroundStyle(.primary)
             }
+            .accessibilityLabel(Text(LocalizedStringKey("flashcards.next")))
             .disabled(vm.currentIndex == vm.cards.count - 1)
             .opacity(vm.currentIndex == vm.cards.count - 1 ? 0.3 : 1)
         }

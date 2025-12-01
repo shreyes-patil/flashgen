@@ -117,3 +117,18 @@
 "settings.signout" = "Sign Out";
 "settings.loading_profile" = "Loading profile...";
 
+
+// Mark: Login
+"login.app_name" = "FlashGen";
+"login.subtitle" = "AI-Powered Flashcards";
+"login.google_button" = "Sign in with Google";
+"login.guest_button" = "Continue as Guest";
+"login.error.root_view" = "Unable to find root view controller";
+"login.error.id_token" = "Failed to get ID token";
+"login.error.signin_failed" = "Sign in failed: %@";
+"login.error.apple_signin_failed" = "Sign in with Apple failed: %@";
+"login.logo.accessibility_label" = "FlashGen App Logo";
+
+// Mark: Home Accessibility
+"home.filter_button.accessibility_label" = "Sort flashcard sets";
+"tile.difficulty.accessibility_label" = "%@ difficulty";

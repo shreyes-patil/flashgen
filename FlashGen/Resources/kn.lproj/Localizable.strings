@@ -1,0 +1,149 @@
+//
+//  Localizable.strings
+//  FlashGen
+//
+//  Created by Shreyas Patil on 8/7/25.
+//
+
+// Mark: MainTab
+"tab_home" = "ಮುಖಪುಟ";
+"tab_generate" = "ರಚಿಸಿ";
+"tab_settings" = "ಸೆಟ್ಟಿಂಗ್‌ಗಳು";
+
+// Mark: Home
+//FlashcardSetTileView
+"Last reviewed %@" = "ಕೊನೆಯದಾಗಿ ನೋಡಿದ್ದು %@";
+"%d flashcards" = "%d ಫ್ಲ್ಯಾಶ್‌ಕಾರ್ಡ್‌ಗಳು";
+
+//HomeView
+"saved_flashcard_sets_title" = "ನನ್ನ ಸೆಟ್‌ಗಳು";
+"loading_sets_progress_title" = "ಫ್ಲ್ಯಾಶ್‌ಕಾರ್ಡ್ ಸೆಟ್‌ಗಳನ್ನು ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ";
+/* Delete flashcard set */
+"delete_set_button" = "ಅಳಿಸಿ";
+"delete_set_accessibility_label" = "ಫ್ಲ್ಯಾಶ್‌ಕಾರ್ಡ್ ಸೆಟ್ ಅಳಿಸಿ";
+"delete_set_accessibility_hint" = "ಈ ಸೆಟ್ ಅನ್ನು ಶಾಶ್ವತವಾಗಿ ತೆಗೆದುಹಾಕುತ್ತದೆ";
+"delete_set_alert_title" = "ಸೆಟ್ ಅಳಿಸಬೇಕೆ?";
+"delete_set_alert_message" = "ಇದು ಈ ಫ್ಲ್ಯಾಶ್‌ಕಾರ್ಡ್ ಸೆಟ್ ಮತ್ತು ಅದರ ಎಲ್ಲಾ ಕಾರ್ಡ್‌ಗಳನ್ನು ಶಾಶ್ವತವಾಗಿ ಅಳಿಸುತ್ತದೆ. ಈ ಕ್ರಿಯೆಯನ್ನು ರದ್ದುಗೊಳಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ.";
+"delete" = "ಅಳಿಸಿ";
+"cancel" = "ರದ್ದುಮಾಡಿ";
+
+"empty_sets_title" = "ಯಾವುದೇ ಫ್ಲ್ಯಾಶ್‌ಕಾರ್ಡ್ ಸೆಟ್‌ಗಳಿಲ್ಲ";
+"empty_sets_subtitle" = "ನಿಮ್ಮ ಮೊದಲ ಸೆಟ್ ರಚಿಸಲು 'ರಚಿಸಿ' ಟ್ಯಾಬ್ ಟ್ಯಾಪ್ ಮಾಡಿ!";
+"empty_sets_accessibility_hint" = "ನೀವು ಇನ್ನೂ ಯಾವುದೇ ಫ್ಲ್ಯಾಶ್‌ಕಾರ್ಡ್ ಸೆಟ್‌ಗಳನ್ನು ರಚಿಸಿಲ್ಲ.";
+"retry_button_title" = "ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ";
+"retry_button_accessibility_label" = "ಲೋಡ್ ಮಾಡಲು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ";
+"retry_button_accessibility_hint" = "ಸರ್ವರ್‌ನಿಂದ ನಿಮ್ಮ ಫ್ಲ್ಯಾಶ್‌ಕಾರ್ಡ್ ಸೆಟ್‌ಗಳನ್ನು ಮರುಲೋಡ್ ಮಾಡಲು ಪ್ರಯತ್ನಿಸುತ್ತದೆ";
+"loading_sets_accessibility_label" = "ನಿಮ್ಮ ಫ್ಲ್ಯಾಶ್‌ಕಾರ್ಡ್ ಸೆಟ್‌ಗಳನ್ನು ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ";
+"saved_flashcard_sets_list_accessibility_label" = "ನಿಮ್ಮ ಉಳಿಸಿದ ಫ್ಲ್ಯಾಶ್‌ಕಾರ್ಡ್ ಸೆಟ್‌ಗಳ ಪಟ್ಟಿ";
+
+"sort_by" = "ವಿಂಗಡಿಸಿ";
+"sort_date_created" = "ರಚಿಸಿದ ದಿನಾಂಕ";
+"sort_last_reviewed" = "ಕೊನೆಯದಾಗಿ ನೋಡಿದ್ದು";
+"sort_alphabetical" = "ಅಕ್ಷರಮಾಲೆ";
+"never" = "ಎಂದಿಗೂ ಇಲ್ಲ";
+
+// Mark: Flashcards
+//FlashcardListView
+"question_label" = "ಪ್ರಶ್ನೆ";
+
+//FlashcardSetHeaderView
+"%d flashcards" = "%d ಫ್ಲ್ಯಾಶ್‌ಕಾರ್ಡ್‌ಗಳು";
+"Last reviewed %@" = "ಕೊನೆಯದಾಗಿ ನೋಡಿದ್ದು %@";
+
+//FlashcardSetView
+"save" = "ಉಳಿಸಿ";
+"just_now" = "ಈಗಷ್ಟೇ";
+"start_practicing" = "ಅಭ್ಯಾಸ ಪ್ರಾರಂಭಿಸಿ";
+"start_practicing_accessibility_label" = "ಅಭ್ಯಾಸ ಪ್ರಾರಂಭಿಸಿ";
+"start_practicing_accessibility_hint" = "ಈ ಸೆಟ್‌ನ ಫ್ಲ್ಯಾಶ್‌ಕಾರ್ಡ್‌ಗಳನ್ನು ಓದಲು ಪ್ರಾರಂಭಿಸಿ";
+"flashcard_set_title" = "%@ ಫ್ಲ್ಯಾಶ್‌ಕಾರ್ಡ್‌ಗಳು";
+
+// Mark: Generate
+//GenerateView
+"generate.title" = "ಸೆಟ್ ರಚಿಸಿ";
+"generate.topic.placeholder" = "ಒಂದು ವಿಷಯವನ್ನು ನಮೂದಿಸಿ";
+"generate.topic.label" = "ವಿಷಯ";
+"generate.difficulty.label" = "ಕಠಿಣತೆ";
+"generate.count.label" = "ಫ್ಲ್ಯಾಶ್‌ಕಾರ್ಡ್‌ಗಳ ಸಂಖ್ಯೆ";
+"generate.count.value" = "%d ಫ್ಲ್ಯಾಶ್‌ಕಾರ್ಡ್‌ಗಳು";
+"flashcard_singular" = "ಫ್ಲ್ಯಾಶ್‌ಕಾರ್ಡ್";
+"flashcards_plural" = "ಫ್ಲ್ಯಾಶ್‌ಕಾರ್ಡ್‌ಗಳು";
+"generate.button" = "ಫ್ಲ್ಯಾಶ್‌ಕಾರ್ಡ್‌ಗಳನ್ನು ರಚಿಸಿ";
+"generate.button.hint" = "ಫ್ಲ್ಯಾಶ್‌ಕಾರ್ಡ್‌ಗಳನ್ನು ರಚಿಸಲು ಎರಡು ಬಾರಿ ಟ್ಯಾಪ್ ಮಾಡಿ";
+"generate.preview.title" = "ಮುನ್ನೋಟ";
+"generate.preview.no_topic" = "ಯಾವುದೇ ವಿಷಯ ಆಯ್ಕೆ ಮಾಡಿಲ್ಲ";
+"generate.preview.empty_hint" = "ಮುನ್ನೋಟ ನೋಡಲು ವಿಷಯವನ್ನು ನಮೂದಿಸಿ!";
+
+"difficulty_easy" = "ಸುಲಭ";
+"difficulty_medium" = "ಮಧ್ಯಮ";
+"difficulty_hard" = "ಕಠಿಣ";
+
+"error.empty_topic" = "ದಯವಿಟ್ಟು ವಿಷಯವನ್ನು ನಮೂದಿಸಿ.";
+"error.network" = "ನೆಟ್‌ವರ್ಕ್ ದೋಷ ಸಂಭವಿಸಿದೆ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.";
+"error.decoding" = "ಫ್ಲ್ಯಾಶ್‌ಕಾರ್ಡ್‌ಗಳನ್ನು ಡಿಕೋಡ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ.";
+"error.unknown" = "ಅಜ್ಞಾತ ದೋಷ ಸಂಭವಿಸಿದೆ.";
+
+// Mark: Flashcard Practice
+// FlashcardDeckView
+"flashcards.title" = "ಫ್ಲ್ಯಾಶ್‌ಕಾರ್ಡ್‌ಗಳು";
+"flashcards.empty" = "ಯಾವುದೇ ಫ್ಲ್ಯಾಶ್‌ಕಾರ್ಡ್‌ಗಳು ಲಭ್ಯವಿಲ್ಲ";
+"flashcards.prev" = "ಹಿಂದಿನ";
+"flashcards.next" = "ಮುಂದಿನ";
+"flashcards.reveal" = "ತೋರಿಸಿ";
+"flashcards.hide" = "ಮರೆಮಾಡಿ";
+
+// FlipCardView
+"flashcard.question" = "ಪ್ರಶ್ನೆ";
+"flashcard.answer" = "ಉತ್ತರ";
+
+// Mark: Settings
+"settings.guest.title" = "ಅತಿಥಿ ಬಳಕೆದಾರ";
+"settings.guest.subtitle" = "ನಿಮ್ಮ ಫ್ಲ್ಯಾಶ್‌ಕಾರ್ಡ್‌ಗಳನ್ನು ಉಳಿಸಲು ಸೈನ್ ಇನ್ ಮಾಡಿ";
+"settings.account.header" = "ಖಾತೆ";
+"settings.about.header" = "ಕುರಿತು";
+"settings.version" = "ಆವೃತ್ತಿ";
+"settings.legal.header" = "ಕಾನೂನು";
+"settings.privacy" = "ಗೌಪ್ಯತಾ ನೀತಿ";
+"settings.terms" = "ಬಳಕೆಯ ನಿಯಮಗಳು";
+"settings.feedback.header" = "ಪ್ರತಿಕ್ರಿಯೆ";
+"settings.rate_app" = "ಈ ಅಪ್ಲಿಕೇಶನ್ ಅನ್ನು ರೇಟ್ ಮಾಡಿ";
+"settings.send_feedback" = "ಪ್ರತಿಕ್ರಿಯೆ ಕಳುಹಿಸಿ";
+"settings.data.header" = "ಡೇಟಾ ನಿರ್ವಹಣೆ";
+"settings.delete_all" = "ಎಲ್ಲಾ ಫ್ಲ್ಯಾಶ್‌ಕಾರ್ಡ್ ಸೆಟ್‌ಗಳನ್ನು ಅಳಿಸಿ";
+"settings.delete_all.alert.title" = "ಎಲ್ಲಾ ಡೇಟಾವನ್ನು ಅಳಿಸಬೇಕೆ?";
+"settings.delete_all.alert.message" = "ಈ ಕ್ರಿಯೆಯನ್ನು ರದ್ದುಗೊಳಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ. ನಿಮ್ಮ ಎಲ್ಲಾ ಫ್ಲ್ಯಾಶ್‌ಕಾರ್ಡ್ ಸೆಟ್‌ಗಳನ್ನು ಶಾಶ್ವತವಾಗಿ ಅಳಿಸಲಾಗುತ್ತದೆ.";
+"settings.signin_create" = "ಸೈನ್ ಇನ್ / ಖಾತೆ ರಚಿಸಿ";
+"settings.signout" = "ಸೈನ್ ಔಟ್";
+"settings.loading_profile" = "ಪ್ರೊಫೈಲ್ ಲೋಡ್ ಆಗುತ್ತಿದೆ...";
+
+
+// Mark: Login
+"login.app_name" = "FlashGen";
+"login.subtitle" = "AI-ಚಾಲಿತ ಫ್ಲ್ಯಾಶ್‌ಕಾರ್ಡ್‌ಗಳು";
+"login.google_button" = "Google ನೊಂದಿಗೆ ಸೈನ್ ಇನ್ ಮಾಡಿ";
+"login.guest_button" = "ಅತಿಥಿಯಾಗಿ ಮುಂದುವರಿಯಿರಿ";
+"login.error.root_view" = "ರೂಟ್ ವ್ಯೂ ಕಂಟ್ರೋಲರ್ ಹುಡುಕಲು ಸಾಧ್ಯವಿಲ್ಲ";
+"login.error.id_token" = "ID ಟೋಕನ್ ಪಡೆಯಲು ವಿಫಲವಾಗಿದೆ";
+"login.error.signin_failed" = "ಸೈನ್ ಇನ್ ವಿಫಲವಾಗಿದೆ: %@";
+"login.error.apple_signin_failed" = "Apple ನೊಂದಿಗೆ ಸೈನ್ ಇನ್ ವಿಫಲವಾಗಿದೆ: %@";
+"login.logo.accessibility_label" = "FlashGen ಅಪ್ಲಿಕೇಶನ್ ಲೋಗೋ";
+
+// Mark: Home Accessibility
+"home.filter_button.accessibility_label" = "ಫ್ಲ್ಯಾಶ್‌ಕಾರ್ಡ್ ಸೆಟ್‌ಗಳನ್ನು ವಿಂಗಡಿಸಿ";
+"tile.difficulty.accessibility_label" = "%@ ಕಠಿಣತೆ";
+
+// Mark: Generate Accessibility
+"generate.count.min" = "5";
+"generate.count.max" = "20";
+"generate.preview.accessibility_label" = "ಸೆಟ್ ಮುನ್ನೋಟ: %@, %d ಕಾರ್ಡ್‌ಗಳು, %@ ಕಠಿಣತೆ";
+"generate.preview.empty.accessibility_label" = "ಖಾಲಿ ಮುನ್ನೋಟ. ವಿವರಗಳನ್ನು ನೋಡಲು ವಿಷಯವನ್ನು ನಮೂದಿಸಿ.";
+
+// Mark: Settings Accessibility
+"settings.title" = "ಸೆಟ್ಟಿಂಗ್‌ಗಳು";
+"settings.profile_picture" = "ಪ್ರೊಫೈಲ್ ಚಿತ್ರ";
+
+// Mark: Flashcards Accessibility
+"generation.error.title" = "ರಚನೆ ವಿಫಲವಾಗಿದೆ";
+"generation.error.unknown" = "ಅಜ್ಞಾತ ದೋಷ";
+"alert.ok" = "ಸರಿ";
+"flashcards.next" = "ಮುಂದಿನ";

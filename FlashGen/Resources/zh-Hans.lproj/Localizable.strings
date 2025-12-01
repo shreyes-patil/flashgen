@@ -1,0 +1,149 @@
+//
+//  Localizable.strings
+//  FlashGen
+//
+//  Created by Shreyas Patil on 8/7/25.
+//
+
+// Mark: MainTab
+"tab_home" = "首页";
+"tab_generate" = "生成";
+"tab_settings" = "设置";
+
+// Mark: Home
+//FlashcardSetTileView
+"Last reviewed %@" = "上次复习 %@";
+"%d flashcards" = "%d 张卡片";
+
+//HomeView
+"saved_flashcard_sets_title" = "我的卡片集";
+"loading_sets_progress_title" = "正在加载卡片集";
+/* Delete flashcard set */
+"delete_set_button" = "删除";
+"delete_set_accessibility_label" = "删除卡片集";
+"delete_set_accessibility_hint" = "永久删除此卡片集";
+"delete_set_alert_title" = "删除卡片集？";
+"delete_set_alert_message" = "这将永久删除此卡片集及其所有卡片。此操作无法撤销。";
+"delete" = "删除";
+"cancel" = "取消";
+
+"empty_sets_title" = "没有卡片集";
+"empty_sets_subtitle" = "点击“生成”标签创建你的第一个卡片集！";
+"empty_sets_accessibility_hint" = "你还没有创建任何卡片集。";
+"retry_button_title" = "重试";
+"retry_button_accessibility_label" = "重试加载";
+"retry_button_accessibility_hint" = "尝试从服务器重新加载你的卡片集";
+"loading_sets_accessibility_label" = "正在加载你的卡片集";
+"saved_flashcard_sets_list_accessibility_label" = "你保存的卡片集列表";
+
+"sort_by" = "排序方式";
+"sort_date_created" = "创建日期";
+"sort_last_reviewed" = "上次复习";
+"sort_alphabetical" = "字母顺序";
+"never" = "从不";
+
+// Mark: Flashcards
+//FlashcardListView
+"question_label" = "问题";
+
+//FlashcardSetHeaderView
+"%d flashcards" = "%d 张卡片";
+"Last reviewed %@" = "上次复习 %@";
+
+//FlashcardSetView
+"save" = "保存";
+"just_now" = "刚刚";
+"start_practicing" = "开始练习";
+"start_practicing_accessibility_label" = "开始练习";
+"start_practicing_accessibility_hint" = "开始复习此卡片集";
+"flashcard_set_title" = "%@ 卡片";
+
+// Mark: Generate
+//GenerateView
+"generate.title" = "创建卡片集";
+"generate.topic.placeholder" = "输入主题";
+"generate.topic.label" = "主题";
+"generate.difficulty.label" = "难度";
+"generate.count.label" = "卡片数量";
+"generate.count.value" = "%d 张卡片";
+"flashcard_singular" = "卡片";
+"flashcards_plural" = "卡片";
+"generate.button" = "生成卡片";
+"generate.button.hint" = "双击生成卡片";
+"generate.preview.title" = "预览";
+"generate.preview.no_topic" = "未选择主题";
+"generate.preview.empty_hint" = "输入主题以查看预览！";
+
+"difficulty_easy" = "简单";
+"difficulty_medium" = "中等";
+"difficulty_hard" = "困难";
+
+"error.empty_topic" = "请输入一个主题。";
+"error.network" = "网络错误。请重试。";
+"error.decoding" = "解码卡片失败。";
+"error.unknown" = "发生未知错误。";
+
+// Mark: Flashcard Practice
+// FlashcardDeckView
+"flashcards.title" = "卡片";
+"flashcards.empty" = "没有可用的卡片";
+"flashcards.prev" = "上一个";
+"flashcards.next" = "下一个";
+"flashcards.reveal" = "显示";
+"flashcards.hide" = "隐藏";
+
+// FlipCardView
+"flashcard.question" = "问题";
+"flashcard.answer" = "答案";
+
+// Mark: Settings
+"settings.guest.title" = "访客用户";
+"settings.guest.subtitle" = "登录以保存你的卡片";
+"settings.account.header" = "账户";
+"settings.about.header" = "关于";
+"settings.version" = "版本";
+"settings.legal.header" = "法律";
+"settings.privacy" = "隐私政策";
+"settings.terms" = "使用条款";
+"settings.feedback.header" = "反馈";
+"settings.rate_app" = "评价此应用";
+"settings.send_feedback" = "发送反馈";
+"settings.data.header" = "数据管理";
+"settings.delete_all" = "删除所有卡片集";
+"settings.delete_all.alert.title" = "删除所有数据？";
+"settings.delete_all.alert.message" = "此操作无法撤销。你的所有卡片集将被永久删除。";
+"settings.signin_create" = "登录 / 创建账户";
+"settings.signout" = "退出登录";
+"settings.loading_profile" = "正在加载个人资料...";
+
+
+// Mark: Login
+"login.app_name" = "FlashGen";
+"login.subtitle" = "AI 驱动的卡片";
+"login.google_button" = "使用 Google 登录";
+"login.guest_button" = "以访客身份继续";
+"login.error.root_view" = "无法找到根视图控制器";
+"login.error.id_token" = "获取 ID 令牌失败";
+"login.error.signin_failed" = "登录失败：%@";
+"login.error.apple_signin_failed" = "Apple 登录失败：%@";
+"login.logo.accessibility_label" = "FlashGen 应用图标";
+
+// Mark: Home Accessibility
+"home.filter_button.accessibility_label" = "排序卡片集";
+"tile.difficulty.accessibility_label" = "%@ 难度";
+
+// Mark: Generate Accessibility
+"generate.count.min" = "5";
+"generate.count.max" = "20";
+"generate.preview.accessibility_label" = "预览：%@，%d 张卡片，%@ 难度";
+"generate.preview.empty.accessibility_label" = "预览为空。输入主题以查看详情。";
+
+// Mark: Settings Accessibility
+"settings.title" = "设置";
+"settings.profile_picture" = "个人资料照片";
+
+// Mark: Flashcards Accessibility
+"generation.error.title" = "生成失败";
+"generation.error.unknown" = "未知错误";
+"alert.ok" = "确定";
+"flashcards.next" = "下一个";

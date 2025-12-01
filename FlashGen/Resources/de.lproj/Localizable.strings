@@ -1,0 +1,149 @@
+//
+//  Localizable.strings
+//  FlashGen
+//
+//  Created by Shreyas Patil on 8/7/25.
+//
+
+// Mark: MainTab
+"tab_home" = "Startseite";
+"tab_generate" = "Erstellen";
+"tab_settings" = "Einstellungen";
+
+// Mark: Home
+//FlashcardSetTileView
+"Last reviewed %@" = "Zuletzt gelernt %@";
+"%d flashcards" = "%d Karteikarten";
+
+//HomeView
+"saved_flashcard_sets_title" = "Meine Sets";
+"loading_sets_progress_title" = "Lade Karteikarten-Sets";
+/* Delete flashcard set */
+"delete_set_button" = "Löschen";
+"delete_set_accessibility_label" = "Karteikarten-Set löschen";
+"delete_set_accessibility_hint" = "Löscht dieses Set dauerhaft";
+"delete_set_alert_title" = "Set löschen?";
+"delete_set_alert_message" = "Dies wird das Set und alle Karten dauerhaft löschen. Diese Aktion kann nicht rückgängig gemacht werden.";
+"delete" = "Löschen";
+"cancel" = "Abbrechen";
+
+"empty_sets_title" = "Keine Karteikarten-Sets";
+"empty_sets_subtitle" = "Tippe auf Erstellen, um dein erstes Set zu generieren!";
+"empty_sets_accessibility_hint" = "Du hast noch keine Sets erstellt.";
+"retry_button_title" = "Erneut versuchen";
+"retry_button_accessibility_label" = "Laden wiederholen";
+"retry_button_accessibility_hint" = "Versucht, die Sets erneut vom Server zu laden";
+"loading_sets_accessibility_label" = "Lade deine Karteikarten-Sets";
+"saved_flashcard_sets_list_accessibility_label" = "Liste deiner gespeicherten Sets";
+
+"sort_by" = "Sortieren nach";
+"sort_date_created" = "Erstelldatum";
+"sort_last_reviewed" = "Zuletzt gelernt";
+"sort_alphabetical" = "Alphabetisch";
+"never" = "Nie";
+
+// Mark: Flashcards
+//FlashcardListView
+"question_label" = "Frage";
+
+//FlashcardSetHeaderView
+"%d flashcards" = "%d Karteikarten";
+"Last reviewed %@" = "Zuletzt gelernt %@";
+
+//FlashcardSetView
+"save" = "Speichern";
+"just_now" = "Gerade eben";
+"start_practicing" = "Üben starten";
+"start_practicing_accessibility_label" = "Üben starten";
+"start_practicing_accessibility_hint" = "Beginne mit dem Lernen dieses Sets";
+"flashcard_set_title" = "%@ Karteikarten";
+
+// Mark: Generate
+//GenerateView
+"generate.title" = "Set erstellen";
+"generate.topic.placeholder" = "Thema eingeben";
+"generate.topic.label" = "Thema";
+"generate.difficulty.label" = "Schwierigkeit";
+"generate.count.label" = "Anzahl der Karten";
+"generate.count.value" = "%d Karten";
+"flashcard_singular" = "Karte";
+"flashcards_plural" = "Karten";
+"generate.button" = "Karten generieren";
+"generate.button.hint" = "Doppeltippen zum Generieren";
+"generate.preview.title" = "Vorschau";
+"generate.preview.no_topic" = "Kein Thema ausgewählt";
+"generate.preview.empty_hint" = "Gib ein Thema ein für eine Vorschau!";
+
+"difficulty_easy" = "Leicht";
+"difficulty_medium" = "Mittel";
+"difficulty_hard" = "Schwer";
+
+"error.empty_topic" = "Bitte gib ein Thema ein.";
+"error.network" = "Netzwerkfehler. Bitte versuche es erneut.";
+"error.decoding" = "Fehler beim Dekodieren der Karten.";
+"error.unknown" = "Ein unbekannter Fehler ist aufgetreten.";
+
+// Mark: Flashcard Practice
+// FlashcardDeckView
+"flashcards.title" = "Karteikarten";
+"flashcards.empty" = "Keine Karten verfügbar";
+"flashcards.prev" = "Zurück";
+"flashcards.next" = "Weiter";
+"flashcards.reveal" = "Aufdecken";
+"flashcards.hide" = "Verbergen";
+
+// FlipCardView
+"flashcard.question" = "Frage";
+"flashcard.answer" = "Antwort";
+
+// Mark: Settings
+"settings.guest.title" = "Gastbenutzer";
+"settings.guest.subtitle" = "Anmelden zum Speichern";
+"settings.account.header" = "Konto";
+"settings.about.header" = "Über";
+"settings.version" = "Version";
+"settings.legal.header" = "Rechtliches";
+"settings.privacy" = "Datenschutzerklärung";
+"settings.terms" = "Nutzungsbedingungen";
+"settings.feedback.header" = "Feedback";
+"settings.rate_app" = "App bewerten";
+"settings.send_feedback" = "Feedback senden";
+"settings.data.header" = "Datenverwaltung";
+"settings.delete_all" = "Alle Sets löschen";
+"settings.delete_all.alert.title" = "Alle Daten löschen?";
+"settings.delete_all.alert.message" = "Dies kann nicht rückgängig gemacht werden. Alle deine Sets werden dauerhaft gelöscht.";
+"settings.signin_create" = "Anmelden / Registrieren";
+"settings.signout" = "Abmelden";
+"settings.loading_profile" = "Lade Profil...";
+
+
+// Mark: Login
+"login.app_name" = "FlashGen";
+"login.subtitle" = "KI-Karteikarten";
+"login.google_button" = "Mit Google anmelden";
+"login.guest_button" = "Als Gast fortfahren";
+"login.error.root_view" = "Root View Controller nicht gefunden";
+"login.error.id_token" = "ID-Token konnte nicht abgerufen werden";
+"login.error.signin_failed" = "Anmeldung fehlgeschlagen: %@";
+"login.error.apple_signin_failed" = "Apple-Anmeldung fehlgeschlagen: %@";
+"login.logo.accessibility_label" = "FlashGen App Logo";
+
+// Mark: Home Accessibility
+"home.filter_button.accessibility_label" = "Sets sortieren";
+"tile.difficulty.accessibility_label" = "Schwierigkeit %@";
+
+// Mark: Generate Accessibility
+"generate.count.min" = "5";
+"generate.count.max" = "20";
+"generate.preview.accessibility_label" = "Vorschau: %@, %d Karten, Schwierigkeit %@";
+"generate.preview.empty.accessibility_label" = "Leere Vorschau. Gib ein Thema ein.";
+
+// Mark: Settings Accessibility
+"settings.title" = "Einstellungen";
+"settings.profile_picture" = "Profilbild";
+
+// Mark: Flashcards Accessibility
+"generation.error.title" = "Generierung fehlgeschlagen";
+"generation.error.unknown" = "Unbekannter Fehler";
+"alert.ok" = "OK";
+"flashcards.next" = "Weiter";

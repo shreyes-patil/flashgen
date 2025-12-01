@@ -53,6 +53,7 @@ struct SettingsView: View {
                                 }
                                 .frame(width: 60, height: 60)
                                 .clipShape(Circle())
+                                .accessibilityLabel(Text(LocalizedStringKey("settings.profile_picture")))
                             } else {
                                 Image(systemName: "person.circle.fill")
                                     .resizable()
@@ -184,7 +185,7 @@ struct SettingsView: View {
                     }
                 }
             }
-            .navigationTitle("Settings")
+            .navigationTitle(Text(LocalizedStringKey("settings.title")))
             .task {
                 if !authManager.isGuestMode {
                     await viewModel.loadUserProfile()

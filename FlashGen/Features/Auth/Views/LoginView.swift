@@ -31,12 +31,13 @@ struct LoginView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 120, height: 120)
+                        .accessibilityLabel(Text(LocalizedStringKey("login.logo.accessibility_label")))
                     
-                    Text("FlashGen")
+                    Text(LocalizedStringKey("login.app_name"))
                         .font(.largeTitle)
                         .fontWeight(.bold)
                     
-                    Text("AI-Powered Flashcards")
+                    Text(LocalizedStringKey("login.subtitle"))
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                 }
@@ -59,7 +60,7 @@ struct LoginView: View {
                                 .progressViewStyle(CircularProgressViewStyle(tint: .white))
                         } else {
                             Image(systemName: "g.circle.fill")
-                            Text("Sign in with Google")
+                            Text(LocalizedStringKey("login.google_button"))
                                 .fontWeight(.semibold)
                         }
                     }
@@ -112,7 +113,7 @@ struct LoginView: View {
                     Button(action: {
                         authManager.continueAsGuest()
                     }) {
-                        Text("Continue as Guest")
+                        Text(LocalizedStringKey("login.guest_button"))
                             .font(.subheadline)
                             .fontWeight(.medium)
                             .foregroundColor(.secondary)
@@ -132,7 +133,7 @@ struct LoginView: View {
         
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let rootViewController = windowScene.windows.first?.rootViewController else {
-            errorMessage = "Unable to find root view controller"
+            errorMessage = NSLocalizedString("login.error.root_view", comment: "")
             isGoogleLoading = false
             return
         }
@@ -141,7 +142,7 @@ struct LoginView: View {
             let result = try await GIDSignIn.sharedInstance.signIn(withPresenting: rootViewController)
             
             guard let idToken = result.user.idToken?.tokenString else {
-                errorMessage = "Failed to get ID token"
+                errorMessage = NSLocalizedString("login.error.id_token", comment: "")
                 isGoogleLoading = false
                 return
             }
@@ -156,7 +157,7 @@ struct LoginView: View {
           
             
         } catch {
-            errorMessage = "Sign in failed: \(error.localizedDescription)"
+            errorMessage = String(format: NSLocalizedString("login.error.signin_failed", comment: ""), error.localizedDescription)
             
         }
         
@@ -192,7 +193,7 @@ struct LoginView: View {
             )
             
         } catch {
-            errorMessage = "Sign in with Apple failed: \(error.localizedDescription)"
+            errorMessage = String(format: NSLocalizedString("login.error.apple_signin_failed", comment: ""), error.localizedDescription)
         }
         
         isAppleLoading = false
