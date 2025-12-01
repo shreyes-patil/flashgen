@@ -47,5 +47,20 @@ final class GenerateViewModel: ObservableObject {
         isLoading = false
     }
     
+    func generateAndReturn() async throws -> ([Flashcard], String) {
+        guard !topic.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            throw GenerateFlashcardsError.emptyTopic
+        }
+        
+        let flashcards = try await service.generateFlashcards(topic: topic, difficulty: difficulty, count: numberOfCards)
+        let setId = UUID().uuidString.lowercased()
+        
+        // Update local state just in case we come back, but the caller handles the result
+        self.flashcards = flashcards
+        self.generatedSetId = setId
+        
+        return (flashcards, setId)
+    }
+    
     
 }

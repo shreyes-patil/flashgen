@@ -106,9 +106,12 @@ struct GenerateView: View {
                     flashcardSetTitle: viewModel.topic,
                     flashcards: viewModel.flashcards,
                     lastReviewed: "Just now",
-                    numberOfCards: viewModel.flashcards.count,
+                    numberOfCards: viewModel.numberOfCards,
                     difficulty: viewModel.difficulty,
-                    setId: viewModel.generatedSetId
+                    setId: viewModel.generatedSetId,
+                    generationAction: {
+                        return try await viewModel.generateAndReturn()
+                    }
                 )
 
                 
@@ -336,12 +339,8 @@ struct GenerateView: View {
     
     private var generateButtonView: some View {
         Button(action: {
-            Task {
-                await viewModel.generate()
-                if !viewModel.flashcards.isEmpty {
-                    showFlashcardSet = true
-                }
-            }
+            viewModel.flashcards = [] // Clear previous results to trigger new generation
+            showFlashcardSet = true
         }) {
             HStack {
                 if viewModel.isLoading {
