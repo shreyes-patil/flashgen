@@ -53,7 +53,7 @@ struct FlashcardSetTileView: View {
                 Circle()
                     .fill(set.difficulty.color)
                     .frame(width: 8, height: 8)
-                    .accessibilityLabel(Text(String(format: NSLocalizedString("tile.difficulty.accessibility_label", comment: ""), set.difficulty.displayName)))
+                    .accessibilityLabel(Text(String(format: NSLocalizedString("tile.difficulty.accessibility_label", comment: ""), set.difficulty.localizedName)))
             }
             .padding(.horizontal, 12)
             .padding(.vertical, 6)

@@ -132,6 +132,9 @@
 "home.filter_button.accessibility_label" = "Ordenar sets de tarjetas";
 "tile.difficulty.accessibility_label" = "Dificultad %@";
 
+"generate.count.min" = "5";
+"generate.count.max" = "20";
+
 // Mark: Generate Accessibility
 "generate.count.min" = "5";
 "generate.count.max" = "20";

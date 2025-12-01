@@ -132,6 +132,9 @@
 "home.filter_button.accessibility_label" = "ಫ್ಲ್ಯಾಶ್‌ಕಾರ್ಡ್ ಸೆಟ್‌ಗಳನ್ನು ವಿಂಗಡಿಸಿ";
 "tile.difficulty.accessibility_label" = "%@ ಕಠಿಣತೆ";
 
+"generate.count.min" = "5";
+"generate.count.max" = "20";
+
 // Mark: Generate Accessibility
 "generate.count.min" = "5";
 "generate.count.max" = "20";

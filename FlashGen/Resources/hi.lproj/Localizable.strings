@@ -132,6 +132,9 @@
 "home.filter_button.accessibility_label" = "फ्लैशकार्ड सेट क्रमबद्ध करें";
 "tile.difficulty.accessibility_label" = "%@ कठिनाई";
 
+"generate.count.min" = "5";
+"generate.count.max" = "20";
+
 // Mark: Generate Accessibility
 "generate.count.min" = "5";
 "generate.count.max" = "20";

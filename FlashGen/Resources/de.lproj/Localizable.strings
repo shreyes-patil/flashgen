@@ -130,7 +130,10 @@
 
 // Mark: Home Accessibility
 "home.filter_button.accessibility_label" = "Sets sortieren";
-"tile.difficulty.accessibility_label" = "Schwierigkeit %@";
+"tile.difficulty.accessibility_label" = "%@ Schwierigkeit";
+
+"generate.count.min" = "5";
+"generate.count.max" = "20"; %@";
 
 // Mark: Generate Accessibility
 "generate.count.min" = "5";

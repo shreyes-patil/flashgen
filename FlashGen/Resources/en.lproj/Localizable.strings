@@ -132,3 +132,6 @@
 // Mark: Home Accessibility
 "home.filter_button.accessibility_label" = "Sort flashcard sets";
 "tile.difficulty.accessibility_label" = "%@ difficulty";
+
+"generate.count.min" = "5";
+"generate.count.max" = "20";

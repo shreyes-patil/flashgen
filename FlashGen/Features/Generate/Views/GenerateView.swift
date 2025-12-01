@@ -330,7 +330,7 @@ struct GenerateView: View {
                         }
                     }
                     .accessibilityElement(children: .combine)
-                    .accessibilityLabel(Text(String(format: NSLocalizedString("generate.preview.accessibility_label", comment: ""), viewModel.topic, viewModel.numberOfCards, viewModel.difficulty.displayName as! CVarArg as! CVarArg)))
+                    .accessibilityLabel(Text(String(format: NSLocalizedString("generate.preview.accessibility_label", comment: ""), viewModel.topic, viewModel.numberOfCards, viewModel.difficulty.localizedName as! CVarArg as! CVarArg)))
                     Spacer()
                 }
             }
