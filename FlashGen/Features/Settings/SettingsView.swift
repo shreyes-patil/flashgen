@@ -114,6 +114,10 @@ struct SettingsView: View {
                 Section {
                     Button(action: {
                         requestReview()
+                        // Fallback: Open App Store for review (Replace with your App ID)
+                        // if let url = URL(string: "https://apps.apple.com/app/idYOUR_APP_ID?action=write-review") {
+                        //    UIApplication.shared.open(url)
+                        // }
                     }) {
                         Label(LocalizedStringKey("settings.rate_app"), systemImage: "star.fill")
                             .foregroundColor(.primary)

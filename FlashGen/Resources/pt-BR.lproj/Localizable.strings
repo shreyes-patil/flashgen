@@ -97,6 +97,7 @@
 "flashcard.answer" = "Resposta";
 
 // Mark: Settings
+"settings.title" = "Ajustes";
 "settings.guest.title" = "Usuário Convidado";
 "settings.guest.subtitle" = "Entre para salvar seus cartões";
 "settings.account.header" = "Conta";
@@ -118,7 +119,7 @@
 
 
 // Mark: Login
-"login.app_name" = "FlashGen";
+"login.app_name" = "FlashGen AI";
 "login.subtitle" = "Cartões com IA";
 "login.google_button" = "Entrar com Google";
 "login.guest_button" = "Continuar como Convidado";
@@ -132,9 +133,6 @@
 "home.filter_button.accessibility_label" = "Ordenar sets";
 "tile.difficulty.accessibility_label" = "Dificuldade %@";
 
-"generate.count.min" = "5";
-"generate.count.max" = "20";
-
 // Mark: Generate Accessibility
 "generate.count.min" = "5";
 "generate.count.max" = "20";
@@ -142,7 +140,6 @@
 "generate.preview.empty.accessibility_label" = "Prévia vazia. Digite um tópico.";
 
 // Mark: Settings Accessibility
-"settings.title" = "Ajustes";
 "settings.profile_picture" = "Foto de perfil";
 
 // Mark: Flashcards Accessibility

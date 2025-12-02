@@ -97,6 +97,7 @@
 "flashcard.answer" = "ಉತ್ತರ";
 
 // Mark: Settings
+"settings.title" = "ಸೆಟ್ಟಿಂಗ್‌ಗಳು";
 "settings.guest.title" = "ಅತಿಥಿ ಬಳಕೆದಾರ";
 "settings.guest.subtitle" = "ನಿಮ್ಮ ಫ್ಲ್ಯಾಶ್‌ಕಾರ್ಡ್‌ಗಳನ್ನು ಉಳಿಸಲು ಸೈನ್ ಇನ್ ಮಾಡಿ";
 "settings.account.header" = "ಖಾತೆ";
@@ -118,7 +119,7 @@
 
 
 // Mark: Login
-"login.app_name" = "FlashGen";
+"login.app_name" = "FlashGen AI";
 "login.subtitle" = "AI-ಚಾಲಿತ ಫ್ಲ್ಯಾಶ್‌ಕಾರ್ಡ್‌ಗಳು";
 "login.google_button" = "Google ನೊಂದಿಗೆ ಸೈನ್ ಇನ್ ಮಾಡಿ";
 "login.guest_button" = "ಅತಿಥಿಯಾಗಿ ಮುಂದುವರಿಯಿರಿ";
@@ -132,9 +133,6 @@
 "home.filter_button.accessibility_label" = "ಫ್ಲ್ಯಾಶ್‌ಕಾರ್ಡ್ ಸೆಟ್‌ಗಳನ್ನು ವಿಂಗಡಿಸಿ";
 "tile.difficulty.accessibility_label" = "%@ ಕಠಿಣತೆ";
 
-"generate.count.min" = "5";
-"generate.count.max" = "20";
-
 // Mark: Generate Accessibility
 "generate.count.min" = "5";
 "generate.count.max" = "20";
@@ -142,7 +140,6 @@
 "generate.preview.empty.accessibility_label" = "ಖಾಲಿ ಮುನ್ನೋಟ. ವಿವರಗಳನ್ನು ನೋಡಲು ವಿಷಯವನ್ನು ನಮೂದಿಸಿ.";
 
 // Mark: Settings Accessibility
-"settings.title" = "ಸೆಟ್ಟಿಂಗ್‌ಗಳು";
 "settings.profile_picture" = "ಪ್ರೊಫೈಲ್ ಚಿತ್ರ";
 
 // Mark: Flashcards Accessibility

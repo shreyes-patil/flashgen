@@ -97,6 +97,7 @@
 "flashcard.answer" = "Antwort";
 
 // Mark: Settings
+"settings.title" = "Einstellungen";
 "settings.guest.title" = "Gastbenutzer";
 "settings.guest.subtitle" = "Anmelden zum Speichern";
 "settings.account.header" = "Konto";
@@ -118,7 +119,7 @@
 
 
 // Mark: Login
-"login.app_name" = "FlashGen";
+"login.app_name" = "FlashGen AI";
 "login.subtitle" = "KI-Karteikarten";
 "login.google_button" = "Mit Google anmelden";
 "login.guest_button" = "Als Gast fortfahren";
@@ -132,9 +133,6 @@
 "home.filter_button.accessibility_label" = "Sets sortieren";
 "tile.difficulty.accessibility_label" = "%@ Schwierigkeit";
 
-"generate.count.min" = "5";
-"generate.count.max" = "20"; %@";
-
 // Mark: Generate Accessibility
 "generate.count.min" = "5";
 "generate.count.max" = "20";
@@ -142,7 +140,6 @@
 "generate.preview.empty.accessibility_label" = "Leere Vorschau. Gib ein Thema ein.";
 
 // Mark: Settings Accessibility
-"settings.title" = "Einstellungen";
 "settings.profile_picture" = "Profilbild";
 
 // Mark: Flashcards Accessibility

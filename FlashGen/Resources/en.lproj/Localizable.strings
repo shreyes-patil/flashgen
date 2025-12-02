@@ -98,6 +98,7 @@
 "flashcard.answer" = "Answer";
 
 // Mark: Settings
+"settings.title" = "Settings";
 "settings.guest.title" = "Guest User";
 "settings.guest.subtitle" = "Sign in to save your flashcards";
 "settings.account.header" = "Account";
@@ -119,7 +120,7 @@
 
 
 // Mark: Login
-"login.app_name" = "FlashGen";
+"login.app_name" = "FlashGen AI";
 "login.subtitle" = "AI-Powered Flashcards";
 "login.google_button" = "Sign in with Google";
 "login.guest_button" = "Continue as Guest";

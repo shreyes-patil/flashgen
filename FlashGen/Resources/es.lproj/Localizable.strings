@@ -97,6 +97,7 @@
 "flashcard.answer" = "Respuesta";
 
 // Mark: Settings
+"settings.title" = "Ajustes";
 "settings.guest.title" = "Usuario Invitado";
 "settings.guest.subtitle" = "Inicia sesión para guardar tus tarjetas";
 "settings.account.header" = "Cuenta";
@@ -118,7 +119,7 @@
 
 
 // Mark: Login
-"login.app_name" = "FlashGen";
+"login.app_name" = "FlashGen AI";
 "login.subtitle" = "Tarjetas con IA";
 "login.google_button" = "Iniciar sesión con Google";
 "login.guest_button" = "Continuar como Invitado";
@@ -142,7 +143,6 @@
 "generate.preview.empty.accessibility_label" = "Vista previa vacía. Introduce un tema para ver detalles.";
 
 // Mark: Settings Accessibility
-"settings.title" = "Ajustes";
 "settings.profile_picture" = "Foto de perfil";
 
 // Mark: Flashcards Accessibility

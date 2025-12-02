@@ -97,6 +97,7 @@
 "flashcard.answer" = "答案";
 
 // Mark: Settings
+"settings.title" = "设置";
 "settings.guest.title" = "访客用户";
 "settings.guest.subtitle" = "登录以保存你的卡片";
 "settings.account.header" = "账户";
@@ -118,7 +119,7 @@
 
 
 // Mark: Login
-"login.app_name" = "FlashGen";
+"login.app_name" = "FlashGen AI";
 "login.subtitle" = "AI 驱动的卡片";
 "login.google_button" = "使用 Google 登录";
 "login.guest_button" = "以访客身份继续";
@@ -132,9 +133,6 @@
 "home.filter_button.accessibility_label" = "排序卡片集";
 "tile.difficulty.accessibility_label" = "%@ 难度";
 
-"generate.count.min" = "5";
-"generate.count.max" = "20";
-
 // Mark: Generate Accessibility
 "generate.count.min" = "5";
 "generate.count.max" = "20";
@@ -142,7 +140,6 @@
 "generate.preview.empty.accessibility_label" = "预览为空。输入主题以查看详情。";
 
 // Mark: Settings Accessibility
-"settings.title" = "设置";
 "settings.profile_picture" = "个人资料照片";
 
 // Mark: Flashcards Accessibility
