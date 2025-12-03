@@ -1,0 +1,149 @@
+//
+//  Localizable.strings
+//  FlashGen
+//
+//  Created by Shreyas Patil on 8/7/25.
+//
+
+// Mark: MainTab
+"tab_home" = "होम";
+"tab_generate" = "बनाएं";
+"tab_settings" = "सेटिंग्स";
+
+// Mark: Home
+//FlashcardSetTileView
+"Last reviewed %@" = "पिछली समीक्षा %@";
+"%d flashcards" = "%d फ्लैशकार्ड";
+
+//HomeView
+"saved_flashcard_sets_title" = "मेरे सेट";
+"loading_sets_progress_title" = "फ्लैशकार्ड सेट लोड हो रहे हैं";
+/* Delete flashcard set */
+"delete_set_button" = "हटाएं";
+"delete_set_accessibility_label" = "फ्लैशकार्ड सेट हटाएं";
+"delete_set_accessibility_hint" = "इस सेट को स्थायी रूप से हटा देता है";
+"delete_set_alert_title" = "सेट हटाएं?";
+"delete_set_alert_message" = "यह इस फ्लैशकार्ड सेट और इसके सभी कार्डों को स्थायी रूप से हटा देगा। यह क्रिया पूर्ववत नहीं की जा सकती।";
+"delete" = "हटाएं";
+"cancel" = "रद्द करें";
+
+"empty_sets_title" = "कोई फ्लैशकार्ड सेट नहीं";
+"empty_sets_subtitle" = "अपना पहला सेट बनाने के लिए 'बनाएं' टैब पर टैप करें!";
+"empty_sets_accessibility_hint" = "आपने अभी तक कोई फ्लैशकार्ड सेट नहीं बनाया है।";
+"retry_button_title" = "पुनः प्रयास करें";
+"retry_button_accessibility_label" = "लोड करने का पुनः प्रयास करें";
+"retry_button_accessibility_hint" = "सर्वर से आपके फ्लैशकार्ड सेट को फिर से लोड करने का प्रयास करता है";
+"loading_sets_accessibility_label" = "आपके फ्लैशकार्ड सेट लोड हो रहे हैं";
+"saved_flashcard_sets_list_accessibility_label" = "आपके सहेजे गए फ्लैशकार्ड सेट की सूची";
+
+"sort_by" = "क्रमबद्ध करें";
+"sort_date_created" = "बनाने की तिथि";
+"sort_last_reviewed" = "पिछली समीक्षा";
+"sort_alphabetical" = "वर्णानुक्रम";
+"never" = "कभी नहीं";
+
+// Mark: Flashcards
+//FlashcardListView
+"question_label" = "प्रश्न";
+
+//FlashcardSetHeaderView
+"%d flashcards" = "%d फ्लैशकार्ड";
+"Last reviewed %@" = "पिछली समीक्षा %@";
+
+//FlashcardSetView
+"save" = "सहेजें";
+"just_now" = "अभी";
+"start_practicing" = "अभ्यास शुरू करें";
+"start_practicing_accessibility_label" = "अभ्यास शुरू करें";
+"start_practicing_accessibility_hint" = "इस सेट के फ्लैशकार्ड के माध्यम से जाना शुरू करें";
+"flashcard_set_title" = "%@ फ्लैशकार्ड";
+
+// Mark: Generate
+//GenerateView
+"generate.title" = "सेट बनाएं";
+"generate.topic.placeholder" = "एक विषय दर्ज करें";
+"generate.topic.label" = "विषय";
+"generate.difficulty.label" = "कठिनाई";
+"generate.count.label" = "फ्लैशकार्ड की संख्या";
+"generate.count.value" = "%d फ्लैशकार्ड";
+"flashcard_singular" = "फ्लैशकार्ड";
+"flashcards_plural" = "फ्लैशकार्ड";
+"generate.button" = "फ्लैशकार्ड उत्पन्न करें";
+"generate.button.hint" = "फ्लैशकार्ड उत्पन्न करने के लिए दो बार टैप करें";
+"generate.preview.title" = "पूर्वावलोकन";
+"generate.preview.no_topic" = "कोई विषय नहीं चुना गया";
+"generate.preview.empty_hint" = "पूर्वावलोकन देखने के लिए एक विषय दर्ज करें!";
+
+"difficulty_easy" = "आसान";
+"difficulty_medium" = "मध्यम";
+"difficulty_hard" = "कठिन";
+
+"error.empty_topic" = "कृपया एक विषय दर्ज करें।";
+"error.network" = "नेटवर्क त्रुटि हुई। पुनः प्रयास करें।";
+"error.decoding" = "फ्लैशकार्ड डिकोड करने में विफल।";
+"error.unknown" = "एक अज्ञात त्रुटि हुई।";
+
+// Mark: Flashcard Practice
+// FlashcardDeckView
+"flashcards.title" = "फ्लैशकार्ड";
+"flashcards.empty" = "कोई फ्लैशकार्ड उपलब्ध नहीं";
+"flashcards.prev" = "पिछला";
+"flashcards.next" = "अगला";
+"flashcards.reveal" = "दिखाएं";
+"flashcards.hide" = "छिपाएं";
+
+// FlipCardView
+"flashcard.question" = "प्रश्न";
+"flashcard.answer" = "उत्तर";
+
+// Mark: Settings
+"settings.title" = "सेटिंग्स";
+"settings.guest.title" = "अतिथि उपयोगकर्ता";
+"settings.guest.subtitle" = "अपने फ्लैशकार्ड सहेजने के लिए साइन इन करें";
+"settings.account.header" = "खाता";
+"settings.about.header" = "के बारे में";
+"settings.version" = "संस्करण";
+"settings.legal.header" = "कानूनी";
+"settings.privacy" = "गोपनीयता नीति";
+"settings.terms" = "उपयोग की शर्तें";
+"settings.feedback.header" = "प्रतिक्रिया";
+"settings.rate_app" = "इस ऐप को रेट करें";
+"settings.send_feedback" = "प्रतिक्रिया भेजें";
+"settings.data.header" = "डेटा प्रबंधन";
+"settings.delete_all" = "सभी फ्लैशकार्ड सेट हटाएं";
+"settings.delete_all.alert.title" = "सभी डेटा हटाएं?";
+"settings.delete_all.alert.message" = "यह क्रिया पूर्ववत नहीं की जा सकती। आपके सभी फ्लैशकार्ड सेट स्थायी रूप से हटा दिए जाएंगे।";
+"settings.signin_create" = "साइन इन / खाता बनाएं";
+"settings.signout" = "साइन आउट";
+"settings.loading_profile" = "प्रोफ़ाइल लोड हो रहा है...";
+
+
+// Mark: Login
+"login.app_name" = "FlashGen AI";
+"login.subtitle" = "एआई-संचालित फ्लैशकार्ड";
+"login.google_button" = "Google के साथ साइन इन करें";
+"login.guest_button" = "अतिथि के रूप में जारी रखें";
+"login.error.root_view" = "रूट व्यू कंट्रोलर खोजने में असमर्थ";
+"login.error.id_token" = "आईडी टोकन प्राप्त करने में विफल";
+"login.error.signin_failed" = "साइन इन विफल: %@";
+"login.error.apple_signin_failed" = "Apple के साथ साइन इन विफल: %@";
+"login.logo.accessibility_label" = "FlashGen ऐप लोगो";
+
+// Mark: Home Accessibility
+"home.filter_button.accessibility_label" = "फ्लैशकार्ड सेट क्रमबद्ध करें";
+"tile.difficulty.accessibility_label" = "%@ कठिनाई";
+
+// Mark: Generate Accessibility
+"generate.count.min" = "5";
+"generate.count.max" = "20";
+"generate.preview.accessibility_label" = "सेट का पूर्वावलोकन: %@, %d कार्ड, %@ कठिनाई";
+"generate.preview.empty.accessibility_label" = "खाली पूर्वावलोकन। विवरण देखने के लिए एक विषय दर्ज करें।";
+
+// Mark: Settings Accessibility
+"settings.profile_picture" = "प्रोफ़ाइल चित्र";
+
+// Mark: Flashcards Accessibility
+"generation.error.title" = "उत्पन्न विफल";
+"generation.error.unknown" = "अज्ञात त्रुटि";
+"alert.ok" = "ठीक है";
+"flashcards.next" = "अगला";

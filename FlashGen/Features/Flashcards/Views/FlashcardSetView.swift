@@ -9,20 +9,26 @@ import SwiftUI
 
 struct FlashcardSetView: View {
     let flashcardSetTitle : String
-    let flashcards : [Flashcard]
+    @State var flashcards : [Flashcard]
     @State private var lastReviewed: String
     
     let numberOfCards: Int
     let difficulty: FlashcardDifficulty
     let isSavedInitial: Bool
     @State private var hasUpdatedReviewTime = false
-    let setId: String
+    @State var setId: String
     let color: Color
     @State private var isSaving = false
     @State private var saveSuccess = false
     @State private var isSaved: Bool = false
     @EnvironmentObject var authManager: AuthenticationManager
     @State private var showLoginSheet = false
+    @State private var isLoading = false
+    @State private var generationError: String?
+    @Environment(\.dismiss) var dismiss
+    
+    // Optional closure for generating cards on load
+    let generationAction: (() async throws -> ([Flashcard], String))?
     
     private let repository: FlashcardRepository = CachedFlashcardRepository()
     
@@ -35,16 +41,21 @@ struct FlashcardSetView: View {
         difficulty: FlashcardDifficulty = .medium,
         isSavedInitial: Bool = false,
         setId: String = "",
-        color: Color = .yellow
+        color: Color = .yellow,
+        generationAction: (() async throws -> ([Flashcard], String))? = nil
     ) {
         self.flashcardSetTitle = flashcardSetTitle
-        self.flashcards = flashcards
+        self._flashcards = State(initialValue: flashcards)
         self._lastReviewed = State(initialValue: lastReviewed)
         self.numberOfCards = numberOfCards
         self.difficulty = difficulty
         self.isSavedInitial = isSavedInitial
-        self.setId = setId
+        self._setId = State(initialValue: setId)
         self.color = color
+        self.generationAction = generationAction
+        
+        // If we have a generation action, we start in loading state
+        self._isLoading = State(initialValue: generationAction != nil)
     }
     @MainActor
     private func saveSet() async {
@@ -96,36 +107,50 @@ struct FlashcardSetView: View {
                     .padding(.bottom, 10)
                 
                 ScrollView{
-                    FlashcardListView(flashcards: flashcards, color: color)
+                    if isLoading {
+                        VStack(spacing: 12) {
+                            ForEach(0..<numberOfCards, id: \.self) { _ in
+                                SkeletonFlashcardRow()
+                            }
+                        }
                         .padding()
                         .padding(.bottom, 100)
-                        .frame(maxWidth: 700) // Keep the content centered and readable
-                        .frame(maxWidth: .infinity) // Fill the screen background
+                        .frame(maxWidth: 700)
+                        .frame(maxWidth: .infinity)
+                    } else {
+                        FlashcardListView(flashcards: flashcards, color: color)
+                            .padding()
+                            .padding(.bottom, 100)
+                            .frame(maxWidth: 700) // Keep the content centered and readable
+                            .frame(maxWidth: .infinity) // Fill the screen background
+                    }
                 }
                 
                 .safeAreaInset(edge: .bottom) {
-                    NavigationLink {
-                        FlashcardDeckView(vm: .init(cards: flashcards), color: color)   // push the deck
-                    } label: {
-                        Text(LocalizedStringKey("start_practicing"))
-                            .font(.headline)
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.blue)
-                            .clipShape(RoundedCornerShape(radius: 18, corners: [.topLeft, .bottomRight]))
-                            .shadow(radius: 4)
-                            .padding(.horizontal, 2)
+                    if !isLoading {
+                        NavigationLink {
+                            FlashcardDeckView(vm: .init(cards: flashcards), color: color)   // push the deck
+                        } label: {
+                            Text(LocalizedStringKey("start_practicing"))
+                                .font(.headline)
+                                .foregroundColor(.white)
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(Color.blue)
+                                .clipShape(RoundedCornerShape(radius: 18, corners: [.topLeft, .bottomRight]))
+                                .shadow(radius: 4)
+                                .padding(.horizontal, 2)
+                        }
+                        .buttonStyle(.plain) // preserves your custom background
+                        .accessibilityLabel(Text(LocalizedStringKey("start_practicing_accessibility_label")))
+                        .accessibilityHint(Text(LocalizedStringKey("start_practicing_accessibility_hint")))
                     }
-                    .buttonStyle(.plain) // preserves your custom background
-                    .accessibilityLabel(Text(LocalizedStringKey("start_practicing_accessibility_label")))
-                    .accessibilityHint(Text(LocalizedStringKey("start_practicing_accessibility_hint")))
                 }
                 
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    if !isSaved {
+                    if !isSaved && !isLoading {
                         Button(action: {
                             Task { await saveSet() }
                         }) {
@@ -142,6 +167,16 @@ struct FlashcardSetView: View {
                     }
                 }
             }
+            .alert(LocalizedStringKey("generation.error.title"), isPresented: Binding(
+                get: { generationError != nil },
+                set: { if !$0 { generationError = nil; dismiss() } }
+            )) {
+                Button(LocalizedStringKey("alert.ok")) {
+                    dismiss()
+                }
+            } message: {
+                Text(generationError ?? NSLocalizedString("generation.error.unknown", comment: ""))
+            }
             .onAppear {
                 self.isSaved = isSavedInitial
                 if isSavedInitial {
@@ -149,13 +184,32 @@ struct FlashcardSetView: View {
                 }
             }
             .task {
-                guard !hasUpdatedReviewTime else { return }
+                // Handle Generation if needed
+                if let action = generationAction, flashcards.isEmpty {
+                    isLoading = true
+                    do {
+                        let (generatedCards, generatedId) = try await action()
+                        self.flashcards = generatedCards
+                        self.setId = generatedId
+                        self.isLoading = false
+                        
+                        // Auto-save if needed? For now, we just show them.
+                        // User can click save.
+                    } catch {
+                        self.generationError = error.localizedDescription
+                        self.isLoading = false
+                    }
+                }
+                
+                guard !hasUpdatedReviewTime && !isLoading else { return }
                 hasUpdatedReviewTime = true
                 
                 do {
-                    try await repository.updateLastReviewed(setId: setId)
-                    // Update local state to reflect change immediately
-                    self.lastReviewed = NSLocalizedString("just_now", comment: "Relative time for just now")
+                    if !setId.isEmpty {
+                        try await repository.updateLastReviewed(setId: setId)
+                        // Update local state to reflect change immediately
+                        self.lastReviewed = NSLocalizedString("just_now", comment: "Relative time for just now")
+                    }
                 } catch {
                     // Fail silently or log to analytics in production
                 }

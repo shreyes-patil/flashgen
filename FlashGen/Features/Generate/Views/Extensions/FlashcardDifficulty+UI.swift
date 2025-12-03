@@ -16,6 +16,14 @@ extension FlashcardDifficulty {
         }
     }
     
+    var localizedName: String {
+        switch self {
+        case .easy: return NSLocalizedString("difficulty_easy", comment: "Easy difficulty")
+        case .medium: return NSLocalizedString("difficulty_medium", comment: "Medium difficulty")
+        case .hard: return NSLocalizedString("difficulty_hard", comment: "Hard difficulty")
+        }
+    }
+    
     var color: Color {
         switch self {
         case .easy: return .green

@@ -8,12 +8,14 @@
 import SwiftUI
 import GoogleSignIn
 import Supabase
+import StoreKit
 
 struct SettingsView: View {
     @StateObject private var viewModel = SettingsViewModel()
     @State private var showDeleteConfirmation = false
     @EnvironmentObject var authManager: AuthenticationManager
     @State private var showLoginSheet = false
+    @Environment(\.requestReview) var requestReview
     
     var body: some View {
         NavigationStack {
@@ -51,6 +53,7 @@ struct SettingsView: View {
                                 }
                                 .frame(width: 60, height: 60)
                                 .clipShape(Circle())
+                                .accessibilityLabel(Text(LocalizedStringKey("settings.profile_picture")))
                             } else {
                                 Image(systemName: "person.circle.fill")
                                     .resizable()
@@ -109,7 +112,13 @@ struct SettingsView: View {
                 
                 // Feedback Section
                 Section {
-                    Link(destination: URL(string: "https://apps.apple.com/app/id123456789?action=write-review")!) {
+                    Button(action: {
+                        requestReview()
+                        // Fallback: Open App Store for review (Replace with your App ID)
+                        // if let url = URL(string: "https://apps.apple.com/app/idYOUR_APP_ID?action=write-review") {
+                        //    UIApplication.shared.open(url)
+                        // }
+                    }) {
                         Label(LocalizedStringKey("settings.rate_app"), systemImage: "star.fill")
                             .foregroundColor(.primary)
                     }
@@ -180,7 +189,7 @@ struct SettingsView: View {
                     }
                 }
             }
-            .navigationTitle("Settings")
+            .navigationTitle(Text(LocalizedStringKey("settings.title")))
             .task {
                 if !authManager.isGuestMode {
                     await viewModel.loadUserProfile()
@@ -189,6 +198,13 @@ struct SettingsView: View {
             .sheet(isPresented: $showLoginSheet) {
                 LoginView()
                     .environmentObject(authManager)
+            }
+            .onChange(of: authManager.isAuthenticated) { isAuthenticated in
+                if isAuthenticated {
+                    Task {
+                        await viewModel.loadUserProfile()
+                    }
+                }
             }
         }
     }

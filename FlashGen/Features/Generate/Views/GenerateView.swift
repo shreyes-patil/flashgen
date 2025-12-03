@@ -97,6 +97,8 @@ struct GenerateView: View {
                     }
                 }
             }
+            }
+            .keyboardDismissal()
             .navigationTitle(Text("generate.title"))
             .navigationBarTitleDisplayMode(.large)
             .navigationDestination(isPresented: $showFlashcardSet) {
@@ -104,12 +106,15 @@ struct GenerateView: View {
                     flashcardSetTitle: viewModel.topic,
                     flashcards: viewModel.flashcards,
                     lastReviewed: "Just now",
-                    numberOfCards: viewModel.flashcards.count,
+                    numberOfCards: viewModel.numberOfCards,
                     difficulty: viewModel.difficulty,
-                    setId: viewModel.generatedSetId
+                    setId: viewModel.generatedSetId,
+                    generationAction: {
+                        return try await viewModel.generateAndReturn()
+                    }
                 )
 
-            }
+                
         }
     }
     
@@ -155,7 +160,7 @@ struct GenerateView: View {
                 RoundedCornerShape(radius: 16, corners: [.topLeft, .bottomRight])
                     .stroke(viewModel.topic.isEmpty ? Color.gray.opacity(0.3) : Color.blue.opacity(0.5), lineWidth: 1)
             )
-            .accessibilityLabel(Text("generate.topic.label"))
+            .accessibilityLabel(Text(LocalizedStringKey("generate.topic.label")))
         }
         .padding(.horizontal)
     }
@@ -209,7 +214,7 @@ struct GenerateView: View {
                 }
             }
             .clipShape(RoundedCornerShape(radius: 16, corners: [.topLeft, .bottomRight]))
-            .accessibilityLabel(Text("generate.difficulty.label"))
+            .accessibilityLabel(Text(LocalizedStringKey("generate.difficulty.label")))
         }
         .padding()
         .background(cardBackgroundColor)
@@ -250,15 +255,15 @@ struct GenerateView: View {
                 step: 1
             )
             .tint(.blue)
-            .accessibilityLabel(Text("generate.count.label"))
+            .accessibilityLabel(Text(LocalizedStringKey("generate.count.label")))
             .accessibilityValue(Text("\(viewModel.numberOfCards)"))
             
             HStack {
-                Text("5")
+                Text(LocalizedStringKey("generate.count.min"))
                     .font(.caption)
                     .foregroundColor(.secondary)
                 Spacer()
-                Text("20")
+                Text(LocalizedStringKey("generate.count.max"))
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
@@ -296,6 +301,8 @@ struct GenerateView: View {
                     }
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 12)
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel(Text(LocalizedStringKey("generate.preview.empty.accessibility_label")))
                 } else {
                     VStack(alignment: .leading, spacing: 4) {
                         Text(viewModel.topic)
@@ -310,6 +317,7 @@ struct GenerateView: View {
                             
                             Text("•")
                                 .foregroundColor(.secondary)
+                                .accessibilityHidden(true)
                             
                             Text(viewModel.difficulty.displayName)
                                 .font(.caption)
@@ -321,6 +329,8 @@ struct GenerateView: View {
                                 .clipShape(Capsule())
                         }
                     }
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel(Text(String(format: NSLocalizedString("generate.preview.accessibility_label", comment: ""), viewModel.topic, viewModel.numberOfCards, viewModel.difficulty.localizedName as! CVarArg as! CVarArg)))
                     Spacer()
                 }
             }
@@ -334,12 +344,8 @@ struct GenerateView: View {
     
     private var generateButtonView: some View {
         Button(action: {
-            Task {
-                await viewModel.generate()
-                if !viewModel.flashcards.isEmpty {
-                    showFlashcardSet = true
-                }
-            }
+            viewModel.flashcards = [] // Clear previous results to trigger new generation
+            showFlashcardSet = true
         }) {
             HStack {
                 if viewModel.isLoading {
@@ -364,7 +370,7 @@ struct GenerateView: View {
         }
         .disabled(viewModel.topic.isEmpty || viewModel.isLoading)
         .opacity(viewModel.topic.isEmpty || viewModel.isLoading ? 0.5 : 1)
-        .accessibilityLabel(Text("generate.button"))
+        .accessibilityLabel(Text(LocalizedStringKey("generate.button")))
         .accessibilityHint(Text(LocalizedStringKey("generate.button.hint")))
         .padding(.horizontal)
         .padding(.vertical, 12)

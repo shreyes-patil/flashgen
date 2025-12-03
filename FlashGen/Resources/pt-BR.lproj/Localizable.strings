@@ -1,0 +1,149 @@
+//
+//  Localizable.strings
+//  FlashGen
+//
+//  Created by Shreyas Patil on 8/7/25.
+//
+
+// Mark: MainTab
+"tab_home" = "Início";
+"tab_generate" = "Gerar";
+"tab_settings" = "Ajustes";
+
+// Mark: Home
+//FlashcardSetTileView
+"Last reviewed %@" = "Visto por último %@";
+"%d flashcards" = "%d cartões";
+
+//HomeView
+"saved_flashcard_sets_title" = "Meus Sets";
+"loading_sets_progress_title" = "Carregando sets...";
+/* Delete flashcard set */
+"delete_set_button" = "Apagar";
+"delete_set_accessibility_label" = "Apagar set de cartões";
+"delete_set_accessibility_hint" = "Remove permanentemente este set";
+"delete_set_alert_title" = "Apagar Set?";
+"delete_set_alert_message" = "Isso apagará permanentemente este set e todos os cartões. Esta ação não pode ser desfeita.";
+"delete" = "Apagar";
+"cancel" = "Cancelar";
+
+"empty_sets_title" = "Nenhum Set de Cartões";
+"empty_sets_subtitle" = "Toque em Gerar para criar seu primeiro set!";
+"empty_sets_accessibility_hint" = "Você ainda não criou nenhum set de cartões.";
+"retry_button_title" = "Tentar Novamente";
+"retry_button_accessibility_label" = "Tentar carregar novamente";
+"retry_button_accessibility_hint" = "Tenta recarregar seus sets do servidor";
+"loading_sets_accessibility_label" = "Carregando seus sets de cartões";
+"saved_flashcard_sets_list_accessibility_label" = "Lista dos seus sets salvos";
+
+"sort_by" = "Ordenar por";
+"sort_date_created" = "Data de Criação";
+"sort_last_reviewed" = "Visto por Último";
+"sort_alphabetical" = "Ordem Alfabética";
+"never" = "Nunca";
+
+// Mark: Flashcards
+//FlashcardListView
+"question_label" = "Pergunta";
+
+//FlashcardSetHeaderView
+"%d flashcards" = "%d cartões";
+"Last reviewed %@" = "Visto por último %@";
+
+//FlashcardSetView
+"save" = "Salvar";
+"just_now" = "Agora mesmo";
+"start_practicing" = "Praticar";
+"start_practicing_accessibility_label" = "Começar a praticar";
+"start_practicing_accessibility_hint" = "Iniciar a revisão deste set";
+"flashcard_set_title" = "%@ Cartões";
+
+// Mark: Generate
+//GenerateView
+"generate.title" = "Criar Set";
+"generate.topic.placeholder" = "Digite um tópico";
+"generate.topic.label" = "Tópico";
+"generate.difficulty.label" = "Dificuldade";
+"generate.count.label" = "Número de Cartões";
+"generate.count.value" = "%d Cartões";
+"flashcard_singular" = "Cartão";
+"flashcards_plural" = "Cartões";
+"generate.button" = "Gerar Cartões";
+"generate.button.hint" = "Toque duas vezes para gerar";
+"generate.preview.title" = "Prévia";
+"generate.preview.no_topic" = "Nenhum tópico selecionado";
+"generate.preview.empty_hint" = "Digite um tópico para ver a prévia!";
+
+"difficulty_easy" = "Fácil";
+"difficulty_medium" = "Médio";
+"difficulty_hard" = "Difícil";
+
+"error.empty_topic" = "Por favor, digite um tópico.";
+"error.network" = "Erro de rede. Tente novamente.";
+"error.decoding" = "Falha ao decodificar cartões.";
+"error.unknown" = "Ocorreu um erro desconhecido.";
+
+// Mark: Flashcard Practice
+// FlashcardDeckView
+"flashcards.title" = "Cartões";
+"flashcards.empty" = "Nenhum cartão disponível";
+"flashcards.prev" = "Anterior";
+"flashcards.next" = "Próximo";
+"flashcards.reveal" = "Revelar";
+"flashcards.hide" = "Ocultar";
+
+// FlipCardView
+"flashcard.question" = "Pergunta";
+"flashcard.answer" = "Resposta";
+
+// Mark: Settings
+"settings.title" = "Ajustes";
+"settings.guest.title" = "Usuário Convidado";
+"settings.guest.subtitle" = "Entre para salvar seus cartões";
+"settings.account.header" = "Conta";
+"settings.about.header" = "Sobre";
+"settings.version" = "Versão";
+"settings.legal.header" = "Legal";
+"settings.privacy" = "Política de Privacidade";
+"settings.terms" = "Termos de Uso";
+"settings.feedback.header" = "Feedback";
+"settings.rate_app" = "Avaliar este App";
+"settings.send_feedback" = "Enviar Feedback";
+"settings.data.header" = "Gerenciar Dados";
+"settings.delete_all" = "Apagar Todos os Sets";
+"settings.delete_all.alert.title" = "Apagar Tudo?";
+"settings.delete_all.alert.message" = "Esta ação não pode ser desfeita. Todos os seus sets serão apagados permanentemente.";
+"settings.signin_create" = "Entrar / Criar Conta";
+"settings.signout" = "Sair";
+"settings.loading_profile" = "Carregando perfil...";
+
+
+// Mark: Login
+"login.app_name" = "FlashGen AI";
+"login.subtitle" = "Cartões com IA";
+"login.google_button" = "Entrar com Google";
+"login.guest_button" = "Continuar como Convidado";
+"login.error.root_view" = "Não foi possível encontrar o controlador principal";
+"login.error.id_token" = "Falha ao obter token de ID";
+"login.error.signin_failed" = "Falha ao entrar: %@";
+"login.error.apple_signin_failed" = "Falha ao entrar com Apple: %@";
+"login.logo.accessibility_label" = "Logo do App FlashGen";
+
+// Mark: Home Accessibility
+"home.filter_button.accessibility_label" = "Ordenar sets";
+"tile.difficulty.accessibility_label" = "Dificuldade %@";
+
+// Mark: Generate Accessibility
+"generate.count.min" = "5";
+"generate.count.max" = "20";
+"generate.preview.accessibility_label" = "Prévia: %@, %d cartões, dificuldade %@";
+"generate.preview.empty.accessibility_label" = "Prévia vazia. Digite um tópico.";
+
+// Mark: Settings Accessibility
+"settings.profile_picture" = "Foto de perfil";
+
+// Mark: Flashcards Accessibility
+"generation.error.title" = "Falha na Geração";
+"generation.error.unknown" = "Erro desconhecido";
+"alert.ok" = "OK";
+"flashcards.next" = "Próximo";
