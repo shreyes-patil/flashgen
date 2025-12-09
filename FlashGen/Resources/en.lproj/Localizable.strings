@@ -74,6 +74,8 @@
 "generate.preview.title" = "Preview";
 "generate.preview.no_topic" = "No topic selected";
 "generate.preview.empty_hint" = "Enter a topic to see a preview!";
+"generation.error.title" = "Generation Error";
+"alert.ok" = "OK";
 
 "difficulty_easy" = "Easy";
 "difficulty_medium" = "Medium";

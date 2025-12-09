@@ -143,7 +143,7 @@
 "settings.profile_picture" = "प्रोफ़ाइल चित्र";
 
 // Mark: Flashcards Accessibility
-"generation.error.title" = "उत्पन्न विफल";
+"generation.error.title" = "जनरेशन त्रुटि";
 "generation.error.unknown" = "अज्ञात त्रुटि";
 "alert.ok" = "ठीक है";
 "flashcards.next" = "अगला";

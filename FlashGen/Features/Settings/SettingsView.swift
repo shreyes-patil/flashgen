@@ -8,14 +8,12 @@
 import SwiftUI
 import GoogleSignIn
 import Supabase
-import StoreKit
 
 struct SettingsView: View {
     @StateObject private var viewModel = SettingsViewModel()
     @State private var showDeleteConfirmation = false
     @EnvironmentObject var authManager: AuthenticationManager
     @State private var showLoginSheet = false
-    @Environment(\.requestReview) var requestReview
     
     var body: some View {
         NavigationStack {
@@ -113,11 +111,9 @@ struct SettingsView: View {
                 // Feedback Section
                 Section {
                     Button(action: {
-                        requestReview()
-                        // Fallback: Open App Store for review (Replace with your App ID)
-                        // if let url = URL(string: "https://apps.apple.com/app/idYOUR_APP_ID?action=write-review") {
-                        //    UIApplication.shared.open(url)
-                        // }
+                        if let url = URL(string: "https://apps.apple.com/app/id6755900236?action=write-review") {
+                            UIApplication.shared.open(url)
+                        }
                     }) {
                         Label(LocalizedStringKey("settings.rate_app"), systemImage: "star.fill")
                             .foregroundColor(.primary)
