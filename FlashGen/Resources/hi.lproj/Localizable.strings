@@ -73,7 +73,8 @@
 "generate.preview.title" = "पूर्वावलोकन";
 "generate.preview.no_topic" = "कोई विषय नहीं चुना गया";
 "generate.preview.empty_hint" = "पूर्वावलोकन देखने के लिए एक विषय दर्ज करें!";
-
+"generate.scan_document" = "दस्तावेज़ स्कैन करें";
+"generate.upload_pdf" = "PDF अपलोड करें";
 "difficulty_easy" = "आसान";
 "difficulty_medium" = "मध्यम";
 "difficulty_hard" = "कठिन";
@@ -81,6 +82,9 @@
 "error.empty_topic" = "कृपया एक विषय दर्ज करें।";
 "error.network" = "नेटवर्क त्रुटि हुई। पुनः प्रयास करें।";
 "error.decoding" = "फ्लैशकार्ड डिकोड करने में विफल।";
+"error.extraction.image" = "छवि से पाठ निकालने में विफल।";
+"error.extraction.pdf" = "PDF से पाठ निकालने में विफल।";
+"error.prefix" = "त्रुटि: %@";
 "error.unknown" = "एक अज्ञात त्रुटि हुई।";
 
 // Mark: Flashcard Practice
@@ -127,6 +131,9 @@
 "login.error.id_token" = "आईडी टोकन प्राप्त करने में विफल";
 "login.error.signin_failed" = "साइन इन विफल: %@";
 "login.error.apple_signin_failed" = "Apple के साथ साइन इन विफल: %@";
+"login.error.invalid_credential" = "अमान्य Apple ID क्रेडेंशियल";
+"login.error.invalid_token" = "अमान्य पहचान टोकन";
+"login.error.missing_nonce" = "Nonce गायब है";
 "login.logo.accessibility_label" = "FlashGen ऐप लोगो";
 
 // Mark: Home Accessibility
@@ -145,5 +152,10 @@
 // Mark: Flashcards Accessibility
 "generation.error.title" = "जनरेशन त्रुटि";
 "generation.error.unknown" = "अज्ञात त्रुटि";
+"updated_prefix" = "अद्यतन %@";
+"home.error.load_failed" = "फ्लैशकार्ड सेट लोड करने में विफल";
+"settings.error.signout_failed" = "साइन आउट विफल: %@";
+"settings.error.delete_failed" = "सेट हटाने में विफल: %@";
 "alert.ok" = "ठीक है";
 "flashcards.next" = "अगला";
+"generate.input_options.accessibility_label" = "इनपुट विकल्प";

@@ -147,3 +147,16 @@
 "generation.error.unknown" = "ಅಜ್ಞಾತ ದೋಷ";
 "alert.ok" = "ಸರಿ";
 "flashcards.next" = "ಮುಂದಿನ";
+"generate.scan_document" = "ದಾಖಲೆ ಸ್ಕ್ಯಾನ್ ಮಾಡಿ";
+"generate.upload_pdf" = "PDF ಅಪ್‌ಲೋಡ್ ಮಾಡಿ";
+"generate.input_options.accessibility_label" = "ಇನ್‌ಪುಟ್ ಆಯ್ಕೆಗಳು";
+"error.extraction.image" = "ಚಿತ್ರದಿಂದ ಪಠ್ಯವನ್ನು ಹೊರತೆಗೆಯಲು ವಿಫಲವಾಗಿದೆ.";
+"error.extraction.pdf" = "PDF ನಿಂದ ಪಠ್ಯವನ್ನು ಹೊರತೆಗೆಯಲು ವಿಫಲವಾಗಿದೆ.";
+"error.prefix" = "ದೋಷ: %@";
+"login.error.invalid_credential" = "ಅಮಾನ್ಯ Apple ID ರುಜುವಾತುಗಳು";
+"login.error.invalid_token" = "ಅಮಾನ್ಯ ಗುರುತಿನ ಟೋಕನ್";
+"login.error.missing_nonce" = "Nonce ಕಾಣೆಯಾಗಿದೆ";
+"home.error.load_failed" = "ಫ್ಲ್ಯಾಶ್‌ಕಾರ್ಡ್ ಸೆಟ್‌ಗಳನ್ನು ಲೋಡ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ";
+"settings.error.signout_failed" = "ಸೈನ್ ಔಟ್ ವಿಫಲವಾಗಿದೆ: %@";
+"settings.error.delete_failed" = "ಸೆಟ್‌ಗಳನ್ನು ಅಳಿಸಲು ವಿಫಲವಾಗಿದೆ: %@";
+"updated_prefix" = "ನವೀಕರಿಸಲಾಗಿದೆ %@";

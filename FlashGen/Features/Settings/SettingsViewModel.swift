@@ -68,7 +68,7 @@ final class SettingsViewModel: ObservableObject {
             // Notify app to show login screen
             NotificationCenter.default.post(name: NSNotification.Name("UserDidSignOut"), object: nil)
         } catch {
-            errorMessage = "Sign out failed: \(error.localizedDescription)"
+            errorMessage = String(format: NSLocalizedString("settings.error.signout_failed", comment: ""), error.localizedDescription)
         }
         
         isSigningOut = false
@@ -81,7 +81,7 @@ final class SettingsViewModel: ObservableObject {
         do {
             try await repository.deleteAllSets()
         } catch {
-            errorMessage = "Failed to delete sets: \(error.localizedDescription)"
+            errorMessage = String(format: NSLocalizedString("settings.error.delete_failed", comment: ""), error.localizedDescription)
         }
         
         isDeleting = false

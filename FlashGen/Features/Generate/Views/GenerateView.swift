@@ -116,9 +116,47 @@ struct GenerateView: View {
 
                 
         }
+
+        .fileImporter(
+            isPresented: $showFileImporter,
+            allowedContentTypes: [.pdf],
+            allowsMultipleSelection: false
+        ) { result in
+            switch result {
+            case .success(let urls):
+                guard let url = urls.first else { return }
+                if url.startAccessingSecurityScopedResource() {
+                    Task {
+                        await viewModel.extractText(from: url)
+                        url.stopAccessingSecurityScopedResource()
+                    }
+                }
+            case .failure(let error):
+                viewModel.errorMessage = String(format: NSLocalizedString("error.prefix", comment: ""), error.localizedDescription)
+            }
+        }
+        .sheet(isPresented: $showDocumentScanner) {
+            DocumentScannerView(
+                didFinishScanning: { images in
+                    if let firstImage = images.first {
+                        Task {
+                            await viewModel.extractText(from: firstImage)
+                        }
+                    }
+                },
+                didFailWithError: { error in
+                    viewModel.errorMessage = String(format: NSLocalizedString("error.prefix", comment: ""), error.localizedDescription)
+                }
+            )
+            .ignoresSafeArea()
+        }
     }
     
     // MARK: - Subviews
+    
+    @State private var showDocumentScanner = false
+    @State private var showFileImporter = false
+    @State private var showImagePicker = false
     
     private var errorMessageView: some View {
         Group {
@@ -148,12 +186,38 @@ struct GenerateView: View {
                 .textCase(.uppercase)
                 .padding(.leading, 4)
             
-            TextField(
-                NSLocalizedString("generate.topic.placeholder", comment: ""),
-                text: $viewModel.topic
-            )
-            .font(.body)
-            .padding()
+            HStack {
+                TextField(
+                    NSLocalizedString("generate.topic.placeholder", comment: ""),
+                    text: $viewModel.topic
+                )
+                .font(.body)
+                
+                Menu {
+                    Button(action: { showDocumentScanner = true }) {
+                        Label(
+                            title: { Text(LocalizedStringKey("generate.scan_document")) },
+                            icon: { Image(systemName: "doc.viewfinder") }
+                        )
+                    }
+                    
+                    Button(action: { showFileImporter = true }) {
+                        Label(
+                            title: { Text(LocalizedStringKey("generate.upload_pdf")) },
+                            icon: { Image(systemName: "arrow.up.doc") }
+                        )
+                    }
+                } label: {
+                    Image(systemName: "plus.circle.fill")
+                        .font(.title2)
+                        .foregroundStyle(Color.gray)
+                        .frame(width: 44, height: 44)
+                }
+                .accessibilityLabel(Text(LocalizedStringKey("generate.input_options.accessibility_label")))
+            }
+            .padding(.leading, 16)
+            .padding(.trailing, 8)
+            .padding(.vertical, 8)
             .background(cardBackgroundColor)
             .clipShape(RoundedCornerShape(radius: 16, corners: [.topLeft, .bottomRight]))
             .overlay(

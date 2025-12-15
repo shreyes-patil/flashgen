@@ -73,7 +73,8 @@
 "generate.preview.title" = "Vista Previa";
 "generate.preview.no_topic" = "Ningún tema seleccionado";
 "generate.preview.empty_hint" = "¡Introduce un tema para ver una vista previa!";
-
+"generate.scan_document" = "Escanear Documento";
+"generate.upload_pdf" = "Subir PDF";
 "difficulty_easy" = "Fácil";
 "difficulty_medium" = "Medio";
 "difficulty_hard" = "Difícil";
@@ -81,6 +82,9 @@
 "error.empty_topic" = "Por favor, introduce un tema.";
 "error.network" = "Ocurrió un error de red. Inténtalo de nuevo.";
 "error.decoding" = "Error al decodificar las tarjetas.";
+"error.extraction.image" = "Error al extraer texto de la imagen.";
+"error.extraction.pdf" = "Error al extraer texto del PDF.";
+"error.prefix" = "Error: %@";
 "error.unknown" = "Ocurrió un error desconocido.";
 
 // Mark: Flashcard Practice
@@ -127,6 +131,9 @@
 "login.error.id_token" = "Error al obtener el token de ID";
 "login.error.signin_failed" = "Error al iniciar sesión: %@";
 "login.error.apple_signin_failed" = "Error al iniciar sesión con Apple: %@";
+"login.error.invalid_credential" = "Credencial de Apple ID inválida";
+"login.error.invalid_token" = "Token de identidad inválido";
+"login.error.missing_nonce" = "Falta Nonce";
 "login.logo.accessibility_label" = "Logotipo de la aplicación FlashGen";
 
 // Mark: Home Accessibility
@@ -148,5 +155,10 @@
 // Mark: Flashcards Accessibility
 "generation.error.title" = "Error de Generación";
 "generation.error.unknown" = "Error desconocido";
+"updated_prefix" = "Actualizado %@";
+"home.error.load_failed" = "Error al cargar los sets de tarjetas";
+"settings.error.signout_failed" = "Error al cerrar sesión: %@";
+"settings.error.delete_failed" = "Error al eliminar los sets: %@";
 "alert.ok" = "OK";
 "flashcards.next" = "Siguiente";
+"generate.input_options.accessibility_label" = "Opciones de entrada";

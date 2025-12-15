@@ -74,7 +74,11 @@
 "generate.preview.title" = "Preview";
 "generate.preview.no_topic" = "No topic selected";
 "generate.preview.empty_hint" = "Enter a topic to see a preview!";
-"generation.error.title" = "Generation Error";
+"generation.error.title" = "Generation Failed";
+"generation.error.unknown" = "Unknown Error";
+"updated_prefix" = "Updated %@";
+"generate.scan_document" = "Scan Document";
+"generate.upload_pdf" = "Upload PDF";
 "alert.ok" = "OK";
 
 "difficulty_easy" = "Easy";
@@ -84,6 +88,9 @@
 "error.empty_topic" = "Please enter a topic.";
 "error.network" = "Network error occurred. Try again.";
 "error.decoding" = "Failed to decode flashcards.";
+"error.extraction.image" = "Failed to extract text from image.";
+"error.extraction.pdf" = "Failed to extract text from PDF.";
+"error.prefix" = "Error: %@";
 "error.unknown" = "An unknown error occurred.";
 
 // Mark: Flashcard Practice
@@ -130,11 +137,18 @@
 "login.error.id_token" = "Failed to get ID token";
 "login.error.signin_failed" = "Sign in failed: %@";
 "login.error.apple_signin_failed" = "Sign in with Apple failed: %@";
+"login.error.invalid_credential" = "Invalid Apple ID Credential";
+"login.error.invalid_token" = "Invalid Identity Token";
+"login.error.missing_nonce" = "Missing Nonce";
 "login.logo.accessibility_label" = "FlashGen App Logo";
 
 // Mark: Home Accessibility
 "home.filter_button.accessibility_label" = "Sort flashcard sets";
 "tile.difficulty.accessibility_label" = "%@ difficulty";
 
+"home.error.load_failed" = "Failed to load flashcard sets";
+"settings.error.signout_failed" = "Sign out failed: %@";
+"settings.error.delete_failed" = "Failed to delete sets: %@";
 "generate.count.min" = "5";
 "generate.count.max" = "20";
+"generate.input_options.accessibility_label" = "Input Options";

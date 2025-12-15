@@ -172,16 +172,16 @@ struct LoginView: View {
         do {
             let authorization = try result.get()
             guard let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential else {
-                throw NetworkError.invalidResponse // Using generic error for now
+                throw NetworkError.serverError(NSLocalizedString("login.error.invalid_credential", comment: ""))
             }
             
             guard let identityToken = appleIDCredential.identityToken,
                   let idTokenString = String(data: identityToken, encoding: .utf8) else {
-                throw NetworkError.invalidResponse
+                throw NetworkError.serverError(NSLocalizedString("login.error.invalid_token", comment: ""))
             }
             
             guard let nonce = currentNonce else {
-                throw NetworkError.invalidResponse
+                throw NetworkError.serverError(NSLocalizedString("login.error.missing_nonce", comment: ""))
             }
             
             try await SupabaseManager.shared.client.auth.signInWithIdToken(

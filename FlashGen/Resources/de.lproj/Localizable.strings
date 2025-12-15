@@ -147,3 +147,16 @@
 "generation.error.unknown" = "Unbekannter Fehler";
 "alert.ok" = "OK";
 "flashcards.next" = "Weiter";
+"generate.scan_document" = "Dokument scannen";
+"generate.upload_pdf" = "PDF hochladen";
+"generate.input_options.accessibility_label" = "Eingabeoptionen";
+"error.extraction.image" = "Fehler beim Extrahieren von Text aus dem Bild.";
+"error.extraction.pdf" = "Fehler beim Extrahieren von Text aus dem PDF.";
+"error.prefix" = "Fehler: %@";
+"login.error.invalid_credential" = "Ungültige Apple-ID-Anmeldeinformationen";
+"login.error.invalid_token" = "Ungültiges Identitätstoken";
+"login.error.missing_nonce" = "Fehlende Nonce";
+"home.error.load_failed" = "Fehler beim Laden der Karteikarten-Sets";
+"settings.error.signout_failed" = "Abmeldung fehlgeschlagen: %@";
+"settings.error.delete_failed" = "Fehler beim Löschen der Sets: %@";
+"updated_prefix" = "Aktualisiert %@";

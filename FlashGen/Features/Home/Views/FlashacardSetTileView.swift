@@ -12,12 +12,18 @@ struct FlashcardSetTileView: View {
     let backgroundColor: Color
     @Environment(\.colorScheme) var colorScheme
     
+    @State private var rotation: Double = 0
+    
+    private var isWhatsNew: Bool {
+        WhatsNewService.shared.isWhatsNewSet(id: set.id)
+    }
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 12){
             Text(set.title)
                 .font(.title3)
                 .fontWeight(.bold)
-                .foregroundStyle(.black.opacity(0.8))
+                .foregroundStyle(isWhatsNew ? .white : .black.opacity(0.8))
             
             Text(String.localizedStringWithFormat(
                 NSLocalizedString(
@@ -25,7 +31,7 @@ struct FlashcardSetTileView: View {
                     comment: "Flashcard set tile view - last reviewed date"
                 ),set.lastReviewed.relativeFormattedString()))
                 .font(.subheadline)
-                .foregroundStyle(.black.opacity(0.6))
+                .foregroundStyle(isWhatsNew ? .white.opacity(0.8) : .black.opacity(0.6))
             
 //            ZStack{
 //                Circle()
@@ -64,9 +70,31 @@ struct FlashcardSetTileView: View {
         .padding()
         .frame(height: 180) 
                 .frame(maxWidth: .infinity)
-        .background(backgroundColor)
+        .background(isWhatsNew ? Color(hex: "1F2937") : backgroundColor)
         .clipShape(RoundedCornerShape(radius: 34, corners: [.topLeft, .bottomRight]))
+        .overlay(
+            Group {
+                if isWhatsNew {
+                    RoundedCornerShape(radius: 34, corners: [.topLeft, .bottomRight])
+                        .stroke(
+                            AngularGradient(
+                                gradient: Gradient(colors: [.cyan, .blue, .purple, .pink, .cyan]),
+                                center: .center,
+                                angle: .degrees(rotation)
+                            ),
+                            lineWidth: 4
+                        )
+                }
+            }
+        )
         .shadow(color: .black.opacity(0.1),radius: 4, x: 0, y: 2)
+        .onAppear {
+            if isWhatsNew {
+                withAnimation(.linear(duration: 3).repeatForever(autoreverses: false)) {
+                    rotation = 360
+                }
+            }
+        }
     }
 }
 

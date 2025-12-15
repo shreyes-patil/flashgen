@@ -17,15 +17,51 @@ final class GenerateViewModel: ObservableObject {
     @Published var errorMessage : String? = nil
     @Published var flashcards : [Flashcard] = []
     @Published var generatedSetId: String = ""
+    @Published var generatedText: String? = nil
     
     private let service : FlashcardGeneratorServiceProtocol
+    private let extractionService: ContentExtractionServiceProtocol
     
-    init(service: FlashcardGeneratorServiceProtocol){
+    init(service: FlashcardGeneratorServiceProtocol, extractionService: ContentExtractionServiceProtocol = ContentExtractionService()){
         self.service = service
+        self.extractionService = extractionService
+    }
+    
+    func extractText(from image: UIImage) async {
+        isLoading = true
+        errorMessage = nil
+        do {
+            let text = try await extractionService.extractText(from: image)
+            self.generatedText = text
+            self.topic = "Generated from Image" // Placeholder for UI
+        } catch {
+            self.errorMessage = NSLocalizedString("error.extraction.image", comment: "")
+        }
+        isLoading = false
+    }
+    
+    func extractText(from pdfURL: URL) async {
+        isLoading = true
+        errorMessage = nil
+        do {
+            let text = try await extractionService.extractText(from: pdfURL)
+            self.generatedText = text
+            self.topic = pdfURL.lastPathComponent
+        } catch {
+            self.errorMessage = NSLocalizedString("error.extraction.pdf", comment: "")
+        }
+        isLoading = false
+    }
+    
+    func clearGeneratedText() {
+        generatedText = nil
+        topic = ""
     }
     
     func generate() async{
-        guard !topic.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+        let topicToUse = generatedText ?? topic
+        
+        guard !topicToUse.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
             errorMessage = GenerateFlashcardsError.emptyTopic.localizedDescription
             return
         }
@@ -47,7 +83,9 @@ final class GenerateViewModel: ObservableObject {
         }
         
         do{
-            let flashcards = try await service.generateFlashcards(topic: topic, difficulty: difficulty, count: numberOfCards)
+            // If we have generated text, we send that as the "topic" to the backend
+            // The backend prompt should be robust enough to handle raw text
+            let flashcards = try await service.generateFlashcards(topic: topicToUse, difficulty: difficulty, count: numberOfCards)
             self.flashcards = flashcards
             self.generatedSetId = UUID().uuidString.lowercased()
             print("Generated \(flashcards.count) flashcards, Set ID: \(generatedSetId)")
@@ -55,14 +93,16 @@ final class GenerateViewModel: ObservableObject {
             self.errorMessage = error.localizedDescription
         } catch {
             print("GenerateViewModel error: \(error)")
-            self.errorMessage = "Error: \(error.localizedDescription)"
+            self.errorMessage = String(format: NSLocalizedString("error.prefix", comment: ""), error.localizedDescription)
         }
       
         isLoading = false
     }
     
     func generateAndReturn() async throws -> ([Flashcard], String) {
-        guard !topic.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+        let topicToUse = generatedText ?? topic
+        
+        guard !topicToUse.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
             throw GenerateFlashcardsError.emptyTopic
         }
         
@@ -80,7 +120,7 @@ final class GenerateViewModel: ObservableObject {
             }
         }
         
-        let flashcards = try await service.generateFlashcards(topic: topic, difficulty: difficulty, count: numberOfCards)
+        let flashcards = try await service.generateFlashcards(topic: topicToUse, difficulty: difficulty, count: numberOfCards)
         let setId = UUID().uuidString.lowercased()
         
         // Update local state just in case we come back, but the caller handles the result

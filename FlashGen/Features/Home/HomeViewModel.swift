@@ -50,6 +50,23 @@ class HomeViewModel: ObservableObject {
         
         errorMessage = nil
         
+        // Check for "What's New" update
+        if let whatsNewSet = WhatsNewService.shared.checkForUpdates() {
+            // Save locally immediately
+            do {
+                try await repository.upsertSet(whatsNewSet)
+                // We'll let the local fetch below pick it up or append it
+                // But since we fetch local sets *before* this, we might need to append it manually
+                // or just rely on the next refresh.
+                // Let's append it to current sets if not present
+                if !flashcardSets.contains(where: { $0.id == whatsNewSet.id }) {
+                    flashcardSets.insert(whatsNewSet, at: 0)
+                }
+            } catch {
+                print("Failed to save What's New set: \(error)")
+            }
+        }
+        
         // 2. Fetch from remote (background sync)
         do {
             let remoteSets = try await repository.refreshSets()
@@ -64,7 +81,7 @@ class HomeViewModel: ObservableObject {
         } catch {
             // Only show error if we have no data at all
             if flashcardSets.isEmpty {
-                errorMessage = "Failed to load flashcard sets"
+                errorMessage = NSLocalizedString("home.error.load_failed", comment: "")
             }
             print("Fetch error: \(error)")
         }

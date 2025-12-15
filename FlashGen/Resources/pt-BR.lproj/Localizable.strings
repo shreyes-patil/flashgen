@@ -147,3 +147,16 @@
 "generation.error.unknown" = "Erro desconhecido";
 "alert.ok" = "OK";
 "flashcards.next" = "Próximo";
+"generate.scan_document" = "Escanear Documento";
+"generate.upload_pdf" = "Enviar PDF";
+"generate.input_options.accessibility_label" = "Opções de Entrada";
+"error.extraction.image" = "Falha ao extrair texto da imagem.";
+"error.extraction.pdf" = "Falha ao extrair texto do PDF.";
+"error.prefix" = "Erro: %@";
+"login.error.invalid_credential" = "Credencial Apple ID inválida";
+"login.error.invalid_token" = "Token de identidade inválido";
+"login.error.missing_nonce" = "Nonce ausente";
+"home.error.load_failed" = "Falha ao carregar sets de cartões";
+"settings.error.signout_failed" = "Falha ao sair: %@";
+"settings.error.delete_failed" = "Falha ao apagar sets: %@";
+"updated_prefix" = "Atualizado %@";

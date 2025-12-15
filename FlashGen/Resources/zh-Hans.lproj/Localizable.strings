@@ -147,3 +147,16 @@
 "generation.error.unknown" = "未知错误";
 "alert.ok" = "确定";
 "flashcards.next" = "下一个";
+"generate.scan_document" = "扫描文档";
+"generate.upload_pdf" = "上传 PDF";
+"generate.input_options.accessibility_label" = "输入选项";
+"error.extraction.image" = "从图像提取文本失败。";
+"error.extraction.pdf" = "从 PDF 提取文本失败。";
+"error.prefix" = "错误：%@";
+"login.error.invalid_credential" = "无效的 Apple ID 凭据";
+"login.error.invalid_token" = "无效的身份令牌";
+"login.error.missing_nonce" = "缺少 Nonce";
+"home.error.load_failed" = "加载卡片集失败";
+"settings.error.signout_failed" = "退出登录失败：%@";
+"settings.error.delete_failed" = "删除卡片集失败：%@";
+"updated_prefix" = "已更新 %@";

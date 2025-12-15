@@ -101,7 +101,14 @@ struct FlashcardSetView: View {
         ZStack(alignment: .bottom){
             
             VStack{
-                FlashcardSetHeaderView(title: flashcardSetTitle, numberOfCards: numberOfCards, lastReviewed: lastReviewed, color: color)
+                FlashcardSetHeaderView(
+                    title: flashcardSetTitle,
+                    numberOfCards: numberOfCards,
+                    lastReviewed: WhatsNewService.shared.isWhatsNewSet(id: setId) ?
+                        String(format: NSLocalizedString("updated_prefix", comment: ""), lastReviewed) :
+                        lastReviewed,
+                    color: color
+                )
                     .shadow(color: .black.opacity(0.05), radius: 4, y: 2)
                     .padding(.horizontal)
                     .padding(.bottom, 10)
@@ -150,7 +157,24 @@ struct FlashcardSetView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    if !isSaved && !isLoading {
+                    if WhatsNewService.shared.isWhatsNewSet(id: setId) {
+                        Button(action: {
+                            Task {
+                                // Delete logic here - we need a way to call delete on HomeViewModel or Repository
+                                // Since we don't have direct access to HomeViewModel here, we might need to inject a delete action
+                                // OR we can use the repository directly since we have it.
+                                do {
+                                    try await repository.deleteSet(id: setId)
+                                    dismiss()
+                                } catch {
+                                    print("Failed to delete What's New set: \(error)")
+                                }
+                            }
+                        }) {
+                            Image(systemName: "trash")
+                                .foregroundColor(.red)
+                        }
+                    } else if !isSaved && !isLoading {
                         Button(action: {
                             Task { await saveSet() }
                         }) {

@@ -31,29 +31,46 @@ class NetworkManager {
         
         let (data, response) = try await URLSession.shared.data(for: request)
         
-        guard let httpResponse = response as? HTTPURLResponse,
-              httpResponse.statusCode == 200 else {
-            throw NetworkError.invalidResponse
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw NetworkError.serverError("Invalid response type")
         }
         
-        if let _ = String(data: data, encoding: .utf8) {
+        if httpResponse.statusCode != 200 {
+            let errorMessage = String(data: data, encoding: .utf8)
+            throw NetworkError.invalidResponse(statusCode: httpResponse.statusCode, message: errorMessage)
+        }
+        
+        if let jsonString = String(data: data, encoding: .utf8) {
             // Log response in debug only
             #if DEBUG
-            // print("Received response: \(jsonString)")
+             print("Received response: \(jsonString)")
             #endif
         }
         
         do {
             return try JSONDecoder().decode(GenerateFlashcardsResponse.self, from: data)
         } catch {
-            throw error
+            print("Decoding error: \(error)")
+            throw NetworkError.decodingError
         }
     }
 }
 
-enum NetworkError: Error {
-    case invalidResponse
+enum NetworkError: LocalizedError {
+    case invalidResponse(statusCode: Int, message: String?)
     case decodingError
+    case serverError(String)
+    
+    var errorDescription: String? {
+        switch self {
+        case .invalidResponse(let statusCode, let message):
+            return "Server Error (\(statusCode)): \(message ?? "Unknown")"
+        case .decodingError:
+            return "Failed to parse server response"
+        case .serverError(let message):
+            return "Server Error: \(message)"
+        }
+    }
 }
 
 // Response models
