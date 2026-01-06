@@ -72,8 +72,26 @@ class HomeViewModel: ObservableObject {
             let remoteSets = try await repository.refreshSets()
             
             // Update UI with fresh data
-            self.flashcardSets = remoteSets.filter { $0.cards.count > 0 }
-            print("Refreshed \(flashcardSets.count) sets from Remote")
+            // Maintain local-only sets (like What's New)
+            let currentLocalOnlySets = self.flashcardSets.filter { set in
+                // Assume any set not in remoteSets but is WhatsNew is local-only
+                if WhatsNewService.shared.isWhatsNewSet(id: set.id) {
+                    return true
+                }
+                return false
+            }
+            
+            var combinedSets = remoteSets
+            
+            // Re-insert What's New set if it was there
+            for localSet in currentLocalOnlySets {
+                if !combinedSets.contains(where: { $0.id == localSet.id }) {
+                    combinedSets.insert(localSet, at: 0)
+                }
+            }
+            
+            self.flashcardSets = combinedSets.filter { $0.cards.count > 0 }
+            print("Refreshed \(flashcardSets.count) sets from Remote (preserving local sets)")
             flashcardSets.forEach { print("Fetched Set: \($0.title), ID: \($0.id)") }
         } catch let error as URLError where error.code == .cancelled {
             // Ignore cancellation errors

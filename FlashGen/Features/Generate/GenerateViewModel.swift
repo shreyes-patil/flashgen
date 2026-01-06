@@ -47,6 +47,8 @@ final class GenerateViewModel: ObservableObject {
             let text = try await extractionService.extractText(from: pdfURL)
             self.generatedText = text
             self.topic = pdfURL.lastPathComponent
+        } catch let error as ContentExtractionService.ExtractionError where error == .pdfTooLarge {
+            self.errorMessage = NSLocalizedString("error.extraction.pdf_too_large", comment: "")
         } catch {
             self.errorMessage = NSLocalizedString("error.extraction.pdf", comment: "")
         }

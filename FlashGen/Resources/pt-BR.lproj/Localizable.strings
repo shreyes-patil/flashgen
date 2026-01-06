@@ -152,6 +152,7 @@
 "generate.input_options.accessibility_label" = "Opções de Entrada";
 "error.extraction.image" = "Falha ao extrair texto da imagem.";
 "error.extraction.pdf" = "Falha ao extrair texto do PDF.";
+"error.extraction.pdf_too_large" = "O PDF excede o limite de 10 páginas.";
 "error.prefix" = "Erro: %@";
 "login.error.invalid_credential" = "Credencial Apple ID inválida";
 "login.error.invalid_token" = "Token de identidade inválido";

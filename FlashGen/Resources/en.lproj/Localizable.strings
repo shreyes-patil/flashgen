@@ -90,6 +90,7 @@
 "error.decoding" = "Failed to decode flashcards.";
 "error.extraction.image" = "Failed to extract text from image.";
 "error.extraction.pdf" = "Failed to extract text from PDF.";
+"error.extraction.pdf_too_large" = "PDF exceeds 10 pages limit.";
 "error.prefix" = "Error: %@";
 "error.unknown" = "An unknown error occurred.";
 

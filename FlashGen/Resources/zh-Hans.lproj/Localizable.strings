@@ -151,7 +151,8 @@
 "generate.upload_pdf" = "上传 PDF";
 "generate.input_options.accessibility_label" = "输入选项";
 "error.extraction.image" = "从图像提取文本失败。";
-"error.extraction.pdf" = "从 PDF 提取文本失败。";
+"error.extraction.pdf" = "无法从 PDF 中提取文本。";
+"error.extraction.pdf_too_large" = "PDF 超过 10 页限制。";
 "error.prefix" = "错误：%@";
 "login.error.invalid_credential" = "无效的 Apple ID 凭据";
 "login.error.invalid_token" = "无效的身份令牌";

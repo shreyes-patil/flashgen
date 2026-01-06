@@ -21,6 +21,7 @@ final class ContentExtractionService: ContentExtractionServiceProtocol {
         case invalidImage
         case extractionFailed
         case invalidPDF
+        case pdfTooLarge
     }
     
     func extractText(from image: UIImage) async throws -> String {
@@ -65,8 +66,12 @@ final class ContentExtractionService: ContentExtractionServiceProtocol {
         var fullText = ""
         let pageCount = pdfDocument.pageCount
         
-        // Limit to first 10 pages to avoid timeout/memory issues for now
-        let limit = min(pageCount, 10)
+        // Limit to 10 pages to ensure fast generation
+        if pageCount > 10 {
+            throw ExtractionError.pdfTooLarge
+        }
+        
+        let limit = pageCount
         
         for i in 0..<limit {
             if let page = pdfDocument.page(at: i), let pageText = page.string {

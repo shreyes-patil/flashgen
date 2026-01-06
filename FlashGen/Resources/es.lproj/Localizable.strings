@@ -84,6 +84,7 @@
 "error.decoding" = "Error al decodificar las tarjetas.";
 "error.extraction.image" = "Error al extraer texto de la imagen.";
 "error.extraction.pdf" = "Error al extraer texto del PDF.";
+"error.extraction.pdf_too_large" = "El PDF excede el límite de 10 páginas.";
 "error.prefix" = "Error: %@";
 "error.unknown" = "Ocurrió un error desconocido.";
 

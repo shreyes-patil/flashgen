@@ -151,7 +151,8 @@
 "generate.upload_pdf" = "PDF hochladen";
 "generate.input_options.accessibility_label" = "Eingabeoptionen";
 "error.extraction.image" = "Fehler beim Extrahieren von Text aus dem Bild.";
-"error.extraction.pdf" = "Fehler beim Extrahieren von Text aus dem PDF.";
+"error.extraction.pdf" = "Fehler beim Extrahieren von Text aus PDF.";
+"error.extraction.pdf_too_large" = "PDF überschreitet das Limit von 10 Seiten.";
 "error.prefix" = "Fehler: %@";
 "login.error.invalid_credential" = "Ungültige Apple-ID-Anmeldeinformationen";
 "login.error.invalid_token" = "Ungültiges Identitätstoken";

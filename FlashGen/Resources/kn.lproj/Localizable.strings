@@ -152,6 +152,7 @@
 "generate.input_options.accessibility_label" = "ಇನ್‌ಪುಟ್ ಆಯ್ಕೆಗಳು";
 "error.extraction.image" = "ಚಿತ್ರದಿಂದ ಪಠ್ಯವನ್ನು ಹೊರತೆಗೆಯಲು ವಿಫಲವಾಗಿದೆ.";
 "error.extraction.pdf" = "PDF ನಿಂದ ಪಠ್ಯವನ್ನು ಹೊರತೆಗೆಯಲು ವಿಫಲವಾಗಿದೆ.";
+"error.extraction.pdf_too_large" = "PDF 10 ಪುಟಗಳ ಮಿತಿಯನ್ನು ಮೀರಿದೆ.";
 "error.prefix" = "ದೋಷ: %@";
 "login.error.invalid_credential" = "ಅಮಾನ್ಯ Apple ID ರುಜುವಾತುಗಳು";
 "login.error.invalid_token" = "ಅಮಾನ್ಯ ಗುರುತಿನ ಟೋಕನ್";

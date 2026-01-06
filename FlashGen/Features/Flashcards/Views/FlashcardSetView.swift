@@ -25,6 +25,7 @@ struct FlashcardSetView: View {
     @State private var showLoginSheet = false
     @State private var isLoading = false
     @State private var generationError: String?
+    @State private var showDeleteConfirmation = false
     @Environment(\.dismiss) var dismiss
     
     // Optional closure for generating cards on load
@@ -159,17 +160,7 @@ struct FlashcardSetView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     if WhatsNewService.shared.isWhatsNewSet(id: setId) {
                         Button(action: {
-                            Task {
-                                // Delete logic here - we need a way to call delete on HomeViewModel or Repository
-                                // Since we don't have direct access to HomeViewModel here, we might need to inject a delete action
-                                // OR we can use the repository directly since we have it.
-                                do {
-                                    try await repository.deleteSet(id: setId)
-                                    dismiss()
-                                } catch {
-                                    print("Failed to delete What's New set: \(error)")
-                                }
-                            }
+                            showDeleteConfirmation = true
                         }) {
                             Image(systemName: "trash")
                                 .foregroundColor(.red)
@@ -200,6 +191,21 @@ struct FlashcardSetView: View {
                 }
             } message: {
                 Text(generationError ?? NSLocalizedString("generation.error.unknown", comment: ""))
+            }
+            .alert(Text("Delete Set?"), isPresented: $showDeleteConfirmation) {
+                Button("Cancel", role: .cancel) { }
+                Button("Delete", role: .destructive) {
+                    Task {
+                        do {
+                            try await repository.deleteSet(id: setId)
+                            dismiss()
+                        } catch {
+                            print("Failed to delete What's New set: \(error)")
+                        }
+                    }
+                }
+            } message: {
+                Text("Are you sure you want to remove this set? This action cannot be undone.")
             }
             .onAppear {
                 self.isSaved = isSavedInitial

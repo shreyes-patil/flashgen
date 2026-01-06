@@ -84,6 +84,7 @@
 "error.decoding" = "फ्लैशकार्ड डिकोड करने में विफल।";
 "error.extraction.image" = "छवि से पाठ निकालने में विफल।";
 "error.extraction.pdf" = "PDF से पाठ निकालने में विफल।";
+"error.extraction.pdf_too_large" = "PDF 10 पृष्ठों की सीमा से अधिक है।";
 "error.prefix" = "त्रुटि: %@";
 "error.unknown" = "एक अज्ञात त्रुटि हुई।";
 
